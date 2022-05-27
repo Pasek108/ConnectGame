@@ -2,6 +2,13 @@
  Logiczna gra napisana w czystym JS / CSS / HTML z użyciem biblioteki [canvas-confetti](https://www.npmjs.com/package/canvas-confetti) wzorowana na mobilnych grach, 
  głównie na [Connect Me Login Puzzle](https://play.google.com/store/apps/details?id=net.bohush.connect.me.logic.puzzle) 
  oraz na [Connect it!](https://play.google.com/store/apps/details?id=indonesia.angarsalabs.ci).
+ <details>
+    <summary>Screeny</summary>
+    <img alt="Menu background" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/menu.png">
+    <img alt="Menu background" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/levels.png">
+    <img alt="Menu background" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/game.png">
+    <img alt="Menu background" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/game_win.png">
+</details> 
 
 ## Gotowe funkcje
 * Generowanie planszy
