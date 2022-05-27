@@ -21,6 +21,7 @@
 * Animacja tła menu
 
 ## To-do
+* Dodać samouczek
 * Dodać poziomy w trybach:
   * Łatwy
   * Normalny
