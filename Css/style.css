@@ -203,8 +203,8 @@ canvas {
   flex-flow: row;
   align-items: center;
   justify-content: center;
-  width: 5.2rem;
-  height: 5.2rem;
+  width: 6rem;
+  height: 6rem;
   background-color: rgb(103, 129, 185);
 }
 
@@ -214,8 +214,8 @@ canvas {
   flex-flow: row;
   align-items: center;
   justify-content: center;
-  width: 4.2rem;
-  height: 4.2rem;
+  width: 4.5rem;
+  height: 4.5rem;
   border-radius: 0.4rem;
   position: relative;
   transition: transform 0.25s linear, top 0.5s linear, left 0.5s linear;
@@ -260,8 +260,8 @@ canvas {
 
 /* ----------- object shadow ----------- */
 .grid .tile .object .shadow {
-  width: 4.2rem;
-  height: 4.2rem;
+  width: 4.5rem;
+  height: 4.5rem;
   border-radius: 0.4rem;
   background-color: rgb(30, 30, 30);
   position: absolute;
@@ -273,8 +273,8 @@ canvas {
 
 /* ----------- object mark ----------- */
 .grid .tile .object .mark {
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 3rem;
+  height: 3rem;
   position: absolute;
   z-index: 1;
   transition: transform 0.25s linear;
@@ -334,18 +334,18 @@ canvas {
 .object .connections .bottom,
 .object .connections .top {
   flex-flow: row;
-  width: 4.2rem;
+  width: 4.5rem;
   height: 2rem;
   left: -2px;
 }
 
 .object .connections .bottom {
-  bottom: calc(-0.8rem - 1px);
+  bottom: calc(-0.95rem - 1px);
   animation: 2s linear forwards animate_bottom_connections;
 }
 
 .object .connections .top {
-  top: -0.8rem;
+  top: -0.95rem;
   animation: 2s linear forwards animate_top_connections;
 }
 
@@ -359,30 +359,30 @@ canvas {
 .connections .bottom div,
 .connections .top div {
   width: 0.5rem;
-  height: 1.8rem;
+  height: 2rem;
 }
 
 .object .connections .left,
 .object .connections .right {
   flex-flow: column;
   width: 2rem;
-  height: 4.2rem;
+  height: 4.5rem;
   top: -2px;
 }
 
 .object .connections .left {
-  left: calc(-0.8rem - 0.5px);
+  left: calc(-0.95rem - 0.5px);
   animation: 2s linear forwards animate_left_connections;
 }
 
 .object .connections .right {
-  right: calc(-0.8rem - 1px);
+  right: calc(-0.95rem - 1px);
   animation: 2s linear forwards animate_right_connections;
 }
 
 .connections .left div,
 .connections .right div {
-  width: 1.8rem;
+  width: 2rem;
   height: 0.5rem;
 }
 
@@ -399,15 +399,15 @@ canvas {
 
 @keyframes animate_top_connections {
   0% {
-    transform: translateY(0.8rem);
+    transform: translateY(0.95rem);
     opacity: 0;
   }
   50% {
-    transform: translateY(0.8rem);
+    transform: translateY(0.95rem);
     opacity: 0;
   }
   66% {
-    transform: translateY(0.8rem);
+    transform: translateY(0.95rem);
     opacity: 1;
   }
   100% {
@@ -418,15 +418,15 @@ canvas {
 
 @keyframes animate_bottom_connections {
   0% {
-    transform: translateY(-0.8rem);
+    transform: translateY(-0.95rem);
     opacity: 0;
   }
   50% {
-    transform: translateY(-0.8rem);
+    transform: translateY(-0.95rem);
     opacity: 0;
   }
   75% {
-    transform: translateY(-0.8rem);
+    transform: translateY(-0.95rem);
     opacity: 1;
   }
   100% {
@@ -437,15 +437,15 @@ canvas {
 
 @keyframes animate_left_connections {
   0% {
-    transform: translateX(0.8rem);
+    transform: translateX(0.95rem);
     opacity: 0;
   }
   50% {
-    transform: translateX(0.8rem);
+    transform: translateX(0.95rem);
     opacity: 0;
   }
   75% {
-    transform: translateX(0.8rem);
+    transform: translateX(0.95rem);
     opacity: 1;
   }
   100% {
@@ -456,15 +456,15 @@ canvas {
 
 @keyframes animate_right_connections {
   0% {
-    transform: translateX(-0.8rem);
+    transform: translateX(-0.95rem);
     opacity: 0;
   }
   50% {
-    transform: translateX(-0.8rem);
+    transform: translateX(-0.95rem);
     opacity: 0;
   }
   66% {
-    transform: translateX(-0.8rem);
+    transform: translateX(-0.95rem);
     opacity: 1;
   }
   100% {
