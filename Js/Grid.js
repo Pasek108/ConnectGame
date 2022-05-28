@@ -12,10 +12,10 @@ class Grid {
 
     this.container = document.querySelector(".grid");
     this.container.innerHTML = "";
-    this.container.style.width = `${this.width * 5 + (this.width - 1) * 0.1}rem`;
-    this.container.style.height = `${this.height * 5 + (this.height - 1) * 0.1}rem`;
-    this.container.style.gridTemplateColumns = `repeat(${this.width}, 5rem)`;
-    this.container.style.gridTemplateRows = `repeat(${this.height}, 5rem)`;
+    this.container.style.width = `${this.width * 5.2 + (this.width - 1) * 0.1}rem`;
+    this.container.style.height = `${this.height * 5.2 + (this.height - 1) * 0.1}rem`;
+    this.container.style.gridTemplateColumns = `repeat(${this.width}, 5.2rem)`;
+    this.container.style.gridTemplateRows = `repeat(${this.height}, 5.2rem)`;
 
     this.tiles = [];
 
