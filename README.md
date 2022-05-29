@@ -3,7 +3,7 @@
  głównie na [Connect Me Login Puzzle](https://play.google.com/store/apps/details?id=net.bohush.connect.me.logic.puzzle) 
  oraz na [Connect it!](https://play.google.com/store/apps/details?id=indonesia.angarsalabs.ci).
  <details>
-    <summary>Screeny</summary>
+    <summary><b>Screeny</b></summary>
     <img alt="Menu background" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/menu.png">
     <img alt="Menu background" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/levels.png">
     <img alt="Menu background" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/game.png">
@@ -37,7 +37,7 @@
 ### Tło menu
 Tłem menu jest popularny i bardzo prosty canvas na którym generowane są losowe punkty oraz ich wektory po których się poruszają. Gdy odległość między punktami jest mniejsza niż 100 rysowane jest między nimi połączenie koloru białego z przezroczystością rosnącą wraz z odległością, przez co linia saje się jaśniejsza gey punkty się zbliżają i zanika gdy się oddalają.
 <details>
-    <summary>Tło menu</summary>
+    <summary><b>Tło menu</b></summary>
     <img alt="Menu background" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/menu_bg.png">
 </details> 
 
@@ -46,7 +46,7 @@ Tłem menu jest popularny i bardzo prosty canvas na którym generowane są losow
 #### Zasada działania
 Gra w trybie kwadratowym działa za pomocą trójwymarowej tablicy, dla poziomu łatwego plansza 4x4 działa na tablicy o rozmiarach 6x6x5. Rozmiar 6x6 dla tablicy 4x4 spowodowany jest dodaniem pustych pól wokół aby ułatwić sprawdzanie połączeń, trzeci wymiar przyjmuje rozmiar 5 ponieważ przechowuje liczbę połączeń na stronach oraz typ obiektu.
 <details>
-    <summary>Przykładowa tablica dla poziomu łatwego</summary>
+    <summary><b>Przykładowa tablica dla poziomu łatwego</b></summary>
     <img alt="Array for easy level" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/example_array.png">
 </details> 
 
@@ -66,7 +66,7 @@ W trybie kwadratowym istnieje 8 typów obiektów złożonych z 4 podstawowych ty
 * *"vhr"* od *vertical and horizontal move and rotate*, obiekt który można obracać oraz przesuwać w dowolnym kierunku
 
 <details>
-    <summary>Przykładowa plansza dla poziomu łatwego</summary>
+    <summary><b>Przykładowa plansza dla poziomu łatwego</b></summary>
     <img alt="Example game grid" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/example_grid.png">
 </details> 
 
