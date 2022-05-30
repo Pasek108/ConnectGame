@@ -7,7 +7,7 @@ addEventListener("popstate", (evt) => {
   const level = evt.state.level;
 
   if (level >= 0) loadGame(option, level);
-  else if (option >= 0) loadLevels(option);
+  else if (option >= 0 && option < 6) loadLevels(option);
   else showMenu();
 });
 

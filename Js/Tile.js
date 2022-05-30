@@ -1,6 +1,6 @@
 "use strict";
 
-class Tile {
+class SquareTile {
   constructor(parent, connections, correct_connections, onClick, onPositionChange) {
     this.parent = parent;
     this.connections = [[], [], [], []];
@@ -255,8 +255,8 @@ class Tile {
 
     if (this.pos_x === 0 && this.pos_y === 0) this.click();
     else {
-      let new_x = (this.pos_x - (this.pos_x % 40)) / 40;
-      let new_y = (this.pos_y - (this.pos_y % 40)) / 40;
+      let new_x = (this.pos_x - (this.pos_x % 48)) / 48;
+      let new_y = (this.pos_y - (this.pos_y % 48)) / 48;
       if (!(new_x < 1 && new_x > -1 && new_y < 1 && new_y > -1)) this.onPositionChange(new_x, new_y);
   
       this.grabbed = false;

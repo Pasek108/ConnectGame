@@ -14,22 +14,10 @@ back_button.addEventListener("click", () => {
 });
 
 for (let i = 0; i < options.length; i++) {
+  if (checkCompletedLevels(i) === 200) options[i].classList.add("complete");
+
   options[i].addEventListener("click", () => {
     if (options[i].classList.contains("blocked")) return;
-    let completed_levels = 0;
-
-    /* prettier-ignore */
-    switch (i) {
-        case 0: completed_levels = parseInt(localStorage.getItem("easy")); break;
-        case 1: completed_levels = parseInt(localStorage.getItem("normal")); break;
-        case 2: completed_levels = parseInt(localStorage.getItem("advanced")); break;
-        case 3: completed_levels = parseInt(localStorage.getItem("hexagons")); break;
-        case 4: completed_levels = parseInt(localStorage.getItem("triangles")); break;
-        case 5: completed_levels = parseInt(localStorage.getItem("lines")); break;
-        case 6: header.innerText = "Losowy"; break;
-    }
-
-    if (completed_levels === 200) options[i].classList.add("complete");
 
     history.pushState({ option: i, level: -1 }, "", `${PAGE_URL}?${i}`);
     loadLevels(i);
@@ -39,47 +27,34 @@ for (let i = 0; i < options.length; i++) {
 function loadLevels(option) {
   background.startAnimation();
   background.show();
-
-  let completed_levels = 0;
   levels.innerHTML = "";
-  const header = document.createElement("header");
+
+  let completed_levels = checkCompletedLevels(option);
+  const levels_header = document.createElement("header");
 
   /* prettier-ignore */
   switch (option) {
-    case 0: {
-        completed_levels = parseInt(localStorage.getItem("easy"));
-        header.innerText = "Łatwy";
-    } break;
-    case 1: {
-        completed_levels = parseInt(localStorage.getItem("normal"));
-        header.innerText = "Normalny";
-    } break;
-    case 2: {
-        completed_levels = parseInt(localStorage.getItem("advanced"));
-        header.innerText = "Zaawansowany";
-    } break;
-    case 3: {
-        completed_levels = parseInt(localStorage.getItem("hexagons"));
-        header.innerText = "Sześciokąty";
-    } break;
-    case 4: {
-        completed_levels = parseInt(localStorage.getItem("triangles"));
-        header.innerText = "Trójkąty";
-    } break;
-    case 5: {
-        completed_levels = parseInt(localStorage.getItem("lines"));
-        header.innerText = "Linie";
-    } break;
+    case 0: levels_header.innerText = "Łatwy"; break;
+    case 1: levels_header.innerText = "Normalny"; break;
+    case 2: levels_header.innerText = "Zaawansowany"; break;
+    case 3: levels_header.innerText = "Sześciokąty"; break;
+    case 4: levels_header.innerText = "Trójkąty"; break;
+    case 5: levels_header.innerText = "Linie"; break;
     case 6: {
-        header.innerText = "Losowy";
-    } break;
+        loadGame(option, 0);
+        return;
+    }
   }
-  levels.appendChild(header);
+
+  levels.appendChild(levels_header);
 
   for (let j = 0; j < 200; j++) {
+    let class_name = "";
+    if (j < completed_levels) class_name = "complete";
+    else if (j > completed_levels) class_name = "blocked";
+
     const level_button = document.createElement("div");
-    if (j < completed_levels) level_button.className = "complete";
-    else if (j > completed_levels) level_button.className = "blocked";
+    level_button.className = class_name;
     level_button.innerText = j + 1;
     level_button.addEventListener("click", () => {
       history.pushState({ option: option, level: j }, "", `${PAGE_URL}?${option}${j + 1}`);
@@ -97,7 +72,7 @@ function loadGame(option, level) {
   background.stopAnimation();
   background.hide();
 
-  let completed_levels = 0;
+  let completed_levels = checkCompletedLevels(option);
   let level_name = "";
   let level_grid = [];
 
@@ -105,41 +80,35 @@ function loadGame(option, level) {
   switch (option) {
     case 0: {
         level_name = "easy";
-        completed_levels = parseInt(localStorage.getItem("easy"));
         level_grid = easy_levels[level];
     } break;
     case 1: {
         level_name = "normal";
-        completed_levels = parseInt(localStorage.getItem("normal"));
         level_grid = normal_levels[level];
     } break;
     case 2: {
         level_name = "advanced";
-        completed_levels = parseInt(localStorage.getItem("advanced"));
         level_grid = advanced_levels[level];
     } break;
     case 3: {
         level_name = "hexagons";
-        completed_levels = parseInt(localStorage.getItem("hexagons"));
         level_grid = hexagons_levels[level];
     } break;
     case 4: {
         level_name = "triangles";
-        completed_levels = parseInt(localStorage.getItem("triangles"));
         level_grid = triangles_levels[level];
     } break;
     case 5: {
         level_name = "lines";
-        completed_levels = parseInt(localStorage.getItem("lines"));
         level_grid = lines_levels[level];
     } break;
     case 6: {
-        header.innerText = "Losowy";
+        level_grid = generateRandomLevel(6, 6);
     } break;
   }
 
-  const header = document.querySelector(".game header");
-  header.innerHTML = "";
+  const game_header = document.querySelector(".game header");
+  game_header.innerHTML = "";
 
   const prev = document.createElement("div");
   prev.className = level === 0 ? "prev disabled" : "prev";
@@ -150,12 +119,12 @@ function loadGame(option, level) {
     history.pushState({ option: option, level: level - 1 }, "", `${PAGE_URL}?${option}${level}`);
     loadGame(option, level - 1);
   });
-  header.appendChild(prev);
+  game_header.appendChild(prev);
 
   const title = document.createElement("div");
   title.className = "title";
   title.innerText = `Poziom ${level + 1} / 200`;
-  header.appendChild(title);
+  game_header.appendChild(title);
 
   const next = document.createElement("div");
   next.className = level >= completed_levels ? "next disabled" : "next";
@@ -166,11 +135,27 @@ function loadGame(option, level) {
     history.pushState({ option: option, level: level + 1 }, "", `${PAGE_URL}?${option}${level + 2}`);
     loadGame(option, level + 1);
   });
-  header.appendChild(next);
+  game_header.appendChild(next);
 
   levels.classList.add("hidden");
   menu.classList.add("hidden");
   game.classList.remove("hidden");
 
-  new Grid(level_grid, level_name, level);
+  new SquareGrid(level_grid, level_name, level);
+}
+
+function checkCompletedLevels(option) {
+  let completed_levels = 0;
+
+  /* prettier-ignore */
+  switch (option) {
+      case 0: completed_levels = parseInt(localStorage.getItem("easy")); break;
+      case 1: completed_levels = parseInt(localStorage.getItem("normal")); break;
+      case 2: completed_levels = parseInt(localStorage.getItem("advanced")); break;
+      case 3: completed_levels = parseInt(localStorage.getItem("hexagons")); break;
+      case 4: completed_levels = parseInt(localStorage.getItem("triangles")); break;
+      case 5: completed_levels = parseInt(localStorage.getItem("lines")); break;
+  }
+
+  return completed_levels;
 }

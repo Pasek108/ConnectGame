@@ -1,6 +1,8 @@
 "use strict";
 
-class Grid {
+let xxx = [];
+
+class SquareGrid {
   constructor(level, level_name, level_id) {
     this.level_name = level_name;
     this.level_id = level_id;
@@ -8,6 +10,7 @@ class Grid {
     this.width = level[0].length - 2;
     this.size = this.width * this.height;
     this.level = this.copyGrid(level);
+    xxx = this.level;
     for (let i = 0; i < 10; i++) this.shuffleGrid();
 
     this.container = document.querySelector(".grid");
@@ -23,7 +26,7 @@ class Grid {
       this.tiles.push([]);
       for (let j = 1; j <= this.width; j++) {
         this.tiles[i - 1].push(
-          new Tile(
+          new SquareTile(
             this.container,
             this.level[i][j],
             this.checkCorrectConnections(i, j),
@@ -214,7 +217,10 @@ class Grid {
 
     setTimeout(fireConfetti, 100);
     document.querySelector(".next").classList.remove("disabled");
-    const completed_levels = parseInt(localStorage.getItem(this.level_name));
-    if (completed_levels === this.level_id) localStorage.setItem(this.level_name, `${completed_levels + 1}`);
+
+    if (this.level_id !== 6) {
+      const completed_levels = parseInt(localStorage.getItem(this.level_name));
+      if (completed_levels === this.level_id) localStorage.setItem(this.level_name, `${completed_levels + 1}`);
+    }
   }
 }
