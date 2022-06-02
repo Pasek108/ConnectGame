@@ -1,0 +1,137 @@
+.background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.menu {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  width: calc(100vw - 2rem);
+  min-height: 43rem;
+  height: 100vh;
+  position: relative;
+}
+
+.menu .title {
+  font-size: 3rem;
+  margin: -1rem 2rem 2rem 2rem;
+}
+
+.menu .option {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  width: 15rem;
+  height: 3rem;
+  padding: 1rem;
+  margin: 0.5rem;
+  background-color: #302b63;
+  border: 1px solid #000000;
+  border-radius: 0.4rem;
+  box-shadow: 0 0.2rem#000000;
+  cursor: pointer;
+}
+
+.menu .option.blocked,
+.levels div.blocked {
+  background-color: #404055;
+  cursor: default;
+}
+
+.menu .option.complete,
+.levels div.complete {
+  background-color: #ef8504;
+}
+
+.menu .option.complete:hover,
+.levels div.complete:hover {
+  background-color: #fbb400;
+}
+
+.menu .option:not(.blocked, .complete):hover,
+.levels div:not(.blocked, .complete):hover {
+  background-color: #433d80;
+}
+
+.menu .option svg {
+  width: 2rem;
+  height: 2rem;
+  margin-left: -0.75rem;
+  margin-right: 0.5rem;
+  fill: white;
+  stroke-width: 0.5rem;
+  stroke: white;
+  stroke-linejoin: round;
+}
+
+.menu footer {
+  font-size: 1.1rem;
+  text-align: center;
+  width: 100vw;
+  height: 2rem;
+  position: absolute;
+  left: -1rem;
+  bottom: 0;
+}
+
+.menu footer a,
+.menu footer a:visited {
+  color: white;
+}
+
+.menu footer div {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.menu footer i {
+  transition: transform 0.5s;
+}
+
+.menu footer a:hover i {
+  transform: scaleX(-1);
+}
+
+.levels {
+  display: grid;
+  align-content: space-between;
+  justify-content: center;
+  width: 100vw;
+  min-height: 100vh;
+  grid-template-columns: repeat(5, 6rem);
+  grid-template-rows: repeat(5, 6rem);
+}
+
+.levels header {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  grid-column-start: 1;
+  grid-column-end: 6;
+}
+
+.levels div {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+  padding: 1rem;
+  margin: 0.5rem;
+  font-size: 1.2rem;
+  background-color: #302b63;
+  border: 1px solid #000000;
+  border-radius: 0.4rem;
+  box-shadow: 0 0.2rem#000000;
+  cursor: pointer;
+}

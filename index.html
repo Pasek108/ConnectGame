@@ -6,12 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connect Game</title>
 
-    <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="shortcut icon" href="favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css" />
 
     <link rel="stylesheet" href="Css/style.css" />
+    <link rel="stylesheet" href="Css/menu.css" />
+    <link rel="stylesheet" href="Css/squares_grid.css" />
+    <link rel="stylesheet" href="Css/lines_grid.css" />
   </head>
   <body>
     <canvas class="background"></canvas>
@@ -54,7 +58,7 @@
         Trójkąty
       </div>
 
-      <div class="option blocked">
+      <div class="option">
         <svg viewBox="0 0 100 100">
           <polygon points="20 52, 80 52" />
         </svg>
@@ -67,6 +71,11 @@
         </svg>
         Losowy
       </div>
+
+      <footer>
+        <div class="name">Artur Pas</div>
+        <a href="https://github.com/Pasek108" target="_blank"><i class="fa-brands fa-github"></i></a>
+      </footer>
     </div>
 
     <div class="levels hidden"></div>
@@ -87,12 +96,19 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script src="Js/script.js"></script>
     <script src="Js/Background.js"></script>
-    <script src="Js/Confetti.js"></script>
-    <script src="Js/Tile.js"></script>
-    <script src="Js/Grid.js"></script>
-    <script src="Js/easy_levels.js"></script>
-    <script src="Js/normal_levels.js"></script>
-    <script src="Js/advanced_levels.js"></script>
     <script src="Js/menu.js"></script>
+
+    <script src="Js/easy_levels.js" async></script>
+    <script src="Js/normal_levels.js" async></script>
+    <script src="Js/advanced_levels.js" async></script>
+    <script src="Js/hexagons_levels.js" async></script>
+    <script src="Js/triangles_levels.js" async></script>
+    <script src="Js/lines_levels.js" async></script>
+
+    <script src="Js/SquaresTile.js" async></script>
+    <script src="Js/SquaresGrid.js" async></script>
+    <script src="Js/LinesTile.js" async></script>
+    <script src="Js/LinesGrid.js" async></script>
+    <script src="Js/Confetti.js" async></script>
   </body>
 </html>

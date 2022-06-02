@@ -1,6 +1,6 @@
 "use strict";
 
-class SquareTile {
+class SquaresTile {
   constructor(parent, connections, correct_connections, onClick, onPositionChange) {
     this.parent = parent;
     this.connections = [[], [], [], []];
@@ -140,7 +140,7 @@ class SquareTile {
       this.object.appendChild(this.connections_container);
     
     this.connections = [top.connections, right.connections, bottom.connections, left.connections];
-    this.animation_timeout = setTimeout(()=>{
+    this.animation_timeout = setTimeout(() => {
       this.grab_function = this.grab.bind(this);
       this.move_function = this.move.bind(this);
       this.release_function = this.release.bind(this);

@@ -11,7 +11,7 @@ class Background {
     this.canvas.height = this.canvas_h;
     this.ctx = this.canvas.getContext("2d");
     this.ctx.imageSmoothingEnabled = false;
-    this.ctx.fillStyle = "white";
+    //this.ctx.fillStyle = "rgba(255, 255, 255, 0)";
 
     addEventListener("resize", this.resize.bind(this));
 
@@ -36,7 +36,7 @@ class Background {
       this.ctx.clearRect(0, 0, this.canvas_w, this.canvas_h);
 
       for (let i = 0; i < this.points.length; i++) {
-        this.ctx.fillRect(this.points[i].x, this.points[i].y, 1, 1);
+        //this.ctx.fillRect(this.points[i].x, this.points[i].y, 1, 1);
         this.updatePointPosition(i);
 
         for (let j = 0; j < this.points.length; j++) {

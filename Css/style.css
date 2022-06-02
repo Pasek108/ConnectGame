@@ -34,110 +34,6 @@ body::-webkit-scrollbar {
   display: none !important;
 }
 
-canvas {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-
-/* ---------------------------- menu ---------------------------- */
-
-.menu {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center;
-  width: calc(100vw - 2rem);
-}
-
-.menu .title {
-  font-size: 3rem;
-  margin: -1rem 2rem 2rem 2rem;
-}
-
-.menu .option {
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  justify-content: center;
-  width: 15rem;
-  height: 3rem;
-  padding: 1rem;
-  margin: 0.5rem;
-  background-color: #302b63;
-  border: 1px solid #000000;
-  border-radius: 0.4rem;
-  box-shadow: 0 0.2rem#000000;
-  cursor: pointer;
-}
-
-.menu .option.blocked, .levels div.blocked {
-  background-color: #404055;
-  cursor: default;
-}
-
-.menu .option.complete, .levels div.complete {
-  background-color: #ef8504;
-}
-
-.menu .option.complete:hover, .levels div.complete:hover {
-  background-color: #fbb400;
-}
-
-.menu .option:not(.blocked, .complete):hover, .levels div:not(.blocked, .complete):hover {
-  background-color: #433d80;
-}
-
-.menu .option svg {
-  width: 2rem;
-  height: 2rem;
-  margin-left: -.75rem;
-  margin-right: .5rem;
-  fill: white;
-  stroke-width: 0.5rem;
-  stroke: white;
-  stroke-linejoin: round;
-}
-
-.levels {
-  display: grid;
-  align-content: space-between;
-  justify-content: center;
-  width: 100vw;
-  min-height: 100vh;
-  grid-template-columns: repeat(5, 6rem);
-  grid-template-rows: repeat(5, 6rem);
-}
-
-.levels header {
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  grid-column-start: 1;
-  grid-column-end: 6;
-}
-
-.levels div {
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  justify-content: center;
-  width: 5rem;
-  height: 5rem;
-  padding: 1rem;
-  margin: 0.5rem;
-  font-size: 1.2rem;
-  background-color: #302b63;
-  border: 1px solid #000000;
-  border-radius: 0.4rem;
-  box-shadow: 0 0.2rem#000000;
-  cursor: pointer;
-}
 
 /* ---------------------------- game ---------------------------- */
 .game {
@@ -151,7 +47,7 @@ canvas {
 .game .back {
   font-size: 1.5rem;
   margin-top: -2rem;
-  padding: .5rem;
+  padding: 0.5rem;
   cursor: pointer;
 }
 
@@ -174,19 +70,22 @@ canvas {
   margin: 0 3rem 0 3rem;
 }
 
-.game header .prev, .game header .next {
-  padding: 0 .5rem;
+.game header .prev,
+.game header .next {
+  padding: 0 0.5rem;
   font-size: 1.5rem;
   cursor: pointer;
 }
 
-.game header .prev.disabled, .game header .next.disabled {
+.game header .prev.disabled,
+.game header .next.disabled {
   font-size: 1.5rem;
   color: #898989;
   cursor: auto;
 }
 
-.game header .prev:not(.disabled):hover, .game header .next:not(.disabled):hover {
+.game header .prev:not(.disabled):hover,
+.game header .next:not(.disabled):hover {
   text-decoration: underline;
 }
 
@@ -206,275 +105,4 @@ canvas {
   width: 6rem;
   height: 6rem;
   background-color: rgb(103, 129, 185);
-}
-
-/* ---------------- object ---------------- */
-.grid .tile .object {
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  justify-content: center;
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: 0.4rem;
-  position: relative;
-  transition: transform 0.25s linear, top 0.5s linear, left 0.5s linear;
-  transform: rotate(0);
-  animation: 0.5s linear forwards animate_tile;
-}
-
-.grid .tile .object.n {
-  background-color: red;
-}
-
-.grid .tile .object.r {
-  background-color: #4c9efb;
-}
-
-.grid .tile .object.h,
-.grid .tile .object.v {
-  background-color: #8f00cc;
-}
-
-.grid .tile .object.vr,
-.grid .tile .object.hr {
-  background-color: #794d1e;
-}
-
-.grid .tile .object.vh {
-  background-color: #29ac15;
-}
-
-.grid .tile .object.vhr {
-  background-color: #ff8400;
-}
-
-.grid .tile .object.grabbed {
-  z-index: 10;
-  transition: transform 0.25s linear, top 0s, left 0s !important;
-}
-
-.grid .tile .object.grabbed .connections > div > div {
-  border: 1px solid black !important;
-}
-
-/* ----------- object shadow ----------- */
-.grid .tile .object .shadow {
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: 0.4rem;
-  background-color: rgb(30, 30, 30);
-  position: absolute;
-  z-index: -1;
-  transition: transform 0.25s linear;
-  transform: translate(0, 0.2rem);
-  animation: 0.5s linear forwards animate_tile_shadow;
-}
-
-/* ----------- object mark ----------- */
-.grid .tile .object .mark {
-  width: 3rem;
-  height: 3rem;
-  position: absolute;
-  z-index: 1;
-  transition: transform 0.25s linear;
-  animation: 1.5s linear forwards animate_mark;
-}
-
-.grid .tile .object .mark svg > * {
-  fill: white;
-}
-
-.grid .tile .object .mark svg circle {
-  stroke-width: 0.25rem;
-}
-
-.grid .tile .object.n .mark svg circle {
-  stroke: red;
-}
-
-.grid .tile .object.r .mark svg circle {
-  stroke: #4c9efb;
-}
-
-.grid .tile .object.vr,
-.grid .tile .object.hr .mark svg circle {
-  stroke: #794d1e;
-}
-
-.grid .tile .object.vhr .mark svg circle {
-  stroke: #ff8400;
-}
-
-.grid .tile .object .mark svg polygon {
-  stroke-width: 0.5rem;
-  stroke: white;
-  stroke-linejoin: round;
-}
-
-/* ----------- object connections ----------- */
-.grid .tile .object .connections {
-  width: 100%;
-  height: 100%;
-  border-radius: 0.4rem;
-  background-color: inherit;
-  border: 2px solid rgb(30, 30, 30);
-  position: relative;
-  z-index: initial;
-}
-
-.object .connections > div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  z-index: -1;
-}
-
-.object .connections .bottom,
-.object .connections .top {
-  flex-flow: row;
-  width: 4.5rem;
-  height: 2rem;
-  left: -2px;
-}
-
-.object .connections .bottom {
-  bottom: calc(-0.95rem - 1px);
-  animation: 2s linear forwards animate_bottom_connections;
-}
-
-.object .connections .top {
-  top: -0.95rem;
-  animation: 2s linear forwards animate_top_connections;
-}
-
-.connections .connection {
-  margin: 0.25rem;
-  background-color: white;
-  border: 2px solid black;
-  transition: transform 0.25s linear;
-}
-
-.connections .bottom div,
-.connections .top div {
-  width: 0.5rem;
-  height: 2rem;
-}
-
-.object .connections .left,
-.object .connections .right {
-  flex-flow: column;
-  width: 2rem;
-  height: 4.5rem;
-  top: -2px;
-}
-
-.object .connections .left {
-  left: calc(-0.95rem - 0.5px);
-  animation: 2s linear forwards animate_left_connections;
-}
-
-.object .connections .right {
-  right: calc(-0.95rem - 1px);
-  animation: 2s linear forwards animate_right_connections;
-}
-
-.connections .left div,
-.connections .right div {
-  width: 2rem;
-  height: 0.5rem;
-}
-
-/* ----------- object animations ----------- */
-@keyframes animate_tile {
-  from {transform: scale(0);}
-  to {transform: scale(1);}
-}
-
-@keyframes animate_tile_shadow {
-  from {transform: scale(0) translate(0, 0.2rem);}
-  to {transform: scale(1) translate(0, 0.2rem);}
-}
-
-@keyframes animate_top_connections {
-  0% {
-    transform: translateY(0.95rem);
-    opacity: 0;
-  }
-  50% {
-    transform: translateY(0.95rem);
-    opacity: 0;
-  }
-  66% {
-    transform: translateY(0.95rem);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes animate_bottom_connections {
-  0% {
-    transform: translateY(-0.95rem);
-    opacity: 0;
-  }
-  50% {
-    transform: translateY(-0.95rem);
-    opacity: 0;
-  }
-  75% {
-    transform: translateY(-0.95rem);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes animate_left_connections {
-  0% {
-    transform: translateX(0.95rem);
-    opacity: 0;
-  }
-  50% {
-    transform: translateX(0.95rem);
-    opacity: 0;
-  }
-  75% {
-    transform: translateX(0.95rem);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes animate_right_connections {
-  0% {
-    transform: translateX(-0.95rem);
-    opacity: 0;
-  }
-  50% {
-    transform: translateX(-0.95rem);
-    opacity: 0;
-  }
-  66% {
-    transform: translateX(-0.95rem);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes animate_mark {
-  0% {opacity: 0;}
-  50% {opacity: 0;}
-  100% {opacity: 1;}
 }

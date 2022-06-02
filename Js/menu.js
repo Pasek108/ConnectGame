@@ -103,7 +103,8 @@ function loadGame(option, level) {
         level_grid = lines_levels[level];
     } break;
     case 6: {
-        level_grid = generateRandomLevel(6, 6);
+        level_grid = generateSquaresLevel(5, 5);
+        console.log(level_grid)
     } break;
   }
 
@@ -141,7 +142,11 @@ function loadGame(option, level) {
   menu.classList.add("hidden");
   game.classList.remove("hidden");
 
-  new SquareGrid(level_grid, level_name, level);
+  if (option < 3) new SquaresGrid(level_grid, level_name, level);
+  else if (option === 3) new SquaresGrid(level_grid, level_name, level);
+  else if (option === 4) new SquaresGrid(level_grid, level_name, level);
+  else if (option === 5) new LinesGrid(level_grid, level_name, level);
+  else if (option === 6) new SquaresGrid(level_grid, level_name, level);
 }
 
 function checkCompletedLevels(option) {

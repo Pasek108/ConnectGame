@@ -2,7 +2,7 @@
 
 let xxx = [];
 
-class SquareGrid {
+class SquaresGrid {
   constructor(level, level_name, level_id) {
     this.level_name = level_name;
     this.level_id = level_id;
@@ -11,9 +11,10 @@ class SquareGrid {
     this.size = this.width * this.height;
     this.level = this.copyGrid(level);
     xxx = this.level;
-    for (let i = 0; i < 10; i++) this.shuffleGrid();
+    //for (let i = 0; i < 10; i++) this.shuffleGrid();
 
     this.container = document.querySelector(".grid");
+    this.container.className = "grid squares";
     this.container.innerHTML = "";
     this.container.style.width = `${this.width * 6 + (this.width - 1) * 0.1}rem`;
     this.container.style.height = `${this.height * 6 + (this.height - 1) * 0.1}rem`;
@@ -26,7 +27,7 @@ class SquareGrid {
       this.tiles.push([]);
       for (let j = 1; j <= this.width; j++) {
         this.tiles[i - 1].push(
-          new SquareTile(
+          new SquaresTile(
             this.container,
             this.level[i][j],
             this.checkCorrectConnections(i, j),
