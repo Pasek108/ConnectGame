@@ -1,0 +1,162 @@
+.editor {
+  margin: 2rem;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.editor header {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: end;
+  width: 100%;
+  max-width: 100vw;
+  margin-bottom: 1rem;
+}
+
+.editor header .title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.editor header .modes {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100vw;
+}
+
+.editor header .modes .mode {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  min-width: 5rem;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem;
+  background-color: #302b63;
+  border: 1px solid #000000;
+  border-radius: 0.4rem;
+  box-shadow: 0 0.2rem rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: background-color 0.15s, box-shadow 0.15s;
+}
+
+.editor header .modes .mode:hover {
+  background-color: #201c48;
+  box-shadow: none;
+}
+
+.editor header .modes .mode.active {
+  background-color: #e57200;
+}
+
+.editor header .modes .mode.active:hover {
+  background-color: #924901;
+  box-shadow: none;
+}
+
+.editor header .modes .mode.disabled {
+  background-color: #404055;
+  pointer-events: none;
+}
+
+.editor .edit-screen {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.editor .edit-screen .grid-panel {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.editor .edit-screen .grid-panel .size {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.editor .edit-screen .grid-panel .size input {
+  width: 20rem;
+  margin-left: 0.5rem;
+}
+
+.editor .edit-screen .elements-panel {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+.editor .edit-screen .elements-panel .type {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.editor .edit-screen .elements-panel .type select {
+  width: 13rem;
+  padding: 0.25rem;
+  margin-left: 0.5rem;
+}
+
+.editor .edit-screen .elements-panel .connections {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.editor .edit-screen .elements-panel .connections .title {
+  font-size: 1.25rem;
+}
+
+.editor .edit-screen .elements-panel .connections .row {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.editor .edit-screen .elements-panel .connections .row > div {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 8rem;
+}
+
+.editor .edit-screen .elements-panel .connections .row > div:last-child {
+  margin-left: 1rem;
+}
+
+.editor .edit-screen .elements-panel .connections input {
+  width: 4rem;
+  margin-left: 0.5rem;
+}
+
+.editor .edit-screen .elements-panel .preview {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 6rem;
+  margin-top: 1rem;
+  background-color: rgb(103, 129, 185);
+}

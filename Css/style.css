@@ -18,8 +18,6 @@ body {
   flex-flow: column;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at center, #302b63, #0f0c29);
-  background-repeat: no-repeat;
 }
 
 body::-webkit-scrollbar {
@@ -34,75 +32,7 @@ body::-webkit-scrollbar {
   display: none !important;
 }
 
-
-/* ---------------------------- game ---------------------------- */
-.game {
-  margin: 2rem;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.game .back {
-  font-size: 1.5rem;
-  margin-top: -2rem;
-  padding: 0.5rem;
-  cursor: pointer;
-}
-
-.game .back:hover {
-  text-decoration: underline;
-}
-
-.game header {
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 100vw;
-  height: 4rem;
-}
-
-.game header .title {
-  font-size: 2rem;
-  margin: 0 3rem 0 3rem;
-}
-
-.game header .prev,
-.game header .next {
-  padding: 0 0.5rem;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.game header .prev.disabled,
-.game header .next.disabled {
-  font-size: 1.5rem;
-  color: #898989;
-  cursor: auto;
-}
-
-.game header .prev:not(.disabled):hover,
-.game header .next:not(.disabled):hover {
-  text-decoration: underline;
-}
-
-.grid {
-  display: grid;
-  align-content: space-between;
-  justify-content: space-between;
-  background-color: rgb(206, 206, 254);
-  margin: 0 2rem 2rem 2rem;
-}
-
-.grid .tile {
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  justify-content: center;
-  width: 6rem;
-  height: 6rem;
-  background-color: rgb(103, 129, 185);
+body[lang="en"] .pl,
+body[lang="pl"] .en {
+  display: none;
 }

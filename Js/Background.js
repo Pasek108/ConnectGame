@@ -22,6 +22,7 @@ class Background {
     this.elapsed = 0;
 
     this.generatePoints();
+    this.startAnimation();
   }
 
   draw(new_time) {
@@ -105,3 +106,5 @@ class Background {
     this.generatePoints();
   }
 }
+
+const background = new Background();

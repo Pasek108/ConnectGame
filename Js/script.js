@@ -1,45 +1,113 @@
 "use strict";
 
-const PAGE_URL = "http://localhost/Projekty/ConnectGame/index.html";
-
-/* ------------------------ History ------------------------ */
-
-history.pushState({ option: -1, level: -1 }, "", `${PAGE_URL}`);
-
-addEventListener("popstate", (evt) => {
-  const option = evt.state.option;
-  const level = evt.state.level;
-
-  if (level >= 0) loadGame(option, level);
-  else if (option >= 0 && option < 6) loadLevels(option);
-  else showMenu();
-});
-
-function showMenu() {
-  game.classList.add("hidden");
-  levels.classList.add("hidden");
-  menu.classList.remove("hidden");
-  background.startAnimation();
-  background.show();
-}
-
-/* ------------------------ Init local storage ------------------------ */
-
-if (localStorage.getItem("easy") == null) localStorage.setItem("easy", "0");
-if (localStorage.getItem("normal") == null) localStorage.setItem("normal", "0");
-if (localStorage.getItem("advanced") == null) localStorage.setItem("advanced", "0");
-if (localStorage.getItem("hexagons") == null) localStorage.setItem("hexagons", "0");
-if (localStorage.getItem("triangles") == null) localStorage.setItem("triangles", "0");
-if (localStorage.getItem("lines") == null) localStorage.setItem("lines", "0");
-
 function randomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-/* ------------------------ Squares level generation ------------------------ */
+/* ------------------------ Language ------------------------ */
+const lang_button = document.querySelector(".lang");
+lang_button.addEventListener("click", () => {
+  if (document.body.lang === "pl") document.body.lang = "en";
+  else document.body.lang = "pl";
+});
 
+/* ------------------------ LocalStorage ------------------------ */
+if (localStorage.getItem("completed_levels") == null) {
+  const completed_levels = {
+    bridges: 0,
+    pipes: 0,
+    sliders: 0,
+    easy: 0,
+    normal: 0,
+    hard: 0,
+    hexagons: 0,
+    triangles: 0,
+  };
+
+  localStorage.setItem("completed_levels", JSON.stringify(completed_levels));
+}
+
+let completed_levels = JSON.parse(localStorage.getItem("completed_levels"));
+
+/* ------------------------ Modes info ------------------------ */
+const modes_info = {
+  lines: [
+    {
+      en: "Bridges",
+      pl: "Mosty",
+      completed_levels: completed_levels.bridges,
+    },
+    {
+      en: "Pipes",
+      pl: "Rury",
+      completed_levels: completed_levels.pipes,
+    },
+    {
+      en: "Sliders",
+      pl: "Suwaki",
+      completed_levels: completed_levels.sliders,
+    },
+  ],
+  squares: [
+    {
+      en: "Easy 4x4",
+      pl: "Łatwy 4x4",
+      completed_levels: completed_levels.easy,
+    },
+    {
+      en: "Normal 5x5",
+      pl: "Średni 5x5",
+      completed_levels: completed_levels.normal,
+    },
+    {
+      en: "Hard 6x6",
+      pl: "Trudny 6x6",
+      completed_levels: completed_levels.hard,
+    },
+  ],
+};
+
+/* ------------------------ History ------------------------ */
+class PageHistory {
+  constructor() {
+    this.url = "http://localhost/Projekty/ConnectGame/index.html";
+    this.current_mode = "";
+    this.current_id = 0;
+    this.current_level = 0;
+
+    //this.add();
+    addEventListener("popstate", this.back.bind(this));
+  }
+
+  add(mode = "", id = 0, level = 0, replace = false) {
+    if (replace) history.replaceState({ mode, id, level }, "", `${this.url}?${mode}${id}-${level}`);
+    else history.pushState({ mode, id, level }, "", `${this.url}?${mode}${id}-${level}`);
+  }
+
+  back(evt) {
+    menu.hide();
+    levels.hide();
+    game.hide();
+    editor.hide();
+
+    if (evt.state == null || evt.state.mode === "") {
+      menu.show();
+      return;
+    }
+
+    if (evt.state.id > 0 && evt.state.id < 4) levels.loadMode(evt.state.mode, evt.state.id);
+    else if (evt.state.id === 4) menu.show();
+    else if (evt.state.id === 5) menu.show();
+    else if (evt.state.id === 6) editor.show();
+    else if (evt.state.level > 0 && evt.state.level < 200) game.loadGame(evt.state.mode, evt.state.id, evt.state.level);
+  }
+}
+
+const page_history = new PageHistory();
+
+/* ------------------------ Squares level generation ------------------------ */
 function generateSquaresLevel(width, height) {
   let level = [];
   for (let i = 0; i < height + 2; i++) {
@@ -103,7 +171,6 @@ function generateSquaresLevel(width, height) {
 }
 
 /* ------------------------ Lines level generation ------------------------ */
-
 function generateLinesLevel(width, height) {
   let level = [];
   for (let i = 0; i < height + 2; i++) {

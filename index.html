@@ -6,109 +6,306 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connect Game</title>
 
+    <!-- ---------------- Font and icons ---------------- -->
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css" />
 
+    <!-- ---------------- Styles ---------------- -->
     <link rel="stylesheet" href="Css/style.css" />
     <link rel="stylesheet" href="Css/menu.css" />
+    <link rel="stylesheet" href="Css/game.css" />
+    <link rel="stylesheet" href="Css/editor.css" />
     <link rel="stylesheet" href="Css/squares_grid.css" />
     <link rel="stylesheet" href="Css/lines_grid.css" />
   </head>
-  <body>
+
+  <body lang="en">
     <canvas class="background"></canvas>
 
+    <!-- ---------------- Windows ---------------- -->
     <div class="menu">
+      <div class="lang">
+        <span class="pl">Język: &nbsp;PL</span>
+        <span class="en">Language: &nbsp;EN/US</span>
+      </div>
+
       <div class="title">Connect Game</div>
 
-      <div class="option">
-        <svg viewBox="0 0 100 100">
-          <polygon points="20 20, 80 20, 80 80, 20 80" />
-        </svg>
-        Łatwy
-      </div>
+      <div class="options">
+        <div class="option" data-mode="lines">
+          <svg viewBox="0 0 100 100">
+            <polygon points="20 52, 80 52"></polygon>
+          </svg>
 
-      <div class="option">
-        <svg viewBox="0 0 100 100">
-          <polygon points="20 20, 80 20, 80 80, 20 80" />
-        </svg>
-        Normalny
-      </div>
+          <span class="pl">Linie</span>
+          <span class="en">Lines</span>
+        </div>
 
-      <div class="option">
-        <svg viewBox="0 0 100 100">
-          <polygon points="20 20, 80 20, 80 80, 20 80" />
-        </svg>
-        Zaawansowany
-      </div>
+        <div class="option" data-mode="squares">
+          <svg viewBox="0 0 100 100">
+            <polygon points="20 20, 80 20, 80 80, 20 80"></polygon>
+          </svg>
 
-      <div class="option blocked">
-        <svg viewBox="0 0 100 100">
-          <polygon points="32 20, 68 20, 85 50, 68 80, 32 80, 15 50" />
-        </svg>
-        Sześciokąty
-      </div>
+          <span class="pl">Kwadraty</span>
+          <span class="en">Squares</span>
+        </div>
 
-      <div class="option blocked">
-        <svg viewBox="0 0 100 100">
-          <polygon points="50 20, 80 80, 20 80" />
-        </svg>
-        Trójkąty
-      </div>
+        <div class="option disabled" data-mode="hexagons">
+          <svg viewBox="0 0 100 100">
+            <polygon points="32 20, 68 20, 85 50, 68 80, 32 80, 15 50"></polygon>
+          </svg>
 
-      <div class="option">
-        <svg viewBox="0 0 100 100">
-          <polygon points="20 52, 80 52" />
-        </svg>
-        Linie
-      </div>
+          <span class="pl">Sześciokąty</span>
+          <span class="en">Hexagons</span>
+        </div>
 
-      <div class="option">
-        <svg viewBox="0 0 100 100">
-          <polygon points="20 20, 80 20, 80 80, 20 80" />
-        </svg>
-        Losowy
+        <div class="option disabled" data-mode="triangles">
+          <svg viewBox="0 0 100 100">
+            <polygon points="50 20, 80 80, 20 80"></polygon>
+          </svg>
+
+          <span class="pl">Trójkąty</span>
+          <span class="en">Triangles</span>
+        </div>
+
+        <div class="option disabled" data-mode="multiplayer">
+          <i class="fa-solid fa-users"></i>
+
+          <span class="pl">Wieloosobowa</span>
+          <span class="en">Multiplayer</span>
+        </div>
+
+        <div class="option" data-mode="random">
+          <i class="fas fa-question"></i>
+
+          <span class="pl">Losowa</span>
+          <span class="en">Random</span>
+        </div>
+
+        <div class="option" data-mode="editor">
+          <svg viewBox="0 0 100 100">
+            <polygon points="5 25, 45 25"></polygon>
+            <polygon points="55 5, 95 5, 95 45, 55 45"></polygon>
+            <polygon points="15 58, 35 58, 45 76, 35 95, 15 95, 5 76"></polygon>
+            <polygon points="75 58, 55 95, 95 95"></polygon>
+          </svg>
+
+          <span class="pl">Edytor</span>
+          <span class="en">Editor</span>
+        </div>
       </div>
 
       <footer>
-        <div class="name">Artur Pas</div>
-        <a href="https://github.com/Pasek108" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <span>Artur Pas</span>
+        <a href="https://github.com/Pasek108" target="_blank"><i class="fa-brands fa-github"></i> </a>
       </footer>
     </div>
 
-    <div class="levels hidden"></div>
-
-    <div class="random"></div>
+    <div class="levels hidden">
+      <header>
+        <i class="fa-solid fa-caret-left prev disabled"></i>
+        <div class="title"></div>
+        <i class="fa-solid fa-caret-right next"></i>
+      </header>
+    </div>
 
     <div class="game hidden">
-      <div class="back">Wróć do menu</div>
       <header>
-        <div class="prev">Poprzedni</div>
-        <div class="title">Poziom 0 / 200</div>
-        <div class="next">Następny</div>
+        <div class="title"></div>
+        <div class="buttons">
+          <span class="prev">
+            <span class="pl">Poprzedni</span>
+            <span class="en">Previous</span>
+          </span>
+
+          <span class="reset">Reset</span>
+
+          <span class="next">
+            <span class="pl">Następny</span>
+            <span class="en">Next</span>
+          </span>
+        </div>
       </header>
 
       <div class="grid"></div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <div class="random hidden"></div>
+
+    <div class="editor hidden">
+      <header>
+        <div class="title">
+          <span class="pl">Tryby</span>
+          <span class="en">Modes</span>
+        </div>
+
+        <div class="modes">
+          <div class="mode active">
+            <span class="pl">Mosty</span>
+            <span class="en">Bridges</span>
+          </div>
+
+          <div class="mode">
+            <span class="pl">Rury</span>
+            <span class="en">Pipes</span>
+          </div>
+
+          <div class="mode">
+            <span class="pl">Suwaki</span>
+            <span class="en">Sliders</span>
+          </div>
+
+          <div class="mode">
+            <span class="pl">Kwadraty</span>
+            <span class="en">Squares</span>
+          </div>
+
+          <div class="mode disabled">
+            <span class="pl">Sześciokąty</span>
+            <span class="en">Hexagons</span>
+          </div>
+
+          <div class="mode  disabled">
+            <span class="pl">Trójkąty</span>
+            <span class="en">Triangles</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="edit-screen">
+        <div class="grid-panel">
+          <div class="size">
+            <span>
+              <span class="pl">Rozmiar</span>
+              <span class="en">Size</span>
+            </span>
+            <input type="range" min="4" max="20">
+          </div>
+
+          <div class="grid"></div>
+        </div>
+
+        <div class="elements-panel">
+          <div class="type">
+            <span>
+              <span class="pl">Typ</span>
+              <span class="en">Type</span>
+            </span>
+            <select>
+              <option value="">n</option>
+              <option value="">r</option>
+              <option value="">v</option>
+              <option value="">h</option>
+              <option value="">vh</option>
+              <option value="">vr</option>
+              <option value="">hr</option>
+              <option value="">vhr</option>
+            </select>
+          </div>
+
+          <div class="connections">
+            <div class="row">
+              <div class="title">
+                <span class="pl">Połączenia</span>
+                <span class="en">Connections</span>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="top">
+                <span class="pl">Góra</span>
+                <span class="en">Top</span>
+                <input type="range" min="0" max="4">
+              </div>
+              
+              <div class="right">
+                <span class="pl">Prawo</span>
+                <span class="en">Right</span>
+                <input type="range" min="0" max="4">
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="bottom">
+                <span class="pl">Dół</span>
+                <span class="en">Bottom</span>
+                <input type="range" min="0" max="4">
+              </div>
+  
+              <div class="left">
+                <span class="pl">Lewo</span>
+                <span class="en">Left</span>
+                <input type="range" min="0" max="4">
+              </div>
+            </div>
+          </div>
+
+          <div class="preview"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------------- Templates ---------------- -->
+
+    <!-- No move mark -->
+    <template class="no-move-mark-template">
+      <svg viewBox="0 0 100 100">
+        <circle cx="11" cy="11" r="11"></circle>
+        <circle cx="89" cy="11" r="11"></circle>
+        <circle cx="89" cy="89" r="11"></circle>
+        <circle cx="11" cy="89" r="11"></circle>
+      </svg>
+    </template>
+
+    <!-- Rotate mark -->
+    <template class="rotate-mark-template">
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="15"></circle>
+      </svg>
+    </template>
+
+    <!-- Horizontal move mark -->
+    <template class="horizontal-move-mark-template">
+      <svg viewBox="0 0 100 100">
+        <rect x="15" y="43" width="70" height="14"></rect>
+        <polygon points="6 50, 19 61, 19 39"></polygon>
+        <polygon points="94 50, 81 61, 81 39"></polygon>
+      </svg>
+    </template>
+
+    <!-- Vertical move mark -->
+    <template class="vertical-move-mark-template">
+      <svg viewBox="0 0 100 100">
+        <rect x="43" y="15" width="14" height="70"></rect>
+        <polygon points="50 6, 61 19, 39 19"></polygon>
+        <polygon points="50 94, 61 81, 39 81"></polygon>
+      </svg>
+    </template>
+
+    <!-- ---------------- Scripts ---------------- -->
     <script src="Js/script.js"></script>
+    <script src="Js/Menu.js"></script>
     <script src="Js/Background.js"></script>
-    <script src="Js/menu.js"></script>
 
-    <script src="Js/easy_levels.js" async></script>
-    <script src="Js/normal_levels.js" async></script>
-    <script src="Js/advanced_levels.js" async></script>
-    <script src="Js/hexagons_levels.js" async></script>
-    <script src="Js/triangles_levels.js" async></script>
-    <script src="Js/lines_levels.js" async></script>
-
-    <script src="Js/SquaresTile.js" async></script>
-    <script src="Js/SquaresGrid.js" async></script>
+    <script src="Js/Editor.js" async></script>
+    <script src="Js/Game.js" async></script>
     <script src="Js/LinesTile.js" async></script>
     <script src="Js/LinesGrid.js" async></script>
+    <script src="Js/SquaresTile.js" async></script>
+    <script src="Js/SquaresGrid.js" async></script>
     <script src="Js/Confetti.js" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js" async></script>
+
+    <script src="Js/levels/bridges_levels.js" async></script>
+    <script src="Js/levels/pipes_levels.js" async></script>
+    <script src="Js/levels/sliders_levels.js" async></script>
+    <script src="Js/levels/easy_levels.js" async></script>
+    <script src="Js/levels/normal_levels.js" async></script>
+    <script src="Js/levels/hard_levels.js" async></script>
+    <script src="Js/levels/hexagons_levels.js" async></script>
+    <script src="Js/levels/triangles_levels.js" async></script>
   </body>
 </html>

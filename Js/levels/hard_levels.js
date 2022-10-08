@@ -1,6 +1,6 @@
 "use strict";
 
-const advanced_levels = [
+const hard_levels = [
   [
     [
       [0, 0, 0, 0, "n"],

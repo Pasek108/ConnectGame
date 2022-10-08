@@ -29,74 +29,6 @@ class SquaresTile {
     this.parent.appendChild(this.container);
   }
 
-  addNoMoveMark(svg) {
-    const circle_top_left = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    circle_top_left.setAttribute("cx", "11");
-    circle_top_left.setAttribute("cy", "11");
-    circle_top_left.setAttribute("r", "11");
-    svg.appendChild(circle_top_left);
-
-    const circle_top_right = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    circle_top_right.setAttribute("cx", "89");
-    circle_top_right.setAttribute("cy", "11");
-    circle_top_right.setAttribute("r", "11");
-    svg.appendChild(circle_top_right);
-
-    const circle_bottom_right = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    circle_bottom_right.setAttribute("cx", "89");
-    circle_bottom_right.setAttribute("cy", "89");
-    circle_bottom_right.setAttribute("r", "11");
-    svg.appendChild(circle_bottom_right);
-
-    const circle_bottom_left = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    circle_bottom_left.setAttribute("cx", "11");
-    circle_bottom_left.setAttribute("cy", "89");
-    circle_bottom_left.setAttribute("r", "11");
-    svg.appendChild(circle_bottom_left);
-  }
-
-  addRotateMark(svg) {
-    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    circle.setAttribute("cx", "50");
-    circle.setAttribute("cy", "50");
-    circle.setAttribute("r", "15");
-    svg.appendChild(circle);
-  }
-
-  addHorizontalMark(svg) {
-    const horizonatl_line = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    horizonatl_line.setAttribute("x", "15");
-    horizonatl_line.setAttribute("y", "43");
-    horizonatl_line.setAttribute("width", "70");
-    horizonatl_line.setAttribute("height", "14");
-    svg.appendChild(horizonatl_line);
-
-    const triangle_left = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-    triangle_left.setAttribute("points", "6 50, 19 61, 19 39");
-    svg.appendChild(triangle_left);
-
-    const triangle_right = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-    triangle_right.setAttribute("points", "94 50, 81 61, 81 39");
-    svg.appendChild(triangle_right);
-  }
-
-  addVerticalMark(svg) {
-    const rect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    rect2.setAttribute("x", "43");
-    rect2.setAttribute("y", "15");
-    rect2.setAttribute("width", "14");
-    rect2.setAttribute("height", "70");
-    svg.appendChild(rect2);
-
-    const triangle_top = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-    triangle_top.setAttribute("points", "50 6, 61 19, 39 19");
-    svg.appendChild(triangle_top);
-
-    const triangle_bottom = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-    triangle_bottom.setAttribute("points", "50 94, 61 81, 39 81");
-    svg.appendChild(triangle_bottom);
-  }
-
   createObject() {
     this.object = document.createElement("div");
     this.object.className = `object ${this.type}`;
@@ -107,15 +39,15 @@ class SquaresTile {
 
       this.mark = document.createElement("div");
       this.mark.className = "mark";
-        this.svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");;
+        this.svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         this.svg.setAttribute("viewBox", "0 0 100 100");
         
         for (let i = 0; i < this.type.length; i++) {
           switch (this.type[i]) {
-            case "h": this.addHorizontalMark(this.svg); break;
-            case "v": this.addVerticalMark(this.svg); break;
-            case "r": this.addRotateMark(this.svg); break;
-            case "n": this.addNoMoveMark(this.svg); break;
+            case "h": this.svg.appendChild(document.querySelector(".horizontal-move-mark-template").content.children[0].cloneNode(true)); break;
+            case "v": this.svg.appendChild(document.querySelector(".vertical-move-mark-template").content.children[0].cloneNode(true)); break;
+            case "r": this.svg.appendChild(document.querySelector(".rotate-mark-template").content.children[0].cloneNode(true)); break;
+            case "n": this.svg.appendChild(document.querySelector(".no-move-mark-template").content.children[0].cloneNode(true)); break;
           }
         }
           
