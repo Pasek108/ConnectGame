@@ -1,17 +1,14 @@
 "use strict";
 
-let xxx = [];
-
 class SquaresGrid {
-  constructor(level, level_name, level_id) {
-    this.level_name = level_name;
+  constructor(level, mode_id, level_id) {
+    this.mode_id = mode_id;
     this.level_id = level_id;
     this.height = level.length - 2;
     this.width = level[0].length - 2;
     this.size = this.width * this.height;
     this.level = this.copyGrid(level);
-    xxx = this.level;
-    //for (let i = 0; i < 10; i++) this.shuffleGrid();
+    for (let i = 0; i < 100; i++) this.shuffleGrid();
 
     this.container = document.querySelector(".grid");
     this.container.className = "grid squares";
@@ -217,11 +214,18 @@ class SquaresGrid {
     }
 
     setTimeout(fireConfetti, 100);
-    document.querySelector(".next").classList.remove("disabled");
 
-    if (this.level_id !== 6) {
-      const completed_levels = parseInt(localStorage.getItem(this.level_name));
-      if (completed_levels === this.level_id) localStorage.setItem(this.level_name, `${completed_levels + 1}`);
+    if (this.level_id < 200) {
+      document.querySelector(".game .next").classList.remove("disabled");
+
+      switch(this.mode_id) {
+        case 1: completed_levels.easy++; break;
+        case 2: completed_levels.normal++; break;
+        case 3: completed_levels.hard++; break;
+      }
+
+      modes_info.squares[this.mode_id - 1].completed_levels++;
+      localStorage.setItem("completed_levels", JSON.stringify(completed_levels));
     }
   }
 }

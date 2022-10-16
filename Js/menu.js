@@ -1,166 +1,133 @@
 "use strict";
 
-const background = new Background();
-background.startAnimation();
+class Menu {
+  constructor() {
+    this.container = document.querySelector(".menu");
+    this.options = this.container.querySelectorAll(".option");
 
-const menu = document.querySelector(".menu");
-const options = menu.querySelectorAll(".option");
-const levels = document.querySelector(".levels");
-const game = document.querySelector(".game");
-const back_button = game.querySelector(".back");
-back_button.addEventListener("click", () => {
-  history.pushState({ option: -1, level: -1 }, "", `${PAGE_URL}`);
-  showMenu();
-});
+    this.addListeners();
+  }
 
-for (let i = 0; i < options.length; i++) {
-  if (checkCompletedLevels(i) === 200) options[i].classList.add("complete");
+  addListeners() {
+    for (let i = 0; i < this.options.length; i++) {
+      if (this.options[i].classList.contains("disabled")) continue;
 
-  options[i].addEventListener("click", () => {
-    if (options[i].classList.contains("blocked")) return;
+      this.options[i].addEventListener("click", () => {
+        page_history.add(this.options[i].dataset.mode, 1);
+        this.hide();
 
-    history.pushState({ option: i, level: -1 }, "", `${PAGE_URL}?${i}`);
-    loadLevels(i);
-  });
-}
-
-function loadLevels(option) {
-  background.startAnimation();
-  background.show();
-  levels.innerHTML = "";
-
-  let completed_levels = checkCompletedLevels(option);
-  const levels_header = document.createElement("header");
-
-  /* prettier-ignore */
-  switch (option) {
-    case 0: levels_header.innerText = "Łatwy"; break;
-    case 1: levels_header.innerText = "Normalny"; break;
-    case 2: levels_header.innerText = "Zaawansowany"; break;
-    case 3: levels_header.innerText = "Sześciokąty"; break;
-    case 4: levels_header.innerText = "Trójkąty"; break;
-    case 5: levels_header.innerText = "Linie"; break;
-    case 6: {
-        loadGame(option, 0);
-        return;
+        if (i < 4) levels.loadMode(this.options[i].dataset.mode, 1);
+        else if (i === 4) levels.show();
+        else if (i === 5) levels.show();
+        else if (i === 6) editor.show();
+      });
     }
   }
 
-  levels.appendChild(levels_header);
+  hide() {
+    this.container.classList.add("hidden");
+  }
 
-  for (let j = 0; j < 200; j++) {
-    let class_name = "";
-    if (j < completed_levels) class_name = "complete";
-    else if (j > completed_levels) class_name = "blocked";
+  show() {
+    this.container.classList.remove("hidden");
+  }
+}
 
-    const level_button = document.createElement("div");
-    level_button.className = class_name;
-    level_button.innerText = j + 1;
-    level_button.addEventListener("click", () => {
-      history.pushState({ option: option, level: j }, "", `${PAGE_URL}?${option}${j + 1}`);
-      if (!level_button.classList.contains("blocked")) loadGame(option, j);
+class Levels {
+  constructor() {
+    this.container = document.querySelector(".levels");
+
+    this.mode_name = "";
+    this.mode_id = 0;
+
+    this.title = this.container.querySelector(".title");
+    this.levels = this.createLevels();
+
+    // prev mode button
+    this.prev = this.container.querySelector(".prev");
+    this.prev.addEventListener("click", () => {
+      if (this.mode_id < 1) return;
+
+      this.mode_id--;
+      page_history.add(this.mode_name, this.mode_id, 0, true);
+      this.loadMode(this.mode_name, this.mode_id);
     });
-    levels.appendChild(level_button);
+
+    // next mode button
+    this.next = this.container.querySelector(".next");
+    this.next.addEventListener("click", () => {
+      if (this.mode_id > 3) return;
+
+      this.mode_id++;
+      page_history.add(this.mode_name, this.mode_id, 0, true);
+      this.loadMode(this.mode_name, this.mode_id);
+    });
   }
 
-  menu.classList.add("hidden");
-  game.classList.add("hidden");
-  levels.classList.remove("hidden");
-}
+  createLevels() {
+    const levels = [];
+    const levels_buttons = document.createDocumentFragment();
 
-function loadGame(option, level) {
-  background.stopAnimation();
-  background.hide();
+    for (let i = 0; i < 200; i++) {
+      const level_button = document.createElement("div");
+      level_button.className = "level";
+      level_button.innerText = i + 1;
 
-  let completed_levels = checkCompletedLevels(option);
-  let level_name = "";
-  let level_grid = [];
+      levels_buttons.appendChild(level_button);
+      levels.push(level_button);
+    }
 
-  /* prettier-ignore */
-  switch (option) {
-    case 0: {
-        level_name = "easy";
-        level_grid = easy_levels[level];
-    } break;
-    case 1: {
-        level_name = "normal";
-        level_grid = normal_levels[level];
-    } break;
-    case 2: {
-        level_name = "advanced";
-        level_grid = advanced_levels[level];
-    } break;
-    case 3: {
-        level_name = "hexagons";
-        level_grid = hexagons_levels[level];
-    } break;
-    case 4: {
-        level_name = "triangles";
-        level_grid = triangles_levels[level];
-    } break;
-    case 5: {
-        level_name = "lines";
-        level_grid = lines_levels[level];
-    } break;
-    case 6: {
-        level_grid = generateSquaresLevel(5, 5);
-        console.log(level_grid)
-    } break;
+    this.container.appendChild(levels_buttons);
+
+    return levels;
   }
 
-  const game_header = document.querySelector(".game header");
-  game_header.innerHTML = "";
-
-  const prev = document.createElement("div");
-  prev.className = level === 0 ? "prev disabled" : "prev";
-  prev.innerText = "Poprzedni";
-  prev.addEventListener("click", () => {
-    if (prev.classList.contains("disabled")) return;
-
-    history.pushState({ option: option, level: level - 1 }, "", `${PAGE_URL}?${option}${level}`);
-    loadGame(option, level - 1);
-  });
-  game_header.appendChild(prev);
-
-  const title = document.createElement("div");
-  title.className = "title";
-  title.innerText = `Poziom ${level + 1} / 200`;
-  game_header.appendChild(title);
-
-  const next = document.createElement("div");
-  next.className = level >= completed_levels ? "next disabled" : "next";
-  next.innerText = "Następny";
-  next.addEventListener("click", () => {
-    if (next.classList.contains("disabled")) return;
-
-    history.pushState({ option: option, level: level + 1 }, "", `${PAGE_URL}?${option}${level + 2}`);
-    loadGame(option, level + 1);
-  });
-  game_header.appendChild(next);
-
-  levels.classList.add("hidden");
-  menu.classList.add("hidden");
-  game.classList.remove("hidden");
-
-  if (option < 3) new SquaresGrid(level_grid, level_name, level);
-  else if (option === 3) new SquaresGrid(level_grid, level_name, level);
-  else if (option === 4) new SquaresGrid(level_grid, level_name, level);
-  else if (option === 5) new LinesGrid(level_grid, level_name, level);
-  else if (option === 6) new SquaresGrid(level_grid, level_name, level);
-}
-
-function checkCompletedLevels(option) {
-  let completed_levels = 0;
-
-  /* prettier-ignore */
-  switch (option) {
-      case 0: completed_levels = parseInt(localStorage.getItem("easy")); break;
-      case 1: completed_levels = parseInt(localStorage.getItem("normal")); break;
-      case 2: completed_levels = parseInt(localStorage.getItem("advanced")); break;
-      case 3: completed_levels = parseInt(localStorage.getItem("hexagons")); break;
-      case 4: completed_levels = parseInt(localStorage.getItem("triangles")); break;
-      case 5: completed_levels = parseInt(localStorage.getItem("lines")); break;
+  hide() {
+    this.container.classList.add("hidden");
   }
 
-  return completed_levels;
+  show() {
+    this.container.classList.remove("hidden");
+  }
+
+  loadMode(mode_name, mode_id) {
+    if (mode_id < 1 || mode_id > 3) return;
+
+    if (mode_id <= 1) this.prev.classList.add("disabled");
+    else this.prev.classList.remove("disabled");
+
+    if (mode_id >= 3) this.next.classList.add("disabled");
+    else this.next.classList.remove("disabled");
+
+    this.mode_name = mode_name;
+    this.mode_id = mode_id;
+
+    const completed_levels = modes_info[this.mode_name][this.mode_id - 1].completed_levels;
+    const title = modes_info[this.mode_name][this.mode_id - 1][document.body.lang];
+    this.title.innerText = title;
+
+    // recreate levels
+    for (let i = 0; i < this.levels.length; i++) this.levels[i].remove();
+    this.levels = this.createLevels();
+
+    // add listeners to levels
+    for (let i = 0; i < this.levels.length; i++) {
+      if (i < completed_levels) this.levels[i].classList.add("complete");
+      else if (i > completed_levels) this.levels[i].classList.add("disabled");
+
+      if (i <= completed_levels) {
+        this.levels[i].addEventListener("click", () => {
+          page_history.add(this.mode_name, this.mode_id, i + 1);
+          this.hide();
+
+          game.loadGame(this.mode_name, this.mode_id, i);
+        });
+      }
+    }
+
+    this.show();
+  }
 }
+
+const menu = new Menu();
+const levels = new Levels();

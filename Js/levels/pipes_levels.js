@@ -1,6 +1,6 @@
 "use strict";
 
-const lines_levels = [
+const pipes_levels = [
   [
     [
       [false, false, false, false, "c"],
