@@ -1,0 +1,98 @@
+.flex(@direction: row, @align: normal, @justify: normal) {
+  display: flex;
+  flex-direction: @direction;
+  align-items: @align;
+  justify-content: @justify;
+}
+
+.position(@position: static, @top: auto, @right: auto, @bot: auto, @left: auto, @zindex: auto) {
+  position: @position;
+  top: @top;
+  right: @right;
+  bottom: @bot;
+  left: @left;
+  z-index: @zindex;
+}
+
+.grid.pipes {
+  display: grid;
+  align-content: space-between;
+  justify-content: space-between;
+  background-color: rgb(206, 206, 254);
+  margin: 0 2rem 2rem 2rem;
+}
+
+.grid.pipes .tile,
+.preview.pipes {
+  .flex(row, center, center);
+  width: 6rem;
+  height: 6rem;
+  background-color: rgb(44, 46, 52);
+
+  .block {
+    .flex(row, center, center);
+    width: 6rem;
+    height: 6rem;
+    transition: transform 0.25s linear;
+    transform: rotate(0);
+
+    .mark {
+      width: 6rem;
+      height: 6rem;
+      position: absolute;
+      z-index: 1;
+      transition: transform 0.25s linear;
+      animation: 0.5s linear forwards animate_tile;
+
+      svg {
+        position: absolute;
+      }
+
+      svg rect {
+        fill: white;
+        stroke-width: 1px;
+      }
+    }
+
+    &.connected .mark svg:last-child rect:last-child {
+      fill: #fbb400 !important;
+    }
+
+  }
+}
+
+.grid.pipes .empty {
+  background-color: black;
+}
+
+.grid.pipes .control {
+  .flex(row, center, center);
+  background-color: rgb(29, 52, 121);
+  cursor: pointer;
+
+  &:hover::after {
+    color: red;
+  }
+
+  &::after {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 2rem;
+  }
+
+  &.down::after {
+    content: "\f0d7";
+  }
+
+  &.up::after {
+    content: "\f0d8";
+  }
+
+  &.left::after {
+    content: "\f0d9";
+  }
+
+  &.right::after {
+    content: "\f0da";
+  }
+}

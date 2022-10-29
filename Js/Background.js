@@ -60,6 +60,7 @@ class Background {
   generatePoints() {
     this.points_amount = ((this.canvas_w * this.canvas_h) / 10000) | 0;
     this.points = [];
+    
     for (let i = 0; i < this.points_amount; i++) {
       this.points.push({
         x: randomInt(1, this.canvas_w),

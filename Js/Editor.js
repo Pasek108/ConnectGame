@@ -4,6 +4,9 @@ class Editor {
   constructor() {
     this.container = document.querySelector(".editor");
 
+    this.bridges_editor = new BridgesEditor();
+    this.pipes_editor = new PipesEditor();
+    this.sliders_editor = new SlidersEditor();
     this.squares_editor = new SquaresEditor();
 
     this.edit_screens = this.container.querySelectorAll(".edit-screen > div");
@@ -16,11 +19,16 @@ class Editor {
         for (let j = 0; j < this.modes_buttons.length; j++) this.modes_buttons[j].classList.remove("active");
         this.modes_buttons[i].classList.add("active");
 
+        this.bridges_editor.hide();
+        this.pipes_editor.hide();
+        this.sliders_editor.hide();
+        this.squares_editor.hide();
+
         /* prettier-ignore */
         switch(i) {
-          case 0: break;
-          case 1: break;
-          case 2: break;
+          case 0: this.bridges_editor.load(); break;
+          case 1: this.pipes_editor.load(); break;
+          case 2: this.sliders_editor.load(); break;
           case 3: this.squares_editor.load(); break;
           case 4: break;
           case 5: break;
@@ -35,6 +43,7 @@ class Editor {
 
   show() {
     this.container.classList.remove("hidden");
+    this.modes_buttons[0].click();
   }
 }
 

@@ -13,13 +13,18 @@ class Menu {
       if (this.options[i].classList.contains("disabled")) continue;
 
       this.options[i].addEventListener("click", () => {
-        page_history.add(this.options[i].dataset.mode, 1);
         this.hide();
 
-        if (i < 4) levels.loadMode(this.options[i].dataset.mode, 1);
+        if (i < 4) {
+          page_history.add(this.options[i].dataset.mode, 1);
+          levels.loadMode(this.options[i].dataset.mode, 1);
+        }
         else if (i === 4) levels.show();
         else if (i === 5) levels.show();
-        else if (i === 6) editor.show();
+        else if (i === 6) {
+          page_history.add(this.options[i].dataset.mode, i);
+          editor.show();
+        }
       });
     }
   }

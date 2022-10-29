@@ -68,28 +68,18 @@ class Game {
     this.grid.innerHTML = "";
 
     if (mode_name === "lines") {
+      // prettier-ignore
       switch (mode_id) {
-        case 1:
-          new LinesGrid(bridges_levels[level_id], mode_id, level_id);
-          break;
-        case 2:
-          new LinesGrid(pipes_levels[level_id], mode_id, level_id);
-          break;
-        case 3:
-          new LinesGrid(sliders_levels[level_id], mode_id, level_id);
-          break;
+        case 1: new BridgesGrid(bridges_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
+        case 2: new PipesGrid(pipes_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
+        case 3: new SlidersGrid(sliders_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
       }
     } else if (mode_name === "squares") {
+      // prettier-ignore
       switch (mode_id) {
-        case 1:
-          new SquaresGrid(easy_levels[level_id], mode_id, level_id);
-          break;
-        case 2:
-          new SquaresGrid(normal_levels[level_id], mode_id, level_id);
-          break;
-        case 3:
-          new SquaresGrid(hard_levels[level_id], mode_id, level_id);
-          break;
+        case 1: new SquaresGrid(easy_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
+        case 2: new SquaresGrid(normal_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
+        case 3: new SquaresGrid(hard_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
       }
     }
 
@@ -98,6 +88,56 @@ class Game {
 
   resetLevel() {
     this.loadGame(this.data.mode, this.data.id, this.data.level);
+  }
+
+  unlockNextLevel(mode, mode_id, level_id) {
+    if (level_id < 200) {
+      this.next.classList.remove("disabled");
+
+      switch (mode_id) {
+        case 1:
+          if (mode === "lines") {
+            if (level_id === completed_levels.bridges) {
+              modes_info[mode][mode_id - 1].completed_levels++;
+              completed_levels.bridges++;
+            }
+          } else if (mode === "squares") {
+            if (level_id === completed_levels.easy) {
+              modes_info[mode][mode_id - 1].completed_levels++;
+              completed_levels.easy++;
+            }
+          }
+          break;
+        case 2:
+          if (mode === "lines") {
+            if (level_id === completed_levels.pipes) {
+              modes_info[mode][mode_id - 1].completed_levels++;
+              completed_levels.pipes++;
+            }
+          } else if (mode === "squares") {
+            if (level_id === completed_levels.normal) {
+              modes_info[mode][mode_id - 1].completed_levels++;
+              completed_levels.normal++;
+            }
+          }
+          break;
+        case 3:
+          if (mode === "lines") {
+            if (level_id === completed_levels.sliders) {
+              modes_info[mode][mode_id - 1].completed_levels++;
+              completed_levels.sliders++;
+            }
+          } else if (mode === "squares") {
+            if (level_id === completed_levels.hard) {
+              modes_info[mode][mode_id - 1].completed_levels++;
+              completed_levels.hard++;
+            }
+          }
+          break;
+      }
+
+      localStorage.setItem("completed_levels", JSON.stringify(completed_levels));
+    }
   }
 }
 

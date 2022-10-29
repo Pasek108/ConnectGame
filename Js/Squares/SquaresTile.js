@@ -1,8 +1,7 @@
 "use strict";
 
 class SquaresTile {
-  constructor(parent, connections, correct_connections, onClick, onPositionChange) {
-    this.parent = parent;
+  constructor(connections, correct_connections, onClick, onPositionChange) {
     this.connections = [[], [], [], []];
     this.connections_array = connections;
     this.correct_connections = correct_connections;
@@ -25,59 +24,60 @@ class SquaresTile {
 
     this.container = document.createElement("div");
     this.container.className = "tile";
-    if (!this.no_connections) this.container.appendChild(this.createObject());
-    this.parent.appendChild(this.container);
+    if (!this.no_connections) this.container.appendChild(this.createBlock());
   }
 
-  createObject() {
-    this.object = document.createElement("div");
-    this.object.className = `object ${this.type}`;
+  createBlock() {
+    this.block = document.createElement("div");
+    this.block.className = `block ${this.type}`;
 
-      this.shadow = document.createElement("div");
-      this.shadow.className = "shadow";
-      this.object.appendChild(this.shadow);
+    this.shadow = document.createElement("div");
+    this.shadow.className = "shadow";
+    this.block.appendChild(this.shadow);
 
-      this.mark = document.createElement("div");
-      this.mark.className = "mark";
-        this.svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        this.svg.setAttribute("viewBox", "0 0 100 100");
-        
-        for (let i = 0; i < this.type.length; i++) {
-          switch (this.type[i]) {
-            case "h": this.svg.appendChild(document.querySelector(".horizontal-move-mark-template").content.children[0].cloneNode(true)); break;
-            case "v": this.svg.appendChild(document.querySelector(".vertical-move-mark-template").content.children[0].cloneNode(true)); break;
-            case "r": this.svg.appendChild(document.querySelector(".rotate-mark-template").content.children[0].cloneNode(true)); break;
-            case "n": this.svg.appendChild(document.querySelector(".no-move-mark-template").content.children[0].cloneNode(true)); break;
-          }
-        }
-          
-        this.mark.appendChild(this.svg);
-      this.object.appendChild(this.mark);
+    this.mark = document.createElement("div");
+    this.mark.className = "mark";
 
-      this.connections_container = document.createElement("div");
-      this.connections_container.className = "connections";
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 100 100");
 
-        const top = this.createConnections("top", 0);
-        this.connections_container.appendChild(top.container);
+    for (let i = 0; i < this.type.length; i++) {
+      // prettier-ignore
+      switch (this.type[i]) {
+        case "h": svg.appendChild(document.querySelector(".horizontal-move-mark-template").content.children[0].cloneNode(true)); break;
+        case "v": svg.appendChild(document.querySelector(".vertical-move-mark-template").content.children[0].cloneNode(true)); break;
+        case "r": svg.appendChild(document.querySelector(".rotate-mark-template").content.children[0].cloneNode(true)); break;
+        case "n": svg.appendChild(document.querySelector(".no-move-mark-template").content.children[0].cloneNode(true)); break;
+      }
+    }
 
-        const right = this.createConnections("right", 1);
-        this.connections_container.appendChild(right.container);
+    this.mark.appendChild(svg);
+    this.block.appendChild(this.mark);
 
-        const bottom = this.createConnections("bottom", 2);
-        this.connections_container.appendChild(bottom.container);
+    this.connections_container = document.createElement("div");
+    this.connections_container.className = "connections";
 
-        const left = this.createConnections("left", 3);
-        this.connections_container.appendChild(left.container);
+    const top = this.createConnections("top", 0);
+    this.connections_container.appendChild(top.container);
 
-      this.object.appendChild(this.connections_container);
-    
+    const right = this.createConnections("right", 1);
+    this.connections_container.appendChild(right.container);
+
+    const bottom = this.createConnections("bottom", 2);
+    this.connections_container.appendChild(bottom.container);
+
+    const left = this.createConnections("left", 3);
+    this.connections_container.appendChild(left.container);
+
+    this.block.appendChild(this.connections_container);
+
     this.connections = [top.connections, right.connections, bottom.connections, left.connections];
     this.animation_timeout = setTimeout(() => {
       this.grab_function = this.grab.bind(this);
       this.move_function = this.move.bind(this);
       this.release_function = this.release.bind(this);
-      this.object.addEventListener("mousedown", this.grab_function);
-      this.object.style.animation = "none";
+      this.block.addEventListener("mousedown", this.grab_function);
+      this.block.style.animation = "none";
       this.shadow.style.animation = "none";
       this.mark.style.animation = "none";
       top.container.style.animation = "none";
@@ -85,8 +85,8 @@ class SquaresTile {
       bottom.container.style.animation = "none";
       left.container.style.animation = "none";
     }, 2000);
-    
-    return this.object;
+
+    return this.block;
   }
 
   createConnections(side, index) {
@@ -99,7 +99,8 @@ class SquaresTile {
       connection.className = "connection";
 
       if (this.correct_connections[index]) {
-        switch(index) {
+        // prettier-ignore
+        switch (index) {
           case 0: connection.style.borderTopWidth = "0px"; break;
           case 1: connection.style.borderRightWidth = "0px"; break;
           case 2: connection.style.borderBottomWidth = "0px"; break;
@@ -109,8 +110,8 @@ class SquaresTile {
       connections_array.push(connection);
       connections_container.appendChild(connection);
     }
-    
-    return {container: connections_container, connections: connections_array};
+
+    return { container: connections_container, connections: connections_array };
   }
 
   setConnections(connections, correct_connections) {
@@ -120,11 +121,13 @@ class SquaresTile {
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < this.connections[i].length; j++) {
         const is_connection_correct = correct_connections[(i + this.rotation) % 4];
-        switch(i) {
-          case 0: this.connections[i][j].style.borderTopWidth = (is_connection_correct) ? "0px" : null; break;
-          case 1: this.connections[i][j].style.borderRightWidth = (is_connection_correct) ? "0px" : null; break;
-          case 2: this.connections[i][j].style.borderBottomWidth = (is_connection_correct) ? "0px" : null; break;
-          case 3: this.connections[i][j].style.borderLeftWidth = (is_connection_correct) ? "0px" : null; break;
+
+        // prettier-ignore
+        switch (i) {
+          case 0: this.connections[i][j].style.borderTopWidth = is_connection_correct ? "0px" : null; break;
+          case 1: this.connections[i][j].style.borderRightWidth = is_connection_correct ? "0px" : null; break;
+          case 2: this.connections[i][j].style.borderBottomWidth = is_connection_correct ? "0px" : null; break;
+          case 3: this.connections[i][j].style.borderLeftWidth = is_connection_correct ? "0px" : null; break;
         }
       }
     }
@@ -136,21 +139,22 @@ class SquaresTile {
   }
 
   click() {
-    this.object.style.zIndex = null;
+    this.block.style.zIndex = null;
 
     if (!this.type.includes("r")) return;
 
     this.rotation++;
-    this.object.style.transform = `rotate(${90 * this.rotation}deg)`;
+    this.block.style.transform = `rotate(${90 * this.rotation}deg)`;
     this.mark.style.transform = `rotate(${-90 * this.rotation}deg)`;
 
+    // prettier-ignore
     switch (this.rotation % 4) {
       case 0: this.shadow.style.transform = `translate(0, 0.2rem)`; break;
       case 1: this.shadow.style.transform = `translate(0.2rem, 0)`; break;
       case 2: this.shadow.style.transform = `translate(0, -0.2rem)`; break;
       case 3: this.shadow.style.transform = `translate(-0.2rem, 0)`; break;
     }
-    
+
     this.onClick();
   }
 
@@ -161,8 +165,8 @@ class SquaresTile {
     this.old_x = e.pageX;
     this.old_y = e.pageY;
     this.grabbed = true;
-    this.object.style.zIndex = "10";
-    this.object.style.transition = "transform 0.25s linear";
+    this.block.style.zIndex = "10";
+    this.block.style.transition = "transform 0.25s linear";
 
     addEventListener("mousemove", this.move_function);
     addEventListener("mouseup", this.release_function);
@@ -175,8 +179,8 @@ class SquaresTile {
     this.pos_y = e.pageY - this.old_y;
     if (!this.type.includes("h")) this.pos_x = 0;
     if (!this.type.includes("v")) this.pos_y = 0;
-    this.object.style.left = `${this.pos_x}px`;
-    this.object.style.top = `${this.pos_y}px`;
+    this.block.style.left = `${this.pos_x}px`;
+    this.block.style.top = `${this.pos_y}px`;
   }
 
   release(e) {
@@ -190,21 +194,21 @@ class SquaresTile {
       let new_x = (this.pos_x - (this.pos_x % 48)) / 48;
       let new_y = (this.pos_y - (this.pos_y % 48)) / 48;
       if (!(new_x < 1 && new_x > -1 && new_y < 1 && new_y > -1)) this.onPositionChange(new_x, new_y);
-  
+
       this.grabbed = false;
       this.pos_x = 0;
       this.pos_y = 0;
-      this.object.style.left = `${this.pos_x}px`;
-      this.object.style.top = `${this.pos_y}px`;
-      
-      this.animation_timeout = setTimeout(() => this.object.style.zIndex = null, 500);
-      this.object.style.transition = null;
+      this.block.style.left = `${this.pos_x}px`;
+      this.block.style.top = `${this.pos_y}px`;
+
+      this.animation_timeout = setTimeout(() => (this.block.style.zIndex = null), 500);
+      this.block.style.transition = null;
     }
   }
 
   blockActions() {
     removeEventListener("mousemove", this.move_function);
     removeEventListener("mouseup", this.release_function);
-    if (!this.no_connections) this.object.removeEventListener("mousedown", this.grab_function);
+    if (!this.no_connections) this.block.removeEventListener("mousedown", this.grab_function);
   }
 }

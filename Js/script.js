@@ -115,43 +115,43 @@ const page_history = new PageHistory();
 /* ------------------------ Squares level generation ------------------------ */
 function generateSquaresLevel(width, height) {
   let level = [];
-  for (let i = 0; i < height + 2; i++) {
+  for (let i = 0; i < height; i++) {
     level.push([]);
-    for (let j = 0; j < width + 2; j++) level[i].push([0, 0, 0, 0, "n"]);
+    for (let j = 0; j < width; j++) level[i].push([0, 0, 0, 0, "n"]);
   }
 
-  let pos_x = randomInt(1, width - 2);
-  let pos_y = randomInt(1, height - 2);
-  for (let i = 1; i <= height; i++) {
-    for (let j = 1; j <= width; j++) {
+  let pos_x = randomInt(0, width);
+  let pos_y = randomInt(0, height);
+  for (let i = 0; i < height; i++) {
+    for (let j = 0; j < width; j++) {
       const side = randomInt(1, 4);
       const type = randomInt(1, 8);
       const new_connection = randomInt(1, 4);
 
       switch (side) {
         case 1:
-          if (pos_y - 1 < 1) pos_y += 1;
+          if (pos_y - 1 < 0) pos_y += 1;
           level[pos_y - 1][pos_x][(side + 1) % 4] = new_connection;
           level[pos_y][pos_x][side - 1] = new_connection;
           pos_y -= 1;
           break;
 
         case 2:
-          if (pos_x + 1 > width) pos_x -= 1;
+          if (pos_x + 1 >= width) pos_x -= 1;
           level[pos_y][pos_x + 1][(side + 1) % 4] = new_connection;
           level[pos_y][pos_x][side - 1] = new_connection;
           pos_x += 1;
           break;
 
         case 3:
-          if (pos_y + 1 > height) pos_y -= 1;
+          if (pos_y + 1 >= height) pos_y -= 1;
           level[pos_y + 1][pos_x][(side + 1) % 4] = new_connection;
           level[pos_y][pos_x][side - 1] = new_connection;
           pos_y += 1;
           break;
 
         case 4:
-          if (pos_x - 1 < 1) pos_x += 1;
+          if (pos_x - 1 < 0) pos_x += 1;
           level[pos_y][pos_x - 1][(side + 1) % 4] = new_connection;
           level[pos_y][pos_x][side - 1] = new_connection;
           pos_x -= 1;

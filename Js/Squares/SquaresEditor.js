@@ -66,11 +66,12 @@ class SquaresEditor {
     const left = this.left_connections_input.value;
 
     this.preview.innerHTML = "";
+    this.preview.dataset.data = `${top};${right};${bottom};${left};${type}`;
+    
     if (top == 0 && right == 0 && bottom == 0 && left == 0) return;
 
-    const object = this.createObject(type, top, right, bottom, left);
-    this.preview.dataset.data = `${top};${right};${bottom};${left};${type}`;
-    this.preview.appendChild(object);
+    const block = this.createBlock(type, top, right, bottom, left);
+    this.preview.appendChild(block);
   }
 
   rotatePreviewBlock() {
@@ -150,8 +151,8 @@ class SquaresEditor {
     tile.innerHTML = "";
 
     this.level[i][j] = [+data[0], +data[1], +data[2], +data[3], data[4]];
-    const object = this.createObject(data[4], data[0], data[1], data[2], data[3]);
-    tile.appendChild(object);
+    const block = this.createBlock(data[4], data[0], data[1], data[2], data[3]);
+    tile.appendChild(block);
   }
 
   dropOnTile(evt, i, j) {
@@ -179,15 +180,15 @@ class SquaresEditor {
     }
   }
 
-  createObject(type, top, right, bottom, left) {
-    const object = document.createElement("div");
-    object.className = `object ${type}`;
-    object.style.animation = "none";
+  createBlock(type, top, right, bottom, left) {
+    const block = document.createElement("div");
+    block.className = `block ${type}`;
+    block.style.animation = "none";
 
     const shadow = document.createElement("div");
     shadow.className = "shadow";
     shadow.style.animation = "none";
-    object.appendChild(shadow);
+    block.appendChild(shadow);
 
     const mark = document.createElement("div");
     mark.className = "mark";
@@ -207,7 +208,7 @@ class SquaresEditor {
     }
 
     mark.appendChild(svg);
-    object.appendChild(mark);
+    block.appendChild(mark);
 
     const connections_container = document.createElement("div");
     connections_container.className = "connections";
@@ -217,9 +218,9 @@ class SquaresEditor {
     connections_container.appendChild(this.createConnections("bottom", bottom));
     connections_container.appendChild(this.createConnections("left", left));
 
-    object.appendChild(connections_container);
+    block.appendChild(connections_container);
 
-    return object;
+    return block;
   }
 
   createConnections(side, connections) {

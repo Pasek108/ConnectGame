@@ -1,38 +1,34 @@
 .editor {
   margin: 2rem;
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
 }
-
 .editor header {
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
   align-items: center;
   justify-content: end;
   width: 100%;
   max-width: 100vw;
   margin-bottom: 1rem;
 }
-
 .editor header .title {
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
-
 .editor header .modes {
   display: flex;
-  flex-flow: row;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   width: 100%;
   max-width: 100vw;
 }
-
 .editor header .modes .mode {
   display: flex;
-  flex-flow: row;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   min-width: 5rem;
@@ -45,280 +41,96 @@
   cursor: pointer;
   transition: background-color 0.15s, box-shadow 0.15s;
 }
-
 .editor header .modes .mode:hover {
   background-color: #201c48;
   box-shadow: none;
 }
-
 .editor header .modes .mode.active {
   background-color: #e57200;
 }
-
 .editor header .modes .mode.active:hover {
   background-color: #924901;
   box-shadow: none;
 }
-
 .editor header .modes .mode.disabled {
   background-color: #404055;
   pointer-events: none;
 }
-
 .editor .edit-screen > div {
   display: none;
 }
-
 .editor .edit-screen > div.active {
   display: flex;
-  flex-flow: row;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 }
-
 .editor .edit-screen .grid-panel {
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
 .editor .edit-screen .grid-panel .size {
   display: flex;
-  flex-flow: row;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   margin-bottom: 0.5rem;
 }
-
 .editor .edit-screen .grid-panel .size input {
   width: 20rem;
   margin-left: 0.5rem;
 }
-
 .editor .edit-screen .elements-panel {
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   height: 100%;
 }
-
 .editor .edit-screen .elements-panel .type {
   display: flex;
-  flex-flow: row;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
 }
-
 .editor .edit-screen .elements-panel .type select {
   width: 13rem;
   padding: 0.25rem;
   margin-left: 0.5rem;
 }
-
-.editor .edit-screen .elements-panel .connections {
+.editor .edit-screen .elements-panel > .connections {
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 0.5rem;
 }
-
-.editor .edit-screen .elements-panel .connections .title {
+.editor .edit-screen .elements-panel > .connections .title {
   font-size: 1.25rem;
 }
-
-.editor .edit-screen .elements-panel .connections .row {
+.editor .edit-screen .elements-panel > .connections input {
+  width: 4rem;
+  margin-left: 0.5rem;
+}
+.editor .edit-screen .elements-panel > .connections .row {
   display: flex;
-  flex-flow: row;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 }
-
-.editor .edit-screen .elements-panel .connections .row > div {
+.editor .edit-screen .elements-panel > .connections .row > div:not(.preview) {
   display: flex;
   flex-flow: row;
   align-items: center;
   justify-content: space-between;
   width: 8rem;
 }
-
-.editor .edit-screen .elements-panel .connections .row > div:last-child {
+.editor .edit-screen .elements-panel > .connections .row > div:last-child {
   margin-left: 1rem;
 }
-
-.editor .edit-screen .elements-panel .connections input {
-  width: 4rem;
-  margin-left: 0.5rem;
-}
-
-.editor .edit-screen .elements-panel .preview.squares {
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  justify-content: center;
-  width: 6rem;
-  height: 6rem;
+.editor .edit-screen .elements-panel .preview {
   margin-top: 1rem;
-  background-color: rgb(103, 129, 185);
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object {
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  justify-content: center;
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: 0.4rem;
-  position: relative;
-  transform: rotate(0deg);
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object.n {
-  background-color: red;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object.r {
-  background-color: #4c9efb;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object.h,
-.editor .edit-screen .elements-panel .preview.squares .object.v {
-  background-color: #8f00cc;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object.vr,
-.editor .edit-screen .elements-panel .preview.squares .object.hr {
-  background-color: #794d1e;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object.vh {
-  background-color: #29ac15;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object.vhr {
-  background-color: #ff8400;
-}
-
-/* ----------- object shadow ----------- */
-.editor .edit-screen .elements-panel .preview.squares .object .shadow {
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: 0.4rem;
-  background-color: rgb(30, 30, 30);
-  position: absolute;
-  z-index: -1;
-  transform: translate(0, 0.2rem);
-}
-
-/* ----------- object mark ----------- */
-.editor .edit-screen .elements-panel .preview.squares .object .mark {
-  width: 3rem;
-  height: 3rem;
-  position: absolute;
-  z-index: 1;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object .mark svg > * {
-  fill: white;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object .mark svg circle {
-  stroke-width: 0.25rem;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object.n .mark svg circle {
-  stroke: red;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object.r .mark svg circle {
-  stroke: #4c9efb;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object.vr,
-.editor .edit-screen .elements-panel .preview.squares .object.hr .mark svg circle {
-  stroke: #794d1e;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object.vhr .mark svg circle {
-  stroke: #ff8400;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object .mark svg polygon {
-  stroke-width: 0.5rem;
-  stroke: white;
-  stroke-linejoin: round;
-}
-
-/* ----------- object connections ----------- */
-.editor .edit-screen .elements-panel .preview.squares .object .connections {
-  width: 100%;
-  height: 100%;
-  border-radius: 0.4rem;
-  background-color: inherit;
-  border: 2px solid rgb(30, 30, 30);
-  position: relative;
-  z-index: initial;
-  margin-top: 0;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object .connections > div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  z-index: -1;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object .bottom,
-.editor .edit-screen .elements-panel .preview.squares .object .top {
-  flex-flow: row;
-  width: 4.5rem;
-  height: 2rem;
-  left: -2px;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object .bottom {
-  bottom: calc(-0.95rem - 1px);
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object .top {
-  top: -0.95rem;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .connection {
-  margin: 0.25rem;
-  background-color: white;
-  border: 2px solid black;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .bottom div,
-.editor .edit-screen .elements-panel .preview.squares .top div {
-  width: 0.5rem;
-  height: 2rem;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object .left,
-.editor .edit-screen .elements-panel .preview.squares .object .right {
-  flex-flow: column;
-  width: 2rem;
-  height: 4.5rem;
-  top: -2px;
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object .left {
-  left: calc(-0.95rem - 0.5px);
-}
-
-.editor .edit-screen .elements-panel .preview.squares .object .right {
-  right: calc(-0.95rem - 1px);
-}
-
-.editor .edit-screen .elements-panel .preview.squares .connections .left div,
-.editor .edit-screen .elements-panel .preview.squares .connections .right div {
-  width: 2rem;
-  height: 0.5rem;
 }

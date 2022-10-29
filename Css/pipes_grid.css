@@ -1,0 +1,81 @@
+.grid.pipes {
+  display: grid;
+  align-content: space-between;
+  justify-content: space-between;
+  background-color: #cecefe;
+  margin: 0 2rem 2rem 2rem;
+}
+.grid.pipes .tile,
+.preview.pipes {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 6rem;
+  background-color: #2c2e34;
+}
+.grid.pipes .tile .block,
+.preview.pipes .block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 6rem;
+  transition: transform 0.25s linear;
+  transform: rotate(0);
+}
+.grid.pipes .tile .block .mark,
+.preview.pipes .block .mark {
+  width: 6rem;
+  height: 6rem;
+  position: absolute;
+  z-index: 1;
+  transition: transform 0.25s linear;
+  animation: 0.5s linear forwards animate_tile;
+}
+.grid.pipes .tile .block .mark svg,
+.preview.pipes .block .mark svg {
+  position: absolute;
+}
+.grid.pipes .tile .block .mark svg rect,
+.preview.pipes .block .mark svg rect {
+  fill: white;
+  stroke-width: 1px;
+}
+.grid.pipes .tile .block.connected .mark svg:last-child rect:last-child,
+.preview.pipes .block.connected .mark svg:last-child rect:last-child {
+  fill: #fbb400 !important;
+}
+.grid.pipes .empty {
+  background-color: black;
+}
+.grid.pipes .control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #1d3479;
+  cursor: pointer;
+}
+.grid.pipes .control:hover::after {
+  color: red;
+}
+.grid.pipes .control::after {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 2rem;
+}
+.grid.pipes .control.down::after {
+  content: "\f0d7";
+}
+.grid.pipes .control.up::after {
+  content: "\f0d8";
+}
+.grid.pipes .control.left::after {
+  content: "\f0d9";
+}
+.grid.pipes .control.right::after {
+  content: "\f0da";
+}
