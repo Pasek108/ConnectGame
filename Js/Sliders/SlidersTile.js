@@ -53,8 +53,4 @@ class SlidersTile {
     if (is_connected) this.block.className = "block connected";
     else this.block.className = "block";
   }
-
-  blockActions() {
-    this.block.removeEventListener("click", this.click_function);
-  }
 }

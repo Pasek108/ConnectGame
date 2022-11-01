@@ -16,26 +16,22 @@ class SlidersGrid {
     this.container.style.gridTemplateColumns = `repeat(${this.width + 2}, 6rem)`;
     this.container.style.gridTemplateRows = `repeat(${this.height + 2}, 6rem)`;
 
+    this.controls = [];
     this.tiles = [];
     const mid = ((this.height + 2) / 2) | 0;
+
     for (let i = 0; i < this.height + 2; i++) {
       this.tiles.push([]);
 
       for (let j = 0; j < this.width + 2; j++) {
         const control_tile = document.createElement("div");
-        if ((i === 0 || i === this.height + 1) && (j === 0 || j === this.width + 1)) {
-          control_tile.className = "empty";
-          this.container.appendChild(control_tile);
-          continue;
-        }
+        let is_control_tile = false;
 
-        if ((i === 0 || i === this.height + 1) && j === mid) {
-          control_tile.className = "empty";
-          this.container.appendChild(control_tile);
-          continue;
-        }
-
-        if ((j === 0 || j === this.width + 1) && i === mid) {
+        if (
+          ((i === 0 || i === this.height + 1) && (j === 0 || j === this.width + 1)) ||
+          ((i === 0 || i === this.height + 1) && j === mid) ||
+          ((j === 0 || j === this.width + 1) && i === mid)
+        ) {
           control_tile.className = "empty";
           this.container.appendChild(control_tile);
           continue;
@@ -43,20 +39,30 @@ class SlidersGrid {
 
         if (i === 0) {
           control_tile.className = "control up";
-          this.container.appendChild(control_tile);
+          control_tile.addEventListener("click", () => this.moveColumnTop(j - 1));
+          is_control_tile = true;
         } else if (j === 0) {
           control_tile.className = "control left";
-          this.container.appendChild(control_tile);
+          control_tile.addEventListener("click", () => this.moveRowLeft(i - 1));
+          is_control_tile = true;
         } else if (i === this.height + 1) {
           control_tile.className = "control down";
-          this.container.appendChild(control_tile);
+          control_tile.addEventListener("click", () => this.moveColumnBottom(j - 1));
+          is_control_tile = true;
         } else if (j === this.width + 1) {
           control_tile.className = "control right";
-          this.container.appendChild(control_tile);
-        } else {
-          this.tiles[i - 1].push(new SlidersTile(this.level[i - 1][j - 1]));
-          this.container.appendChild(this.tiles[i - 1][j - 1].container);
+          control_tile.addEventListener("click", () => this.moveRowRight(i - 1));
+          is_control_tile = true;
         }
+
+        if (is_control_tile) {
+          this.container.appendChild(control_tile);
+          this.controls.push(control_tile);
+          continue;
+        }
+
+        this.tiles[i - 1].push(new SlidersTile(this.level[i - 1][j - 1]));
+        this.container.appendChild(this.tiles[i - 1][j - 1].container);
       }
     }
 
@@ -86,11 +92,94 @@ class SlidersGrid {
 
   shuffleLevel() {
     for (let i = 0; i < this.height; i++) {
-      for (let j = 0; j < this.width; j++) {
-        const random_rotates = randomInt(0, 4);
-        for (let k = 0; k < random_rotates; k++) this.rotateConnections(i, j);
-      }
+      for (let j = 0; j < this.width; j++) {}
     }
+  }
+
+  moveRowLeft(i) {
+    let temp_tile = this.tiles[i][0];
+    let temp_level = this.level[i][0];
+
+    this.container.insertBefore(this.tiles[i][0].container, this.tiles[i][this.width - 1].container);
+    this.container.insertBefore(this.tiles[i][this.width - 1].container, this.tiles[i][0].container);
+
+    for (let j = 0; j < this.width - 1; j++) {
+      this.tiles[i][j] = this.tiles[i][j + 1];
+      this.level[i][j] = this.level[i][j + 1];
+    }
+
+    this.tiles[i][this.width - 1] = temp_tile;
+    this.level[i][this.width - 1] = temp_level;
+
+    this.tileClicked();
+  }
+
+  moveRowRight(i) {
+    let temp_tile = this.tiles[i][this.width - 1];
+    let temp_level = this.level[i][this.width - 1];
+
+    this.container.insertBefore(this.tiles[i][this.width - 1].container, this.tiles[i][0].container);
+
+    for (let j = this.width - 1; j > 0; j--) {
+      this.tiles[i][j] = this.tiles[i][j - 1];
+      this.level[i][j] = this.level[i][j - 1];
+    }
+
+    this.tiles[i][0] = temp_tile;
+    this.level[i][0] = temp_level;
+
+    this.tileClicked();
+  }
+
+  swap(node1, node2) {
+    const afterNode2 = node2.nextElementSibling;
+    const parent = node2.parentNode;
+    node1.replaceWith(node2);
+    parent.insertBefore(node1, afterNode2);
+  }
+
+  moveColumnTop(j) {
+    let temp_tile = this.tiles[0][j];
+    let temp_level = this.level[0][j];
+    let temp_node = this.tiles[this.height - 1][j].container;
+
+    for (let i = this.height - 1; i > 0; i--) {
+      this.swap(this.tiles[i][j].container, this.tiles[i - 1][j].container);
+    }
+
+    this.swap(this.tiles[this.height - 1][j].container, temp_node);
+
+    for (let i = 0; i < this.height - 1; i++) {
+      this.tiles[i][j] = this.tiles[i + 1][j];
+      this.level[i][j] = this.level[i + 1][j];
+    }
+
+    this.tiles[this.height - 1][j] = temp_tile;
+    this.level[this.height - 1][j] = temp_level;
+
+    this.tileClicked();
+  }
+
+  moveColumnBottom(j) {
+    let temp_tile = this.tiles[this.height - 1][j];
+    let temp_level = this.level[this.height - 1][j];
+    let temp_node = this.tiles[0][j].container;
+
+    for (let i = 0; i < this.height - 1; i++) {
+      this.swap(this.tiles[i][j].container, this.tiles[i + 1][j].container);
+    }
+
+    this.swap(this.tiles[0][j].container, temp_node);
+
+    for (let i = this.height - 1; i > 0; i--) {
+      this.tiles[i][j] = this.tiles[i - 1][j];
+      this.level[i][j] = this.level[i - 1][j];
+    }
+
+    this.tiles[0][j] = temp_tile;
+    this.level[0][j] = temp_level;
+
+    this.tileClicked();
   }
 
   checkCorrectConnections(x, y) {
@@ -173,10 +262,8 @@ class SlidersGrid {
   }
 
   win() {
-    for (let i = 0; i < this.height; i++) {
-      for (let j = 0; j < this.width; j++) {
-        this.tiles[i][j].blockActions();
-      }
+    for (let i = 0; i < this.controls.length; i++) {
+      this.controls[i].parentNode.replaceChild(this.controls[i].cloneNode(true), this.controls[i]);
     }
 
     setTimeout(fireConfetti, 100);
