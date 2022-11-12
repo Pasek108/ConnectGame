@@ -11,6 +11,13 @@ class BridgesEditor {
     this.grid_size = 4;
     this.size_input = this.container.querySelector(".size input");
     this.size_input.addEventListener("input", this.changeGridSize.bind(this));
+
+    this.tile_size = this.container.querySelector(".tile-size");
+    this.tile_size.addEventListener("input", this.setGridSize.bind(this));
+    this.tile_size.value = 6;
+
+    this.generate = this.container.querySelector(".generate");
+    this.generate.addEventListener("click", this.generateLevel.bind(this));
   }
 
   hide() {
@@ -30,18 +37,32 @@ class BridgesEditor {
     this.createIslands();
   }
 
+  generateLevel() {
+    this.level = generateBridgesLevel(this.grid_size, this.grid_size);
+    
+    this.islands = [];
+
+    for (let i = 0; i <= this.grid_size; i++) {
+      this.islands.push([]);
+
+      for (let j = 0; j <= this.grid_size; j++) {
+        this.islands[i].push(new BridgesIsland(this.level[i][j], () => this.addAdjacentIslands(), (value) => this.level[i][j] = value));
+        this.tiles[i][j].innerHTML = "";
+        this.tiles[i][j].appendChild(this.islands[i][j].container);
+      }
+    }
+  }
+
   changeGridSize() {
     this.grid_size = +this.size_input.value;
+    this.islands = null;
     this.createGrid();
     this.createIslands();
   }
 
   createGrid() {
     this.grid.innerHTML = "";
-    this.grid.style.width = `${this.grid_size * 6 + 3}rem`;
-    this.grid.style.height = `${this.grid_size * 6 + 3}rem`;
-    this.grid.style.gridTemplateColumns = `repeat(${this.grid_size + 1}, 6rem)`;
-    this.grid.style.gridTemplateRows = `repeat(${this.grid_size + 1}, 6rem)`;
+    this.setGridSize()
 
     this.tiles = [];
 
@@ -57,6 +78,25 @@ class BridgesEditor {
         if (i === this.grid_size) tile.style.height = "0px";
 
         this.tiles[i].push(tile);
+      }
+    }
+  }
+
+  setGridSize() {
+    this.grid.className = `grid bridges size-${this.tile_size.value}`;
+    this.grid.style.width = `${(this.grid_size + 1 - 1) * this.tile_size.value + 3}rem`;
+    this.grid.style.height = `${(this.grid_size + 1 - 1) * this.tile_size.value + 3}rem`;
+    this.grid.style.gridTemplateColumns = `repeat(${this.grid_size + 1}, ${this.tile_size.value}rem)`;
+    this.grid.style.gridTemplateRows = `repeat(${this.grid_size + 1}, ${this.tile_size.value}rem)`;
+ 
+    if (this.islands == null) return;
+
+    for (let i = 0; i < this.grid_size; i++) {
+      for (let j = 0; j < this.grid_size; j++) {
+        if (this.islands[i][j] == null) continue;
+
+        const adjacent_islands = this.getAdjacentIslands(i, j);
+        this.startBridge(this.islands[i][j], adjacent_islands);
       }
     }
   }

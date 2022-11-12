@@ -6,7 +6,6 @@ class Editor {
 
     this.bridges_editor = new BridgesEditor();
     this.pipes_editor = new PipesEditor();
-    this.sliders_editor = new SlidersEditor();
     this.squares_editor = new SquaresEditor();
 
     this.edit_screens = this.container.querySelectorAll(".edit-screen > div");
@@ -21,17 +20,15 @@ class Editor {
 
         this.bridges_editor.hide();
         this.pipes_editor.hide();
-        this.sliders_editor.hide();
         this.squares_editor.hide();
 
         /* prettier-ignore */
         switch(i) {
           case 0: this.bridges_editor.load(); break;
           case 1: this.pipes_editor.load(); break;
-          case 2: this.sliders_editor.load(); break;
-          case 3: this.squares_editor.load(); break;
+          case 2: this.squares_editor.load(); break;
+          case 3: break;
           case 4: break;
-          case 5: break;
         }
       });
     }

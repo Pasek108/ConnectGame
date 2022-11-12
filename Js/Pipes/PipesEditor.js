@@ -10,6 +10,13 @@ class PipesEditor {
     this.size_input = this.container.querySelector(".size input");
     this.size_input.addEventListener("input", this.changeGridSize.bind(this));
 
+    this.tile_size = this.container.querySelector(".tile-size");
+    this.tile_size.addEventListener("input", this.setGridSize.bind(this));
+    this.tile_size.value = 6;
+
+    this.generate = this.container.querySelector(".generate");
+    this.generate.addEventListener("click", this.generateLevel.bind(this));
+
     // previews
     this.type_input = this.container.querySelector(".type select");
     this.type_input.addEventListener("input", this.changePreviewType.bind(this));
@@ -50,9 +57,64 @@ class PipesEditor {
     this.resetPreview();
   }
 
+  generateLevel() {
+    this.level = generateLinesLevel(this.grid_size, this.grid_size);
+    
+    for (let i = 0; i < this.grid_size; i++) {
+      for (let j = 0; j < this.grid_size; j++) {
+        const block = this.createBlock(this.level[i][j][4], [this.level[i][j][0], this.level[i][j][1], this.level[i][j][2], this.level[i][j][3]]);
+        this.tiles[i][j].dataset.data = this.level[i][j].join(";");
+        this.tiles[i][j].innerHTML = "";
+        this.tiles[i][j].appendChild(block);
+      }
+    }
+  }
+
   changeGridSize() {
     this.grid_size = this.size_input.value;
     this.createGrid();
+  }
+
+  createGrid() {
+    this.grid.innerHTML = "";
+    this.setGridSize();
+
+    this.tiles = [];
+    this.level = [];
+    for (let i = 0; i < this.grid_size; i++) {
+      this.level.push([]);
+      this.tiles.push([]);
+
+      for (let j = 0; j < this.grid_size; j++) {
+        this.level[i].push([0, 0, 0, 0, "c"]);
+
+        const tile = document.createElement("div");
+        tile.className = "tile";
+        tile.draggable = "true";
+        tile.dataset.data = "0;0;0;0;c";
+        tile.addEventListener("click", (evt) => this.rotateTile(evt, i, j));
+        tile.addEventListener("dragstart", () => (this.dragged = tile));
+        tile.addEventListener("dragover", (evt) => evt.preventDefault());
+        tile.addEventListener("drop", (evt) => this.dropOnTile(evt, i, j));
+
+        this.grid.appendChild(tile);
+        this.tiles[i].push(tile);
+      }
+    }
+  }
+
+  setGridSize() {
+    for (let i = 0; i < this.previews.length; i++) {
+      this.previews[i].className = `preview pipes size-${this.tile_size.value}`;
+      this.previews[i].style.width = `${this.tile_size.value}rem`;
+      this.previews[i].style.height = `${this.tile_size.value}rem`;
+    }
+
+    this.grid.className = `grid pipes size-${this.tile_size.value}`;
+    this.grid.style.width = `${this.grid_size * this.tile_size.value + (this.grid_size - 1) * 0.1}rem`;
+    this.grid.style.height = `${this.grid_size * this.tile_size.value + (this.grid_size - 1) * 0.1}rem`;
+    this.grid.style.gridTemplateColumns = `repeat(${this.grid_size}, ${this.tile_size.value}rem)`;
+    this.grid.style.gridTemplateRows = `repeat(${this.grid_size}, ${this.tile_size.value}rem)`;
   }
 
   changePreviewType() {
@@ -98,34 +160,6 @@ class PipesEditor {
   resetPreview() {
     this.type_input.value = "c";
     this.changePreviewType();
-  }
-
-  createGrid() {
-    this.grid.innerHTML = "";
-    this.grid.style.width = `${this.grid_size * 6 + (this.grid_size - 1) * 0.1}rem`;
-    this.grid.style.height = `${this.grid_size * 6 + (this.grid_size - 1) * 0.1}rem`;
-    this.grid.style.gridTemplateColumns = `repeat(${this.grid_size}, 6rem)`;
-    this.grid.style.gridTemplateRows = `repeat(${this.grid_size}, 6rem)`;
-
-    this.level = [];
-    for (let i = 0; i < this.grid_size; i++) {
-      this.level.push([]);
-
-      for (let j = 0; j < this.grid_size; j++) {
-        this.level[i].push([0, 0, 0, 0, "c"]);
-
-        const tile = document.createElement("div");
-        tile.className = "tile";
-        tile.draggable = "true";
-        tile.dataset.data = "0;0;0;0;c";
-        tile.addEventListener("click", (evt) => this.rotateTile(evt, i, j));
-        tile.addEventListener("dragstart", () => (this.dragged = tile));
-        tile.addEventListener("dragover", (evt) => evt.preventDefault());
-        tile.addEventListener("drop", (evt) => this.dropOnTile(evt, i, j));
-
-        this.grid.appendChild(tile);
-      }
-    }
   }
 
   rotateTile(evt, i, j) {

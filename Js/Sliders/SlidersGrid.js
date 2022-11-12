@@ -1,20 +1,16 @@
 "use strict";
 
 class SlidersGrid {
-  constructor(level, unlockNextLevel) {
+  constructor(tile_size, level, unlockNextLevel) {
     this.unlockNextLevel = unlockNextLevel;
     this.height = level.length;
     this.width = level[0].length;
     this.level = this.copyLevel(level);
-    //for (let i = 0; i < 100; i++) this.shuffleLevel();
+    for (let i = 0; i < 100; i++) this.shuffleLevel();
 
     this.container = document.querySelector(".grid");
-    this.container.className = "grid pipes";
     this.container.innerHTML = "";
-    this.container.style.width = `${(this.width + 2) * 6 + (this.width + 2 - 1) * 0.1}rem`;
-    this.container.style.height = `${(this.height + 2) * 6 + (this.height + 2 - 1) * 0.1}rem`;
-    this.container.style.gridTemplateColumns = `repeat(${this.width + 2}, 6rem)`;
-    this.container.style.gridTemplateRows = `repeat(${this.height + 2}, 6rem)`;
+    this.setGridSize(tile_size);
 
     this.controls = [];
     this.tiles = [];
@@ -76,6 +72,14 @@ class SlidersGrid {
     }
   }
 
+  setGridSize(size) {
+    this.container.className = `grid pipes size-${size}`;
+    this.container.style.width = `${(this.width + 2) * size + (this.width + 2 - 1) * 0.1}rem`;
+    this.container.style.height = `${(this.height + 2) * size + (this.height + 2 - 1) * 0.1}rem`;
+    this.container.style.gridTemplateColumns = `repeat(${this.width + 2}, ${size}rem)`;
+    this.container.style.gridTemplateRows = `repeat(${this.height + 2}, ${size}rem)`;
+  }
+
   copyLevel(level) {
     const level_copy = [];
 
@@ -91,8 +95,65 @@ class SlidersGrid {
   }
 
   shuffleLevel() {
-    for (let i = 0; i < this.height; i++) {
-      for (let j = 0; j < this.width; j++) {}
+    const row_or_column = randomInt(0, 1); // 0 - row, 1 - column
+    const side = randomInt(0, 1); // 0 - left, top, 1 - right, bottom
+    const row_or_column_id = randomInt(0, this.width - 1);
+    const shift = randomInt(1, this.width - 1);
+
+    const center = (this.width / 2) | 0;
+    if (+row_or_column_id == +center) return;
+
+    if (row_or_column === 1 && side === 1) this.shiftLevelColumnToBottom(row_or_column_id, shift);
+    else if (row_or_column === 1 && side === 0) this.shiftLevelColumnToTop(row_or_column_id, shift);
+    else if (row_or_column === 0 && side === 1) this.shiftLevelRowToRight(row_or_column_id, shift);
+    else if (row_or_column === 0 && side === 0) this.shiftLevelRowToLeft(row_or_column_id, shift);
+  }
+
+  shiftLevelColumnToBottom(column_id, shift) {
+    for (let k = 0; k < shift; k++) {
+      let temp_level = this.level[this.height - 1][column_id];
+
+      for (let i = this.height - 1; i > 0; i--) {
+        this.level[i][column_id] = this.level[i - 1][column_id];
+      }
+
+      this.level[0][column_id] = temp_level;
+    }
+  }
+
+  shiftLevelColumnToTop(column_id, shift) {
+    for (let k = 0; k < shift; k++) {
+      let temp_level = this.level[0][column_id];
+
+      for (let i = 0; i < this.height - 1; i++) {
+        this.level[i][column_id] = this.level[i + 1][column_id];
+      }
+
+      this.level[this.height - 1][column_id] = temp_level;
+    }
+  }
+
+  shiftLevelRowToRight(row_id, shift) {
+    for (let k = 0; k < shift; k++) {
+      let temp_level = this.level[row_id][this.width - 1];
+
+      for (let j = this.width - 1; j > 0; j--) {
+        this.level[row_id][j] = this.level[row_id][j - 1];
+      }
+
+      this.level[row_id][0] = temp_level;
+    }
+  }
+
+  shiftLevelRowToLeft(row_id, shift) {
+    for (let k = 0; k < shift; k++) {
+      let temp_level = this.level[row_id][0];
+
+      for (let j = 0; j < this.width - 1; j++) {
+        this.level[row_id][j] = this.level[row_id][j + 1];
+      }
+
+      this.level[row_id][this.width - 1] = temp_level;
     }
   }
 

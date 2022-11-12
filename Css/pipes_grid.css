@@ -3,7 +3,6 @@
   align-content: space-between;
   justify-content: space-between;
   background-color: #cecefe;
-  margin: 0 2rem 2rem 2rem;
 }
 .grid.pipes .tile,
 .preview.pipes {
@@ -11,8 +10,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 6rem;
-  height: 6rem;
+  width: 100%;
+  height: 100%;
   background-color: #2c2e34;
 }
 .grid.pipes .tile .block,
@@ -21,15 +20,15 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 6rem;
-  height: 6rem;
+  width: 100%;
+  height: 100%;
   transition: transform 0.25s linear;
   transform: rotate(0);
 }
 .grid.pipes .tile .block .mark,
 .preview.pipes .block .mark {
-  width: 6rem;
-  height: 6rem;
+  width: 100%;
+  height: 100%;
   position: absolute;
   z-index: 1;
   transition: transform 0.25s linear;
@@ -51,6 +50,18 @@
 .grid.pipes .empty {
   background-color: black;
 }
+.grid.pipes.size-3 .control::after {
+  font-size: 1rem;
+}
+.grid.pipes.size-4 .control::after {
+  font-size: 1.3rem;
+}
+.grid.pipes.size-5 .control::after {
+  font-size: 1.6rem;
+}
+.grid.pipes.size-6 .control::after {
+  font-size: 2rem;
+}
 .grid.pipes .control {
   display: flex;
   flex-direction: row;
@@ -65,7 +76,6 @@
 .grid.pipes .control::after {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  font-size: 2rem;
 }
 .grid.pipes .control.down::after {
   content: "\f0d7";

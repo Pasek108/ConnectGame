@@ -48,6 +48,7 @@
     header {
       position: relative;
       z-index: -1;
+      .flex(column, center, end);
       width: 70%;
       padding-top: 1rem;
       padding-bottom: 2rem;
@@ -65,10 +66,6 @@
       right: 1rem;
       padding: 1rem;
       cursor: pointer;
-
-      &:hover {
-        color: #b4b4b4;
-      }
     }
 
     .wrapper {
@@ -99,59 +96,67 @@
     }
   }
 
-  header {
+  &>header {
     .flex(column, center, end);
     width: 100%;
     max-width: 100vw;
 
+    .row {
+      .flex(row, center, space-around);
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
     .title {
       font-size: 2.5rem;
-      margin: 0 3rem 1rem 3rem;
+      margin: 0 3rem;
 
       span {
         margin-right: 1.5rem;
       }
     }
-  
-    .buttons {
-      .flex(row, center, center);
-      width: 100%;
-      max-width: 100vw;
-    }
-  
-    .prev,
-    .reset,
-    .next {
-      width: 28%;
-      padding: 0 0.5rem;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+
+    i {
+      padding: 1rem;
+      margin-top: 0.6rem;
+      font-size: 2rem;
       cursor: pointer;
+      transition: color 0.5s, transform 0.5s;
+
+      &.disabled {
+        color: #404055;
+        pointer-events: none;
+      }
+
+      &:first-child:hover {
+        color: #fbb400;
+        transform: translateX(-0.5rem);
+      }
+
+      &:last-child:hover {
+        color: #fbb400;
+        transform: translateX(0.5rem);
+      }
     }
-  
-    .prev {
-      text-align: left;
-    }
-  
+
     .reset {
-      text-align: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.5s;
+
+      &:hover {
+        color: #fbb400;
+      }
     }
-  
-    .next {
-      text-align: right;
-    }
-  
-    .prev.disabled,
-    .next.disabled {
-      color: #898989;
-      pointer-events: none;
-    }
-  
-    .prev:not(.disabled):hover,
-    .reset:hover,
-    .next:not(.disabled):hover {
-      text-decoration: underline;
-      color: #fbb400;
+
+    .tile-size {
+      padding: 0.25rem;
+      font-family: "Bree Serif", "Font Awesome 6 Free";
+      cursor: pointer;
+
+      option {
+        font-family: "Bree Serif", "Font Awesome 6 Free";
+      }
     }
   }
 }

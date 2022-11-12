@@ -12,14 +12,18 @@ class Game {
       this.loadGame(this.data.mode, this.data.id, this.data.level - 1);
     });
 
-    this.reset = this.container.querySelector(".reset");
-    this.reset.addEventListener("click", this.resetLevel.bind(this));
-
     this.next = this.container.querySelector(".next");
     this.next.addEventListener("click", () => {
       if (this.data.level >= 199) return;
       this.loadGame(this.data.mode, this.data.id, this.data.level + 1);
     });
+
+    this.reset = this.container.querySelector(".reset");
+    this.reset.addEventListener("click", this.resetLevel.bind(this));
+
+    this.size = this.container.querySelector(".tile-size");
+    this.size.addEventListener("input", this.changeSize.bind(this));
+    this.size.value = 6;
 
     this.rules = this.container.querySelector(".rules");
     this.rules_modes = this.rules.querySelectorAll(".wrapper > div");
@@ -48,14 +52,13 @@ class Game {
       level: level_id,
     };
 
-    const completed_levels = modes_info[mode_name][mode_id - 1].completed_levels;
-    const title = modes_info[mode_name][mode_id - 1][document.body.lang];
+    const completed_levels = modes_info[mode_name].completed_levels;
+    const title = modes_info[mode_name][document.body.lang];
 
     this.rules.classList.add("hidden");
     for (let i = 0; i < this.rules_modes.length; i++) this.rules_modes[i].classList.add("hidden");
 
-    if (mode_name === "lines") this.rules_modes[mode_id - 1].classList.remove("hidden");
-    else if (mode_name === "squares") this.rules_modes[mode_id + 2].classList.remove("hidden");
+    this.rules_modes[mode_id].classList.remove("hidden");
 
     this.title.innerHTML = `<span>${title.split(" ")[0]}</span>${level_id + 1} / 200`;
 
@@ -67,23 +70,21 @@ class Game {
 
     this.grid.innerHTML = "";
 
-    if (mode_name === "lines") {
-      // prettier-ignore
-      switch (mode_id) {
-        case 1: new BridgesGrid(bridges_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
-        case 2: new PipesGrid(pipes_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
-        case 3: new SlidersGrid(sliders_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
-      }
-    } else if (mode_name === "squares") {
-      // prettier-ignore
-      switch (mode_id) {
-        case 1: new SquaresGrid(easy_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
-        case 2: new SquaresGrid(normal_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
-        case 3: new SquaresGrid(hard_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
-      }
+    // prettier-ignore
+    switch (mode_id) {
+      case 0: this.game = new BridgesGrid(this.size.value, bridges_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
+      case 1: this.game = new PipesGrid(this.size.value, pipes_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
+      case 2: this.game = new SlidersGrid(this.size.value, sliders_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
+      case 3: this.game = new SquaresGrid(this.size.value, easy_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
+      case 4: this.game = new SquaresGrid(this.size.value, normal_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
+      case 5: this.game = new SquaresGrid(this.size.value, hard_levels[level_id], () => this.unlockNextLevel(mode_name, mode_id, level_id)); break;
     }
 
     this.show();
+  }
+
+  changeSize() {
+    this.game.setGridSize(this.size.value);
   }
 
   resetLevel() {

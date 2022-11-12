@@ -2,7 +2,6 @@
 
 class SlidersTile {
   constructor(connections) {
-    this.parent = parent;
     this.connections = [[], [], [], []];
     this.connections_array = connections;
     this.type = connections[4];

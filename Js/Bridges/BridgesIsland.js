@@ -62,6 +62,7 @@ class BridgesIsland {
     this.blockActions();
     this.bridgeStart = this.onMouseDown.bind(this);
     this.container.addEventListener("mousedown", this.bridgeStart);
+    this.container.addEventListener("touchstart", this.bridgeStart);
   }
 
   onMouseDown() {
@@ -71,6 +72,7 @@ class BridgesIsland {
 
   blockActions() {
     this.container.removeEventListener("mousedown", this.bridgeStart);
+    this.container.removeEventListener("touchstart", this.bridgeStart);
   }
 
   checkConnections() {

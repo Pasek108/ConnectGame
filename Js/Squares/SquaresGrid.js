@@ -1,7 +1,7 @@
 "use strict";
 
 class SquaresGrid {
-  constructor(level, unlockNextLevel) {
+  constructor(tile_size, level, unlockNextLevel) {
     this.unlockNextLevel = unlockNextLevel;
     this.height = level.length;
     this.width = level[0].length;
@@ -9,12 +9,8 @@ class SquaresGrid {
     for (let i = 0; i < 100; i++) this.shuffleLevel();
 
     this.container = document.querySelector(".grid");
-    this.container.className = "grid squares";
     this.container.innerHTML = "";
-    this.container.style.width = `${this.width * 6 + (this.width - 1) * 0.1}rem`;
-    this.container.style.height = `${this.height * 6 + (this.height - 1) * 0.1}rem`;
-    this.container.style.gridTemplateColumns = `repeat(${this.width}, 6rem)`;
-    this.container.style.gridTemplateRows = `repeat(${this.height}, 6rem)`;
+    this.setGridSize(tile_size);
 
     this.tiles = [];
 
@@ -34,6 +30,14 @@ class SquaresGrid {
         this.container.appendChild(this.tiles[i][j].container);
       }
     }
+  }
+
+  setGridSize(size) {
+    this.container.className = `grid squares size-${size}`;
+    this.container.style.width = `${this.width * size + (this.width - 1) * 0.1}rem`;
+    this.container.style.height = `${this.height * size + (this.height - 1) * 0.1}rem`;
+    this.container.style.gridTemplateColumns = `repeat(${this.width}, ${size}rem)`;
+    this.container.style.gridTemplateRows = `repeat(${this.height}, ${size}rem)`;
   }
 
   copyLevel(level) {

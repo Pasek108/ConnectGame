@@ -77,6 +77,7 @@ class SquaresTile {
       this.move_function = this.move.bind(this);
       this.release_function = this.release.bind(this);
       this.block.addEventListener("mousedown", this.grab_function);
+      this.block.addEventListener("touchstart", this.grab_function);
       this.block.style.animation = "none";
       this.shadow.style.animation = "none";
       this.mark.style.animation = "none";
@@ -159,24 +160,38 @@ class SquaresTile {
   }
 
   grab(e) {
-    if (e.button !== 0) return;
+    const touches = e.changedTouches;
+    if (touches == null && e.button !== 0) return;
+
+    let positions = [0, 0];
+
+    if (touches == null) positions = [e.pageY, e.pageX];
+    else positions = [touches[0].pageY, touches[0].pageX];
 
     clearTimeout(this.animation_timeout);
-    this.old_x = e.pageX;
-    this.old_y = e.pageY;
+    this.old_x = positions[1];
+    this.old_y = positions[0];
     this.grabbed = true;
     this.block.style.zIndex = "10";
     this.block.style.transition = "transform 0.25s linear";
 
-    addEventListener("mousemove", this.move_function);
-    addEventListener("mouseup", this.release_function);
+    window.addEventListener("mousemove", this.move_function);
+    window.addEventListener('touchmove', this.move_function);
+    window.addEventListener("mouseup", this.release_function);
+    window.addEventListener("touchend", this.release_function);
   }
 
   move(e) {
     if (!this.grabbed) return;
 
-    this.pos_x = e.pageX - this.old_x;
-    this.pos_y = e.pageY - this.old_y;
+    const touches = e.changedTouches;
+    let positions = [0, 0];
+
+    if (touches == null) positions = [e.pageY, e.pageX];
+    else positions = [touches[0].pageY, touches[0].pageX];
+
+    this.pos_x = positions[1] - this.old_x;
+    this.pos_y = positions[0] - this.old_y;
     if (!this.type.includes("h")) this.pos_x = 0;
     if (!this.type.includes("v")) this.pos_y = 0;
     this.block.style.left = `${this.pos_x}px`;
@@ -184,15 +199,19 @@ class SquaresTile {
   }
 
   release(e) {
-    if (e.button !== 0) return;
+    const touches = e.changedTouches;
+    if (touches == null && e.button !== 0) return;
 
-    removeEventListener("mousemove", this.move_function);
-    removeEventListener("mouseup", this.release_function);
+    window.removeEventListener("mousemove", this.move_function);
+    window.removeEventListener("touchmove", this.move_function);
+    window.removeEventListener("mouseup", this.release_function);
+    window.removeEventListener("touchend", this.release_function);
 
     if (this.pos_x === 0 && this.pos_y === 0) this.click();
     else {
-      let new_x = (this.pos_x - (this.pos_x % 48)) / 48;
-      let new_y = (this.pos_y - (this.pos_y % 48)) / 48;
+      const half_size = this.container.offsetWidth / 2;
+      let new_x = (this.pos_x - (this.pos_x % half_size)) / half_size;
+      let new_y = (this.pos_y - (this.pos_y % half_size)) / half_size;
       if (!(new_x < 1 && new_x > -1 && new_y < 1 && new_y > -1)) this.onPositionChange(new_x, new_y);
 
       this.grabbed = false;
@@ -207,8 +226,10 @@ class SquaresTile {
   }
 
   blockActions() {
-    removeEventListener("mousemove", this.move_function);
-    removeEventListener("mouseup", this.release_function);
+    window.removeEventListener("mousemove", this.move_function);
+    window.removeEventListener("touchmove", this.move_function);
+    window.removeEventListener("mouseup", this.release_function);
+    window.removeEventListener("touchend", this.release_function);
     if (!this.no_connections) this.block.removeEventListener("mousedown", this.grab_function);
   }
 }

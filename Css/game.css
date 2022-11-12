@@ -36,6 +36,10 @@
 .game .rules header {
   position: relative;
   z-index: -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
   width: 70%;
   padding-top: 1rem;
   padding-bottom: 2rem;
@@ -52,9 +56,6 @@
   right: 1rem;
   padding: 1rem;
   cursor: pointer;
-}
-.game .rules .close:hover {
-  color: #b4b4b4;
 }
 .game .rules .wrapper {
   width: 70%;
@@ -82,7 +83,7 @@
   height: 4rem;
   margin-right: 1rem;
 }
-.game header {
+.game > header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,47 +91,53 @@
   width: 100%;
   max-width: 100vw;
 }
-.game header .title {
-  font-size: 2.5rem;
-  margin: 0 3rem 1rem 3rem;
-}
-.game header .title span {
-  margin-right: 1.5rem;
-}
-.game header .buttons {
+.game > header .row {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   width: 100%;
-  max-width: 100vw;
-}
-.game header .prev,
-.game header .reset,
-.game header .next {
-  width: 28%;
-  padding: 0 0.5rem;
-  font-size: 1.5rem;
   margin-bottom: 1rem;
+}
+.game > header .title {
+  font-size: 2.5rem;
+  margin: 0 3rem;
+}
+.game > header .title span {
+  margin-right: 1.5rem;
+}
+.game > header i {
+  padding: 1rem;
+  margin-top: 0.6rem;
+  font-size: 2rem;
   cursor: pointer;
+  transition: color 0.5s, transform 0.5s;
 }
-.game header .prev {
-  text-align: left;
-}
-.game header .reset {
-  text-align: center;
-}
-.game header .next {
-  text-align: right;
-}
-.game header .prev.disabled,
-.game header .next.disabled {
-  color: #898989;
+.game > header i.disabled {
+  color: #404055;
   pointer-events: none;
 }
-.game header .prev:not(.disabled):hover,
-.game header .reset:hover,
-.game header .next:not(.disabled):hover {
-  text-decoration: underline;
+.game > header i:first-child:hover {
   color: #fbb400;
+  transform: translateX(-0.5rem);
+}
+.game > header i:last-child:hover {
+  color: #fbb400;
+  transform: translateX(0.5rem);
+}
+.game > header .reset {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.5s;
+}
+.game > header .reset:hover {
+  color: #fbb400;
+}
+.game > header .tile-size {
+  padding: 0.25rem;
+  font-family: "Bree Serif", "Font Awesome 6 Free";
+  cursor: pointer;
+}
+.game > header .tile-size option {
+  font-family: "Bree Serif", "Font Awesome 6 Free";
 }

@@ -1,19 +1,15 @@
 "use strict";
 
 class BridgesGrid {
-  constructor(level, unlockNextLevel) {
+  constructor(tile_size, level, unlockNextLevel) {
     this.unlockNextLevel = unlockNextLevel;
     this.height = level.length;
     this.width = level[0].length;
     this.level = this.copyLevel(level);
 
     this.container = document.querySelector(".grid");
-    this.container.className = "grid bridges";
     this.container.innerHTML = "";
-    this.container.style.width = `${(this.width - 1) * 6 + 3}rem`;
-    this.container.style.height = `${(this.height - 1) * 6 + 3}rem`;
-    this.container.style.gridTemplateColumns = `repeat(${this.width}, 6rem)`;
-    this.container.style.gridTemplateRows = `repeat(${this.height}, 6rem)`;
+    this.setGridSize(tile_size);
 
     this.createTiles();
     this.createIslands();
@@ -28,7 +24,28 @@ class BridgesGrid {
     }
 
     window.addEventListener("mousemove", this.setClosestBridge.bind(this));
+    window.addEventListener('touchmove', this.setClosestBridge.bind(this));
     window.addEventListener("mouseup", this.addBridge.bind(this));
+    window.addEventListener("touchend", this.addBridge.bind(this));
+  }
+
+  setGridSize(size) {
+    this.container.className = `grid bridges size-${size}`;
+    this.container.style.width = `${(this.width - 1) * size + 3}rem`;
+    this.container.style.height = `${(this.height - 1) * size + 3}rem`;
+    this.container.style.gridTemplateColumns = `repeat(${this.width}, ${size}rem)`;
+    this.container.style.gridTemplateRows = `repeat(${this.height}, ${size}rem)`;
+
+    if (this.islands == null) return;
+
+    for (let i = 0; i < this.height; i++) {
+      for (let j = 0; j < this.width; j++) {
+        if (this.islands[i][j] == null) continue;
+
+        const adjacent_islands = this.getAdjacentIslands(i, j);
+        this.startBridge(this.islands[i][j], adjacent_islands);
+      }
+    }
   }
 
   copyLevel(level) {
@@ -145,11 +162,17 @@ class BridgesGrid {
 
     const current_island_positions = this.current_island.getPosition();
 
+    const touches = e.changedTouches;
+    let positions = [0, 0];
+
+    if (touches == null) positions = [e.pageY, e.pageX];
+    else positions = [touches[0].pageY, touches[0].pageX];
+
     let distances = [
-      Math.abs(current_island_positions.bottom - e.pageY + window.scrollY),
-      Math.abs(current_island_positions.left - e.pageX + window.scrollX),
-      Math.abs(current_island_positions.top - e.pageY + window.scrollY),
-      Math.abs(current_island_positions.right - e.pageX + window.scrollX),
+      Math.abs(current_island_positions.bottom - positions[0] + window.scrollY),
+      Math.abs(current_island_positions.left - positions[1] + window.scrollX),
+      Math.abs(current_island_positions.top - positions[0] + window.scrollY),
+      Math.abs(current_island_positions.right - positions[1] + window.scrollX),
     ];
     let min_dist = distances[0];
     let min_side = 0;
@@ -167,7 +190,7 @@ class BridgesGrid {
     for (let k = 0; k < 4; k++) {
       if (this.current_adjacent_islands[k] == null) continue;
 
-      if (k === min_side && min_dist > 40) {
+      if (k === min_side && min_dist > this.current_island.container.offsetWidth * 1.3) {
         this.target_island = this.current_adjacent_islands[k];
 
         if (this.isNewBridgeCrossing()) {

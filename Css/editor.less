@@ -85,8 +85,30 @@
         margin-bottom: 0.5rem;
 
         input {
-          width: 20rem;
+          width: 10rem;
           margin-left: 0.5rem;
+        }
+
+        .tile-size {
+          padding: 0.25rem;
+          margin-left: 1rem;
+          font-family: "Bree Serif", "Font Awesome 6 Free";
+          cursor: pointer;
+
+          option {
+            font-family: "Bree Serif", "Font Awesome 6 Free";
+          }
+        }
+      }
+
+      .generate {
+        margin-top: 0.6rem;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: color 0.25s;
+
+        &:hover {
+          color: #fbb400;
         }
       }
     }
@@ -94,6 +116,7 @@
     .elements-panel {
       .flex(column, center, flex-start);
       height: 100%;
+      margin-left: 1rem;
 
       .type {
         .flex(row, center, center);
@@ -121,6 +144,10 @@
 
         .row {
           .flex(row, center, center);
+
+          .title {
+            width: unset !important;
+          }
 
           &>div:not(.preview) {
             display: flex;

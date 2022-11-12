@@ -79,8 +79,26 @@
   margin-bottom: 0.5rem;
 }
 .editor .edit-screen .grid-panel .size input {
-  width: 20rem;
+  width: 10rem;
   margin-left: 0.5rem;
+}
+.editor .edit-screen .grid-panel .size .tile-size {
+  padding: 0.25rem;
+  margin-left: 1rem;
+  font-family: "Bree Serif", "Font Awesome 6 Free";
+  cursor: pointer;
+}
+.editor .edit-screen .grid-panel .size .tile-size option {
+  font-family: "Bree Serif", "Font Awesome 6 Free";
+}
+.editor .edit-screen .grid-panel .generate {
+  margin-top: 0.6rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.25s;
+}
+.editor .edit-screen .grid-panel .generate:hover {
+  color: #fbb400;
 }
 .editor .edit-screen .elements-panel {
   display: flex;
@@ -88,6 +106,7 @@
   align-items: center;
   justify-content: flex-start;
   height: 100%;
+  margin-left: 1rem;
 }
 .editor .edit-screen .elements-panel .type {
   display: flex;
@@ -120,6 +139,9 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+.editor .edit-screen .elements-panel > .connections .row .title {
+  width: unset !important;
 }
 .editor .edit-screen .elements-panel > .connections .row > div:not(.preview) {
   display: flex;
