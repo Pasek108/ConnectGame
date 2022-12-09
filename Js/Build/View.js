@@ -1,0 +1,1 @@
+"use strict";class View{static views={menu:null,levels:null,game:null,editor_menu:null};static addView(e,t,i){this.views[t]=e,i===url?history.replaceState({view_name:t},"",url):history.pushState({view_name:t},"",`${i}`)}constructor(e){this.container=document.querySelector(e)}hide(){this.container.classList.add("hidden")}show(){this.container.classList.remove("hidden")}}

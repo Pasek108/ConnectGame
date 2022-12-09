@@ -1,5 +1,19 @@
 "use strict";
 
+/**
+ * Array of levels for Bridges gamemode 
+ * 
+ * Each level is 2D array of numbers that are islands connections
+ * @example
+ * [
+    [2, 2, 0, 1, 0],
+    [0, 0, 3, 0, 1],
+    [0, 0, 0, 0, 2],
+    [0, 0, 4, 0, 0],
+    [4, 5, 5, 0, 3],
+  ]
+ * 
+ */
 const bridges_levels = [
   [
     [2, 2, 0, 1, 0],

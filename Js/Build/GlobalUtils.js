@@ -1,0 +1,1 @@
+"use strict";class GlobalUtils{constructor(){}static randomInt(t,r){return t=Math.ceil(t),r=Math.floor(r),Math.floor(Math.random()*(r-t+1)+t)}static createNewDOM(t="div",r="",a=""){const e=document.createElement(t);return e.className=r,e.innerText=a,e}static copyArray(t){return JSON.parse(JSON.stringify(t))}}

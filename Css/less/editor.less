@@ -1,0 +1,103 @@
+@import url("./helper_classes.less");
+
+.editor {
+  header {
+    .flex(column, center, end);
+    width: 100%;
+    max-width: 100vw;
+    margin-bottom: 1rem;
+
+    .title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .modes {
+      .flex(row, center, center);
+      width: 100%;
+      max-width: 100vw;
+    }
+  }
+
+  .edit-screen {
+    &>div {
+      .flex(row, flex-start, center);
+    }
+
+    .grid-panel {
+      .flex(column, center, center);
+
+      .size {
+        .flex(row, center, center);
+        margin-bottom: 0.5rem;
+
+        input {
+          width: 10rem;
+          margin-left: 0.5rem;
+        }
+      }
+
+      .generate {
+        padding: 0;
+        margin-top: 0.6rem;
+        font-size: 1.2rem;
+      }
+    }
+
+    .elements-panel {
+      .flex(column, center, flex-start);
+      height: 100%;
+      margin-left: 1rem;
+
+      .type {
+        .flex(row, center, center);
+        font-size: 1.25rem;
+
+        select {
+          width: 13rem;
+          padding: 0.25rem;
+          margin-left: 0.5rem;
+        }
+      }
+
+      &>.connections {
+        .flex(column, center, center);
+        margin-top: 0.5rem;
+
+        .title {
+          font-size: 1.25rem;
+        }
+
+        input {
+          width: 4rem;
+          margin-left: 0.5rem;
+        }
+
+        .row {
+          .flex(row, center, center);
+
+          .title {
+            width: unset !important;
+          }
+
+          &>div:not(.preview) {
+            display: flex;
+            flex-flow: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 8rem;
+          }
+
+          &>div:last-child {
+            margin-left: 1rem;
+          }
+        }
+      }
+
+      .preview {
+        margin-top: 1rem;
+      }
+    }
+
+  }
+}

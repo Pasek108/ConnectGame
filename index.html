@@ -10,13 +10,13 @@
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css" />
 
     <!-- ----------------------------- Styles ----------------------------- -->
     <link rel="stylesheet" href="Css/style.css" />
     <link rel="stylesheet" href="Css/menu.css" />
-    <link rel="stylesheet" href="Css/game.css" />
+    <link rel="stylesheet" href="Css/game.css" /> 
     <link rel="stylesheet" href="Css/editor.css" />
     <link rel="stylesheet" href="Css/bridges_grid.css" />
     <link rel="stylesheet" href="Css/pipes_grid.css" />
@@ -26,71 +26,73 @@
   <body lang="en">
     <canvas class="background"></canvas>
 
-    <!-- ---------------------------- Windows ---------------------------- -->
-    <div class="menu">
-      <div class="lang">
+    <!-- ---------------------------- Views ---------------------------- -->
+
+    <!-- ---------------- Menu ---------------- -->
+    <div class="menu view">
+      <button class="lang switch">
         <span class="pl">Język: &nbsp;PL</span>
         <span class="en">Language: &nbsp;EN/US</span>
-      </div>
+      </button>
 
       <div class="title">Connect Game</div>
 
       <div class="options">
-        <div class="option" data-mode="bridges">
+        <button class="menu-option option" data-mode="bridges">
           <svg viewBox="0 0 100 100">
             <polygon points="20 52, 80 52"></polygon>
           </svg>
 
           <span class="pl">Mosty</span>
           <span class="en">Bridges</span>
-        </div>
+        </button>
 
-        <div class="option" data-mode="pipes">
+        <button class="menu-option option" data-mode="pipes">
           <svg viewBox="0 0 100 100">
             <polygon points="20 52, 80 52"></polygon>
           </svg>
 
           <span class="pl">Rury</span>
           <span class="en">Pipes</span>
-        </div>
+        </button>
 
-        <div class="option" data-mode="sliders">
+        <button class="menu-option option" data-mode="sliders">
           <svg viewBox="0 0 100 100">
             <polygon points="20 52, 80 52"></polygon>
           </svg>
 
           <span class="pl">Suwaki</span>
           <span class="en">Sliders</span>
-        </div>
+        </button>
 
-        <div class="option" data-mode="easy">
+        <button class="menu-option option" data-mode="easy">
           <svg viewBox="0 0 100 100">
             <polygon points="20 20, 80 20, 80 80, 20 80"></polygon>
           </svg>
 
           <span class="pl">Łatwy</span>
           <span class="en">Easy</span>
-        </div>
+        </button>
 
-        <div class="option" data-mode="normal">
+        <button class="menu-option option" data-mode="normal">
           <svg viewBox="0 0 100 100">
             <polygon points="20 20, 80 20, 80 80, 20 80"></polygon>
           </svg>
 
           <span class="pl">Średni</span>
           <span class="en">Normal</span>
-        </div>
+        </button>
 
-        <div class="option" data-mode="hard">
+        <button class="menu-option option" data-mode="hard">
           <svg viewBox="0 0 100 100">
             <polygon points="20 20, 80 20, 80 80, 20 80"></polygon>
           </svg>
 
           <span class="pl">Trudny</span>
           <span class="en">Hard</span>
-        </div>
+        </button>
 
-        <div class="option" data-mode="editor">
+        <button class="menu-option option" data-mode="editor">
           <svg viewBox="0 0 100 100">
             <polygon points="5 25, 45 25"></polygon>
             <polygon points="55 5, 95 5, 95 45, 55 45"></polygon>
@@ -100,7 +102,7 @@
 
           <span class="pl">Edytor</span>
           <span class="en">Editor</span>
-        </div>
+        </button>
       </div>
 
       <footer>
@@ -109,56 +111,92 @@
       </footer>
     </div>
 
-    <div class="levels hidden">
+    <!-- ---------------- Levels ---------------- -->
+    <div class="levels view hidden">
       <header>
         <div class="title"></div>
       </header>
     </div>
 
-    <div class="game hidden">
-      <div class="rules-button">
+    <!-- ---------------- Game ---------------- -->
+    <div class="game view hidden">
+      <button class="rules-button switch">
         <span class="pl">Zasady</span>
         <span class="en">Rules</span>
-      </div>
+      </button>
 
       <div class="rules hidden">
         <header>
           <span class="pl">Zasady</span>
           <span class="en">Rules</span>
-          <div class="close"><i class="fa-solid fa-xmark"></i></div>
+          <button class="close only-text"><i class="fa-solid fa-xmark"></i></button>
         </header>
 
         <div class="wrapper">
           <div class="bridges-rules hidden">
             <span class="pl">
               Celem gry jest zbudowanie mostów miedzy wyspami. 
-              Wyspy można łączyć tylko pionow i poziomo do najbliższej wyspy.
-              Każda może mieć brak, jedno, dwa połączenia na stronie.
-              Liczba mostów wyspy musi być równa liczbie na wyspie.
-              Mosty nie mogą się krzyżować. 
+
+              Zadady gry:
+              <ul>
+                <li>Wyspy można łączyć tylko pionowo i poziomo do najbliższej wyspy</li>
+                <li>Każda strona wyspy może mieć brak, jedno lub dwa połączenia</li>
+                <li>Liczba mostów połączonych do wyspy musi byc równa liczbie na wyspie</li>
+                <li>Mosty nie mogą się krzyżować</li>
+              </ul>
             </span>
             <span class="en">
-              
+              The goal of the game is to build bridges between islands. 
+
+              Rules:
+              <ul>
+                <li>Islands can be connected only horizontal and vertical to the closest island</li>
+                <li>Every side of island can have none, one or two connections</li>
+                <li>Number of bridges connected to island must be equal to number on the island</li>
+                <li>Bridges can not crossing</li>
+              </ul>
             </span>
           </div>
 
           <div class="pipes-rules hidden">
             <span class="pl">
-              Zadaniem gracza jest połączyć wszystkie punkty końcowe do źródła obracając bloki na planszy w taki sposób by każdy blok 
-              tworzył część spójnej sieci połączeń</p>
+              Celem gry jest podłączyć wszystkie punkty końcowe do źródła obracając pojedyńcze płytki.
+
+              Zadady gry:
+              <ul>
+                <li>Każdy punkt końcowy musi być połączony ze źródłem</li>
+                <li>Każda ścieżka musi kończyć się punktem końcowym</li>
+              </ul>
             </span>
             <span class="en">
-              
+              The goal of the game is to connect all endpoints to the source by rotating tiles.
+
+              Rules:
+              <ul>
+                <li>Every endpoint must be connected to the source</li>
+                <li>Every path must end by endpoint</li>
+              </ul>
             </span>
           </div>
 
           <div class="sliders-rules hidden">
             <span class="pl">
-              Zadaniem gracza jest połączyć wszystkie punkty końcowe do źródła przesuwając kolumny i rzędy na planszy w taki sposób by każdy blok 
-              tworzył część spójnej sieci połączeń
+              Celem gry jest podłączyć wszystkie punkty końcowe do źródła manipulując siatką za pomocą przesuwania wierszy i kolumn.
+
+              Zadady gry:
+              <ul>
+                <li>Każdy punkt końcowy musi być połączony ze źródłem</li>
+                <li>Każda ścieżka musi kończyć się punktem końcowym</li>
+              </ul>
             </span>
             <span class="en">
-              
+              The goal of the game is to connect all endpoints to the source by sliding rows and columns.
+
+              Rules:
+              <ul>
+                <li>Every endpoint must be connected to the source</li>
+                <li>Every path must end by endpoint</li>
+              </ul>
             </span>
 
             <ul>
@@ -327,13 +365,13 @@
 
       <header>
         <div class="row">
-          <i class="fa-solid fa-arrow-left-long prev disabled"></i>
+          <button class="fa-solid fa-arrow-left-long prev only-text disabled"></button>
           <div class="title"></div>
-          <i class="fa-solid fa-arrow-right-long next"></i>
+          <button class="fa-solid fa-arrow-right-long next only-text"></button>
         </div>
 
         <div class="row">
-          <span class="reset">Reset</span>
+          <button class="reset only-text">Reset</button>
           <select class="tile-size fa-solid fa-magnifying-glass">
             <option value="3" class="fa-solid fa-magnifying-glass">&#xf002; &nbsp; 3</option>
             <option value="4" class="fa-solid fa-magnifying-glass">&#xf002; &nbsp; 4</option>
@@ -346,9 +384,8 @@
       <div class="grid"></div>
     </div>
 
-    <div class="random hidden"></div>
-
-    <div class="editor hidden">
+    <!-- ---------------- Editor ---------------- -->
+    <div class="editor view hidden">
       <header>
         <div class="title">
           <span class="pl">Edytor</span>
@@ -356,30 +393,20 @@
         </div>
 
         <div class="modes">
-          <div class="mode active">
+          <button class="editor-option option active">
             <span class="pl">Mosty</span>
             <span class="en">Bridges</span>
-          </div>
+          </button>
 
-          <div class="mode">
+          <button class="editor-option option">
             <span class="pl">Rury/Suwaki</span>
             <span class="en">Pipes/Sliders</span>
-          </div>
+          </button>
 
-          <div class="mode">
+          <button class="editor-option option">
             <span class="pl">Kwadraty</span>
             <span class="en">Squares</span>
-          </div>
-
-          <div class="mode disabled">
-            <span class="pl">Sześciokąty</span>
-            <span class="en">Hexagons</span>
-          </div>
-
-          <div class="mode disabled">
-            <span class="pl">Trójkąty</span>
-            <span class="en">Triangles</span>
-          </div>
+          </button>
         </div>
       </header>
 
@@ -391,7 +418,7 @@
                 <span class="pl">Rozmiar</span>
                 <span class="en">Size</span>
               </span>
-              <input type="range" min="4" max="19" value="4" />
+              <input type="range" min="3" max="20" value="3" />
               <select class="tile-size fa-solid fa-magnifying-glass">
                 <option value="3" class="fa-solid fa-magnifying-glass">&#xf002; &nbsp; 3</option>
                 <option value="4" class="fa-solid fa-magnifying-glass">&#xf002; &nbsp; 4</option>
@@ -401,10 +428,10 @@
             </div>
 
             <div class="grid bridges"></div>
-            <div class="generate">
+            <button class="generate only-text">
               <span class="pl">Generuj losowo</span>
               <span class="en">Generate random</span>
-            </div>
+            </button>
           </div>
         </div>
 
@@ -415,7 +442,7 @@
                 <span class="pl">Rozmiar</span>
                 <span class="en">Size</span>
               </span>
-              <input type="range" min="3" max="19" step="2" value="3" />
+              <input type="range" min="3" max="20" value="3" />
               <select class="tile-size fa-solid fa-magnifying-glass">
                 <option value="3" class="fa-solid fa-magnifying-glass">&#xf002; &nbsp; 3</option>
                 <option value="4" class="fa-solid fa-magnifying-glass">&#xf002; &nbsp; 4</option>
@@ -425,10 +452,10 @@
             </div>
 
             <div class="grid pipes"></div>
-            <div class="generate">
+            <button class="generate only-text">
               <span class="pl">Generuj losowo</span>
               <span class="en">Generate random</span>
-            </div>
+            </button>
           </div>
 
           <div class="elements-panel">
@@ -477,7 +504,7 @@
                 <span class="pl">Rozmiar</span>
                 <span class="en">Size</span>
               </span>
-              <input type="range" min="4" max="20" value="4" />
+              <input type="range" min="3" max="20" value="3" />
               <select class="tile-size fa-solid fa-magnifying-glass">
                 <option value="3" class="fa-solid fa-magnifying-glass">&#xf002; &nbsp; 3</option>
                 <option value="4" class="fa-solid fa-magnifying-glass">&#xf002; &nbsp; 4</option>
@@ -487,10 +514,10 @@
             </div>
 
             <div class="grid squares"></div>
-            <div class="generate">
+            <button class="generate only-text">
               <span class="pl">Generuj losowo</span>
               <span class="en">Generate random</span>
-            </div>
+            </button>
           </div>
 
           <div class="elements-panel">
@@ -636,36 +663,43 @@
     </template>
 
     <!-- ---------------------------- Scripts ---------------------------- -->
+
+    <!-- ------------- required ------------- -->
+    <script src="Js/Build/GlobalUtils.js"></script>
+    <script src="Js/Build/Language.js"></script>
+    <script src="Js/Build/Background.js"></script>
+    <script src="Js/Build/View.js"></script>
+    <script src="Js/Build/Menu.js"></script>
     <script src="Js/script.js"></script>
-    <script src="Js/Background.js"></script>
-    <script src="Js/Menu.js"></script>
 
-    <script src="Js/Bridges/BridgesEditor.js"></script>
-    <script src="Js/Pipes/PipesEditor.js"></script>
-    <script src="Js/Squares/SquaresEditor.js"></script>
-
-    <script src="Js/Editor.js" async></script>
-    <script src="Js/Game.js" async></script>
-
-    <script src="Js/Bridges/BridgesGrid.js" async></script>
-    <script src="Js/Bridges/BridgesIsland.js" async></script>
-    <script src="Js/Bridges/bridges_levels.js" async></script>
-
-    <script src="Js/Pipes/PipesGrid.js" async></script>
-    <script src="Js/Pipes/PipesTile.js" async></script>
-    <script src="Js/Pipes/pipes_levels.js" async></script>
-
-    <script src="Js/Sliders/SlidersGrid.js" async></script>
-    <script src="Js/Sliders/SlidersTile.js" async></script>
-    <script src="Js/Sliders/sliders_levels.js" async></script>
-
-    <script src="Js/Squares/SquaresGrid.js" async></script>
-    <script src="Js/Squares/SquaresTile.js" async></script>
-    <script src="Js/Squares/easy_levels.js" async></script>
-    <script src="Js/Squares/normal_levels.js" async></script>
-    <script src="Js/Squares/hard_levels.js" async></script>
-
-    <script src="Js/Confetti.js" async></script>
+    <!-- ------------- not required ------------- -->
+    <script src="Js/Build/Levels.js" async></script>
+    <script src="Js/Build/Game.js" async></script>
+    <script src="Js/Build/Rules.js" async></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js" async></script>
+
+    <script src="Js/Build/BridgesUtils.js" async></script>
+    <script src="Js/Build/BridgesGrid.js" async></script>
+    <script src="Js/Build/BridgesIsland.js" async></script>
+    <script src="Js/Build/bridges_levels.js" async></script>
+
+    <script src="Js/Build/PipesUtils.js" async></script>
+    <script src="Js/Build/PipesGrid.js" async></script>
+    <script src="Js/Build/PipesTile.js" async></script>
+    <script src="Js/Build/pipes_levels.js" async></script>
+    <script src="Js/Build/SlidersGrid.js" async></script>
+
+    <script src="Js/Build/SquaresUtils.js" async></script>
+    <script src="Js/Build/SquaresGrid.js" async></script>
+    <script src="Js/Build/SquaresTile.js" async></script>
+    <script src="Js/Build/easy_levels.js" async></script>
+    <script src="Js/Build/normal_levels.js" async></script>
+    <script src="Js/Build/hard_levels.js" async></script>
+
+    <script src="Js/Build/EditorMenu.js" async></script>
+    <script src="Js/Build/Editor.js" async></script>
+    <script src="Js/Build/BridgesEditor.js" async></script>
+    <script src="Js/Build/PipesEditor.js" async></script>
+    <script src="Js/Build/SquaresEditor.js" async></script>
   </body>
 </html>

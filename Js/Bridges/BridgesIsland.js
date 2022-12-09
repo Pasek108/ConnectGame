@@ -2,19 +2,15 @@
 
 class BridgesIsland {
   constructor(value, editor_onclick, editor_value_change) {
-    this.container = document.createElement("div");
-    this.container.className = "island";
+    this.container = GlobalUtils.createNewDOM("div", "island");
 
-    this.island = document.createElement("span");
-    this.island.innerText = value;
+    this.island = GlobalUtils.createNewDOM("span", "", `${value}`);
     this.container.appendChild(this.island);
 
-    this.top_bridge = document.createElement("div");
-    this.top_bridge.className = "top-bridge";
+    this.top_bridge = GlobalUtils.createNewDOM("div", "top-bridge");
     this.container.appendChild(this.top_bridge);
 
-    this.left_bridge = document.createElement("div");
-    this.left_bridge.className = "left-bridge";
+    this.left_bridge = GlobalUtils.createNewDOM("div", "left-bridge");
     this.container.appendChild(this.left_bridge);
 
     this.adjacent_islands = [null, null, null, null];
@@ -43,14 +39,6 @@ class BridgesIsland {
     }
   }
 
-  focus() {
-    this.container.classList.add("focus");
-  }
-
-  unfocus() {
-    this.container.classList.remove("focus");
-  }
-
   getPosition() {
     return this.container.getBoundingClientRect();
   }
@@ -66,7 +54,6 @@ class BridgesIsland {
   }
 
   onMouseDown() {
-    this.focus();
     this.startBridge(this, this.adjacent_islands);
   }
 
@@ -103,23 +90,21 @@ class BridgesIsland {
   addBridgeTop() {
     this.changeConnection(0);
 
-    const bridge = document.createElement("div");
-    bridge.className = `bridge vertical type${this.connections[0]}`;
+    const bridge = GlobalUtils.createNewDOM("div", `bridge vertical type${this.connections[0]}`);
     this.top_bridge.innerHTML = "";
     this.top_bridge.appendChild(bridge);
 
-    this.dehilightTop();
+    this.unfocusTop();
   }
 
   addBridgeLeft() {
     this.changeConnection(3);
 
-    const bridge = document.createElement("div");
-    bridge.className = `bridge horizontal type${this.connections[3]}`;
+    const bridge = GlobalUtils.createNewDOM("div", `bridge horizontal type${this.connections[3]}`);
     this.left_bridge.innerHTML = "";
     this.left_bridge.appendChild(bridge);
 
-    this.dehilightLeft();
+    this.unfocusLeft();
   }
 
   setTopBridgeSize(target_position) {
@@ -130,21 +115,21 @@ class BridgesIsland {
     this.left_bridge.style.width = `${this.getPosition().left - target_position.left}px`;
   }
 
-  hilightTop() {
+  focusTop() {
     this.left_bridge.classList.remove("focus");
     this.top_bridge.classList.add("focus");
   }
 
-  dehilightTop() {
+  unfocusTop() {
     this.top_bridge.classList.remove("focus");
   }
 
-  hilightLeft() {
+  focusLeft() {
     this.top_bridge.classList.remove("focus");
     this.left_bridge.classList.add("focus");
   }
 
-  dehilightLeft() {
+  unfocusLeft() {
     this.left_bridge.classList.remove("focus");
   }
 

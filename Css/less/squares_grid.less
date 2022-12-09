@@ -1,0 +1,468 @@
+@import url("./helper_classes.less");
+
+.grid.squares {
+  display: grid;
+  align-content: space-between;
+  justify-content: space-between;
+  background-color: rgb(206, 206, 254);
+}
+
+.grid.squares.size-3 .tile .connections,
+.preview.squares.size-3 .connections {
+  .connection {
+    margin: 0.1rem;
+  }
+
+  .bottom,
+  .top {
+    width: 2.25rem;
+    height: 1rem;
+
+    div {
+      width: 0.35rem;
+      height: 1rem;
+    }
+  }
+
+  .left,
+  .right {
+    width: 1rem;
+    height: 2.25rem;
+
+    div {
+      width: 1rem;
+      height: 0.35rem;
+    }
+  }
+
+  .bottom {
+    bottom: calc(-0.5rem - 1px);
+  }
+
+  .top {
+    top: calc(-0.5rem - 1px);
+  }
+
+  .left {
+    left: calc(-0.5rem - 1px);
+  }
+
+  .right {
+    right: calc(-0.5rem - 1px);
+  }
+}
+
+.grid.squares.size-4 .tile .connections,
+.preview.squares.size-4 .connections {
+  .connection {
+    margin: 0.15rem;
+  }
+
+  .bottom,
+  .top {
+    width: 3rem;
+    height: 1.3rem;
+
+    div {
+      width: 0.4rem;
+      height: 1.3rem;
+    }
+  }
+
+  .left,
+  .right {
+    width: 1.3rem;
+    height: 3rem;
+
+    div {
+      width: 1.3rem;
+      height: 0.4rem;
+    }
+  }
+
+  .bottom {
+    bottom: calc(-0.65rem - 1px);
+  }
+
+  .top {
+    top: calc(-0.65rem - 1px);
+  }
+
+  .left {
+    left: calc(-0.65rem - 1px);
+  }
+
+  .right {
+    right: calc(-0.65rem - 1px);
+  }
+}
+
+.grid.squares.size-5 .tile .connections,
+.preview.squares.size-5 .connections {
+  .connection {
+    margin: 0.21rem;
+  }
+
+  .bottom,
+  .top {
+    width: 3.75rem;
+    height: 1.6rem;
+
+    div {
+      width: 0.45rem;
+      height: 1.6rem;
+    }
+  }
+
+  .left,
+  .right {
+    width: 1.6rem;
+    height: 3.75rem;
+
+    div {
+      width: 1.6rem;
+      height: 0.45rem;
+    }
+  }
+
+  .bottom {
+    bottom: calc(-0.8rem - 1px);
+  }
+
+  .top {
+    top: calc(-0.8rem - 1px);
+  }
+
+  .left {
+    left: calc(-0.8rem - 1px);
+  }
+
+  .right {
+    right: calc(-0.8rem - 1px);
+  }
+}
+
+.grid.squares.size-6 .tile .connections,
+.preview.squares.size-6 .connections {
+  .connection {
+    margin: 0.25rem;
+  }
+
+  .bottom,
+  .top {
+    width: 4.5rem;
+    height: 2rem;
+
+    div {
+      width: 0.5rem;
+      height: 2rem;
+    }
+  }
+
+  .left,
+  .right {
+    width: 2rem;
+    height: 4.5rem;
+
+    div {
+      width: 2rem;
+      height: 0.5rem;
+    }
+  }
+
+  .bottom {
+    bottom: calc(-0.95rem - 1px);
+  }
+
+  .top {
+    top: calc(-0.95rem - 1px);
+  }
+
+  .left {
+    left: calc(-0.95rem - 1px);
+  }
+
+  .right {
+    right: calc(-0.95rem - 1px);
+  }
+}
+
+.grid.squares .tile,
+.preview.squares {
+  .flex(row, center, center);
+  width: 100%;
+  height: 100%;
+  background-color: rgb(103, 129, 185);
+
+  .block {
+    .flex(row, center, center);
+    width: 75%;
+    height: 75%;
+    border-radius: 0.4rem;
+    position: relative;
+    transition: transform 0.25s linear, top 0.5s linear, left 0.5s linear;
+    transform: rotate(0);
+    animation: 0.5s linear forwards animate_tile;
+
+    .shadow {
+      width: 100%;
+      height: 100%;
+      border-radius: 0.4rem;
+      background-color: rgb(30, 30, 30);
+      position: absolute;
+      z-index: -1;
+      transition: transform 0.25s linear;
+      transform: translate(0, 5%);
+      animation: 0.5s linear forwards animate_tile_shadow;
+    }
+
+    .mark {
+      width: 66%;
+      height: 66%;
+      position: absolute;
+      z-index: 1;
+      transition: transform 0.25s linear;
+      animation: 1.5s linear forwards animate_mark;
+
+      svg {
+        &>* {
+          fill: white;
+        }
+
+        circle {
+          stroke-width: 0.25rem;
+        }
+
+        polygon {
+          stroke-width: 0.5rem;
+          stroke: white;
+          stroke-linejoin: round;
+        }
+      }
+    }
+
+    &.n {
+      background-color: red;
+
+      .mark svg circle {
+        stroke: red;
+      }
+    }
+
+    &.r {
+      background-color: #4c9efb;
+
+      .mark svg circle {
+        stroke: #4c9efb;
+      }
+    }
+
+    &.h,
+    &.v {
+      background-color: #8f00cc;
+    }
+
+    &.vr,
+    &.hr {
+      background-color: #794d1e;
+
+      .mark svg circle {
+        stroke: #794d1e;
+      }
+    }
+
+    &.vh {
+      background-color: #29ac15;
+    }
+
+    &.vhr {
+      background-color: #ff8400;
+
+      .mark svg circle {
+        stroke: #ff8400;
+      }
+    }
+
+    &.grabbed {
+      z-index: 10;
+      transition: transform 0.25s linear, top 0s, left 0s !important;
+
+      .connections>div>div {
+        border: 1px solid black !important;
+      }
+    }
+
+    .connections {
+      width: 100%;
+      height: 100%;
+      border-radius: 0.4rem;
+      background-color: inherit;
+      border: 2px solid rgb(30, 30, 30);
+      position: relative;
+      z-index: initial;
+
+      &>div {
+        .flex(row, center, center);
+        position: absolute;
+        z-index: -1;
+      }
+
+      .bottom,
+      .top {
+        flex-flow: row;
+        left: -2px;
+      }
+
+      .bottom {
+        animation: 2s linear forwards animate_bottom_connections;
+      }
+
+      .top {
+        animation: 2s linear forwards animate_top_connections;
+      }
+
+      .connection {
+        background-color: white;
+        border: 2px solid black;
+        transition: transform 0.25s linear;
+      }
+
+      .left,
+      .right {
+        flex-flow: column;
+        top: -2px;
+      }
+
+      .left {
+        animation: 2s linear forwards animate_left_connections;
+      }
+
+      .right {
+        animation: 2s linear forwards animate_right_connections;
+      }
+    }
+  }
+}
+
+/* ----------- object animations ----------- */
+@keyframes animate_tile {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes animate_tile_shadow {
+  from {
+    transform: scale(0) translate(0, 5%);
+  }
+
+  to {
+    transform: scale(1) translate(0, 5%);
+  }
+}
+
+@keyframes animate_top_connections {
+  0% {
+    transform: translateY(0.95rem);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateY(0.95rem);
+    opacity: 0;
+  }
+
+  66% {
+    transform: translateY(0.95rem);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes animate_bottom_connections {
+  0% {
+    transform: translateY(-0.95rem);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateY(-0.95rem);
+    opacity: 0;
+  }
+
+  75% {
+    transform: translateY(-0.95rem);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes animate_left_connections {
+  0% {
+    transform: translateX(0.95rem);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateX(0.95rem);
+    opacity: 0;
+  }
+
+  75% {
+    transform: translateX(0.95rem);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes animate_right_connections {
+  0% {
+    transform: translateX(-0.95rem);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateX(-0.95rem);
+    opacity: 0;
+  }
+
+  66% {
+    transform: translateX(-0.95rem);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes animate_mark {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
