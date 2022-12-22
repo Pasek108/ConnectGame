@@ -11,21 +11,6 @@ class PipesUtils {
 
   constructor() {}
 
-  static makeCorrections(level) {
-    const height = level.length;
-    const width = level[0].length;
-
-    let destinations_counter = 0;
-    
-    for (let i = 0; i < height; i++) {
-      for (let j = 0; j < width; j++) {
-        if (level[i][j][4] == "d") destinations_counter++;
-      }
-    }
-
-    return (destinations_counter < height);
-  }
-
   static decodeLevel(level) {
     const height = level.length;
     const width = level[0].length;
@@ -167,7 +152,6 @@ class PipesUtils {
       }
     }
 
-    if (this.makeCorrections(new_level)) new_level = this.generateNewLevel(width, height);
     return new_level;
   }
 

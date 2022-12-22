@@ -142,7 +142,7 @@ class SquaresTile {
     window.removeEventListener("mouseup", this.release_function);
     window.removeEventListener("touchend", this.release_function);
 
-    if (touches != null || this.pos_x != 0 || this.pos_y != 0) {
+    if (this.pos_x > 0 || this.pos_y > 0 || touches != null) {
       const half_size = this.container.offsetWidth / 2;
       let new_x = (this.pos_x - (this.pos_x % half_size)) / half_size;
       let new_y = (this.pos_y - (this.pos_y % half_size)) / half_size;

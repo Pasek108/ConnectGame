@@ -12,7 +12,7 @@ class SquaresGrid {
     this.height = level.length;
     this.width = level[0].length;
     this.level = GlobalUtils.copyArray(SquaresUtils.decodeLevel(level));
-    for (let i = 0; i < 1000; i++) this.shuffleLevel();
+    for (let i = 0; i < 100; i++) this.shuffleLevel();
 
     this.container = document.querySelector(".grid");
     this.container.innerHTML = "";

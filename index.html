@@ -16,7 +16,7 @@
     <!-- ----------------------------- Styles ----------------------------- -->
     <link rel="stylesheet" href="Css/style.css" />
     <link rel="stylesheet" href="Css/menu.css" />
-    <link rel="stylesheet" href="Css/game.css" />
+    <link rel="stylesheet" href="Css/game.css" /> 
     <link rel="stylesheet" href="Css/editor.css" />
     <link rel="stylesheet" href="Css/bridges_grid.css" />
     <link rel="stylesheet" href="Css/pipes_grid.css" />
@@ -38,15 +38,6 @@
       <div class="title">Connect Game</div>
 
       <div class="options">
-        <button class="menu-option option" data-mode="pipes">
-          <svg viewBox="0 0 100 100">
-            <polygon points="20 52, 80 52"></polygon>
-          </svg>
-
-          <span class="pl">Rury</span>
-          <span class="en">Pipes</span>
-        </button>
-
         <button class="menu-option option" data-mode="bridges">
           <svg viewBox="0 0 100 100">
             <polygon points="20 52, 80 52"></polygon>
@@ -54,6 +45,15 @@
 
           <span class="pl">Mosty</span>
           <span class="en">Bridges</span>
+        </button>
+
+        <button class="menu-option option" data-mode="pipes">
+          <svg viewBox="0 0 100 100">
+            <polygon points="20 52, 80 52"></polygon>
+          </svg>
+
+          <span class="pl">Rury</span>
+          <span class="en">Pipes</span>
         </button>
 
         <button class="menu-option option" data-mode="sliders">
@@ -135,7 +135,9 @@
         <div class="wrapper">
           <div class="bridges-rules hidden">
             <span class="pl">
-              Celem gry jest zbudowanie mostów miedzy wyspami. Zadady gry:
+              Celem gry jest zbudowanie mostów miedzy wyspami. 
+
+              Zadady gry:
               <ul>
                 <li>Wyspy można łączyć tylko pionowo i poziomo do najbliższej wyspy</li>
                 <li>Każda strona wyspy może mieć brak, jedno lub dwa połączenia</li>
@@ -144,29 +146,32 @@
               </ul>
             </span>
             <span class="en">
-              <p>The goal is to connect all of the islands by drawing a series of bridges between the islands. </p>
-              The bridges must follow certain criteria: 
+              The goal of the game is to build bridges between islands. 
+
+              Rules:
               <ul>
-                <li>They must begin and end at distinct islands, travelling a straight line in between.</li>
-                <li>They must not cross any other bridges or islands.</li>
-                <li>They may only run orthogonally (i.e. they may not run diagonally).</li>
-                <li>At most two bridges connect a pair of islands.</li>
-                <li>The number of bridges connected to each island must match the number on that island.</li>
-                <li>The bridges must connect the islands into a single connected group.</li>
+                <li>Islands can be connected only horizontal and vertical to the closest island</li>
+                <li>Every side of island can have none, one or two connections</li>
+                <li>Number of bridges connected to island must be equal to number on the island</li>
+                <li>Bridges can not crossing</li>
               </ul>
             </span>
           </div>
 
           <div class="pipes-rules hidden">
             <span class="pl">
-              Celem gry jest podłączyć wszystkie punkty końcowe do źródła obracając pojedyńcze płytki. Zadady gry:
+              Celem gry jest podłączyć wszystkie punkty końcowe do źródła obracając pojedyńcze płytki.
+
+              Zadady gry:
               <ul>
                 <li>Każdy punkt końcowy musi być połączony ze źródłem</li>
                 <li>Każda ścieżka musi kończyć się punktem końcowym</li>
               </ul>
             </span>
             <span class="en">
-              The goal of the game is to connect all endpoints to the source by rotating tiles. Rules:
+              The goal of the game is to connect all endpoints to the source by rotating tiles.
+
+              Rules:
               <ul>
                 <li>Every endpoint must be connected to the source</li>
                 <li>Every path must end by endpoint</li>
@@ -176,34 +181,61 @@
 
           <div class="sliders-rules hidden">
             <span class="pl">
-              Celem gry jest podłączyć wszystkie punkty końcowe do źródła manipulując siatką za pomocą przesuwania wierszy i kolumn. Zadady gry:
+              Celem gry jest podłączyć wszystkie punkty końcowe do źródła manipulując siatką za pomocą przesuwania wierszy i kolumn.
+
+              Zadady gry:
               <ul>
                 <li>Każdy punkt końcowy musi być połączony ze źródłem</li>
                 <li>Każda ścieżka musi kończyć się punktem końcowym</li>
               </ul>
             </span>
             <span class="en">
-              The goal of the game is to connect all endpoints to the source by sliding rows and columns. Rules:
+              The goal of the game is to connect all endpoints to the source by sliding rows and columns.
+
+              Rules:
               <ul>
                 <li>Every endpoint must be connected to the source</li>
                 <li>Every path must end by endpoint</li>
               </ul>
             </span>
+
+            <ul>
+              <li>
+                <img src="./Images/Instructions/no_move_block.png" />
+                <span class="pl">Blok bez ruchu, nic nie można z nim zrobić</span>
+                <span class="en">Block with no move, you can do nothing with it</span>
+              </li>
+              <li>
+                <img src="./Images/Instructions/rotate_block.png" />
+                <span class="pl">Blok z obrotem, można go obracać za pomocą kliknięcia</span>
+                <span class="en">Block with rotation, you can rotate it by clicking</span>
+              </li>
+              <li>
+                <img src="./Images/Instructions/horizontal_vertical_block.png" />
+                <span class="pl">Blok z ruchem pionowym i poziomym, można go przesuwać w dowolnym kierunku lecz nie można go obracać</span>
+                <span class="en">Block with vertical and horizontal movement, you can drag it around but you cant rotate</span>
+              </li>
+              <li>
+                <img src="./Images/Instructions/horizontal_vertical_rotate_block.png" />
+                <span class="pl">Blok z obrotem oraz ruchem pionowym i poziomym, można go przesuwać w dowolnym kierunku i obracać</span>
+                <span class="en">Block with rotation, vertical and horizontal movement, you can drag it around and rotate</span>
+              </li>
+            </ul>
           </div>
 
           <div class="easy-rules hidden">
             <span class="pl">
-              Celem gry jest odtworzenie poprawnej sieci połączeń między blokami. Sieć jest poprawna gdy wszystkie połączenia bloku są połączone z taką samą liczbą połączeń
-              bloków sąsiednich oraz możliwe jest przejście z dowolnego bloku do każdego innego.
+              Celem gry jest odtworzenie poprawnej sieci połączeń między blokami. Sieć jest poprawna gdy wszystkie połączenia bloku są 
+              połączone z taką samą liczbą połączeń bloków sąsiednich oraz możliwe jest przejście z dowolnego bloku do każdego innego.
               <p>W tym trybie występują 4 bloki:</p>
             </span>
             <span class="en">
-              The goal of the game is to recreate correct net of connections beetwen blocks. Net is correct when all connections of the block are connected with the same
-              number of connections of his adjacent blocks and it is possible to travel from any block to other.
+              The goal of the game is to recreate correct net of connections beetwen blocks. Net is correct when all connections of the 
+              block are connected with the same number of connections of his adjacent blocks and it is possible to travel from any block to other.
               <p>This mode has 4 type of blocks:</p>
             </span>
 
-            <ul class="images">
+            <ul>
               <li>
                 <img src="./Images/Instructions/no_move_block.png" />
                 <span class="pl">Blok bez ruchu, nic nie można z nim zrobić</span>
@@ -229,17 +261,17 @@
 
           <div class="normal-rules hidden">
             <span class="pl">
-              Celem gry jest odtworzenie poprawnej sieci połączeń między blokami. Sieć jest poprawna gdy wszystkie połączenia bloku są połączone z taką samą liczbą połączeń
-              bloków sąsiednich oraz możliwe jest przejście z dowolnego bloku do każdego innego.
+              Celem gry jest odtworzenie poprawnej sieci połączeń między blokami. Sieć jest poprawna gdy wszystkie połączenia bloku 
+              są połączone z taką samą liczbą połączeń bloków sąsiednich oraz możliwe jest przejście z dowolnego bloku do każdego innego.
               <p>W tym trybie występuje 6 bloków:</p>
             </span>
             <span class="en">
-              The goal of the game is to recreate correct net of connections beetwen blocks. Net is correct when all connections of the block are connected with the same
-              number of connections of his adjacent blocks and it is possible to travel from any block to other.
+              The goal of the game is to recreate correct net of connections beetwen blocks. Net is correct when all connections of the 
+              block are connected with the same number of connections of his adjacent blocks and it is possible to travel from any block to other.
               <p>This mode has 6 type of blocks:</p>
             </span>
 
-            <ul class="images">
+            <ul>
               <li>
                 <img src="./Images/Instructions/no_move_block.png" />
                 <span class="pl">Blok bez ruchu, nic nie można z nim zrobić</span>
@@ -275,17 +307,17 @@
 
           <div class="hard-rules hidden">
             <span class="pl">
-              Celem gry jest odtworzenie poprawnej sieci połączeń między blokami. Sieć jest poprawna gdy wszystkie połączenia bloku są połączone z taką samą liczbą połączeń
-              bloków sąsiednich oraz możliwe jest przejście z dowolnego bloku do każdego innego.
+              Celem gry jest odtworzenie poprawnej sieci połączeń między blokami. Sieć jest poprawna gdy wszystkie połączenia bloku 
+              są połączone z taką samą liczbą połączeń bloków sąsiednich oraz możliwe jest przejście z dowolnego bloku do każdego innego.
               <p>W tym trybie występuje 8 bloków:</p>
             </span>
             <span class="en">
-              The goal of the game is to recreate correct net of connections beetwen blocks. Net is correct when all connections of the block are connected with the same
-              number of connections of his adjacent blocks and it is possible to travel from any block to other.
+              The goal of the game is to recreate correct net of connections beetwen blocks. Net is correct when all connections of 
+              the block are connected with the same number of connections of his adjacent blocks and it is possible to travel from any block to other.
               <p>This mode has 8 type of blocks:</p>
             </span>
 
-            <ul class="images">
+            <ul>
               <li>
                 <img src="./Images/Instructions/no_move_block.png" />
                 <span class="pl">Blok bez ruchu, nic nie można z nim zrobić</span>
@@ -657,7 +689,7 @@
     <script src="Js/Build/pipes_levels.js" async></script>
     <script src="Js/Build/SlidersGrid.js" async></script>
 
-    <script src="Js/Squares/SquaresUtils.js" async></script>
+    <script src="Js/Build/SquaresUtils.js" async></script>
     <script src="Js/Build/SquaresGrid.js" async></script>
     <script src="Js/Build/SquaresTile.js" async></script>
     <script src="Js/Build/easy_levels.js" async></script>

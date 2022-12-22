@@ -156,7 +156,7 @@ class Editor extends View {
     tile.innerHTML = "";
 
     this.level[y][x] = [+data[0], +data[1], +data[2], +data[3], data[4]];
-    const block = this.mode_class.createBlock([+data[0], +data[1], +data[2], +data[3], data[4]], true, true);
+    const block = this.mode_class.createBlock([+data[0], +data[1], +data[2], +data[3], data[4]], true);
     tile.appendChild(block);
   }
 }
