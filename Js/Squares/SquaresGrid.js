@@ -1,12 +1,18 @@
 "use strict";
 
+/**
+ for (let i = 0; i < easy_levels.length; i++) {
+    easy_levels[i] = SquaresUtils.encodeLevel(easy_levels[i]);
+}
+ */
+
 class SquaresGrid {
   constructor(tile_size, level, unlockNextLevel) {
     this.unlockNextLevel = unlockNextLevel;
     this.height = level.length;
     this.width = level[0].length;
-    this.level = this.copyLevel(level);
-    for (let i = 0; i < 100; i++) this.shuffleLevel();
+    this.level = GlobalUtils.copyArray(SquaresUtils.decodeLevel(level));
+    for (let i = 0; i < 1000; i++) this.shuffleLevel();
 
     this.container = document.querySelector(".grid");
     this.container.innerHTML = "";
@@ -40,25 +46,11 @@ class SquaresGrid {
     this.container.style.gridTemplateRows = `repeat(${this.height}, ${size}rem)`;
   }
 
-  copyLevel(level) {
-    const level_copy = [];
-
-    for (let i = 0; i < this.height; i++) {
-      level_copy.push([]);
-
-      for (let j = 0; j < this.width; j++) {
-        level_copy[i].push([...level[i][j]]);
-      }
-    }
-
-    return level_copy;
-  }
-
   shuffleLevel() {
     for (let i = 0; i < this.height; i++) {
       for (let j = 0; j < this.width; j++) {
         if (this.level[i][j][4].includes("r")) {
-          const random_rotates = randomInt(0, 4);
+          const random_rotates = GlobalUtils.randomInt(0, 4);
           for (let k = 0; k < random_rotates; k++) this.rotateConnections(i, j);
         }
 
@@ -66,14 +58,14 @@ class SquaresGrid {
         let x_position = j;
 
         if (this.level[i][j][4].includes("v")) {
-          y_position += randomInt(-this.height, this.height);
+          y_position += GlobalUtils.randomInt(-this.height, this.height);
 
           if (y_position < 0) y_position = 0;
           else if (y_position >= this.height) y_position = this.height - 1;
         }
 
         if (this.level[i][j][4].includes("h")) {
-          x_position += randomInt(-this.width, this.width);
+          x_position += GlobalUtils.randomInt(-this.width, this.width);
 
           if (x_position < 0) x_position = 0;
           else if (x_position >= this.width) x_position = this.width - 1;
@@ -141,17 +133,11 @@ class SquaresGrid {
   updateConnections(y, x) {
     const current_tile = this.tiles[y][x];
     current_tile.setConnections(this.level[y][x], this.checkCorrectConnections(y, x));
-
-    const adjacent_tiles_indexes = [
-      { y: y - 1, x: x },
-      { y: y, x: x + 1 },
-      { y: y + 1, x: x },
-      { y: y, x: x - 1 },
-    ];
+    const step = [-1, 0, 1, 0];
 
     for (let k = 0; k < 4; k++) {
-      const p = adjacent_tiles_indexes[k].y;
-      const q = adjacent_tiles_indexes[k].x;
+      const p = y + step[k];
+      const q = x + step[(k + 1) % 4];
 
       if (p >= 0 && p < this.height && q >= 0 && q < this.width) {
         this.tiles[p][q].setConnections(this.level[p][q], this.checkCorrectConnections(p, q));
@@ -220,7 +206,6 @@ class SquaresGrid {
       }
     }
 
-    setTimeout(fireConfetti, 100);
     this.unlockNextLevel();
   }
 }

@@ -1,0 +1,100 @@
+@import url("./helper_classes.less");
+
+.rules {
+  .position(fixed, 0, @left: 0, @zindex: 2);
+  .flex(column, center, center);
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  header {
+    position: relative;
+    z-index: -1;
+    .flex(column, center, end);
+    width: 70%;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    margin-bottom: -1rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    background-color: #302b63;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .close {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    padding: 1rem;
+    cursor: pointer;
+  }
+
+  .wrapper {
+    width: 70%;
+    height: 70%;
+    padding: 2rem;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    background-color: whitesmoke;
+    color: black;
+    overflow-y: scroll;
+    text-align: justify;
+  }
+
+  ul.images {
+    padding-left: 0;
+
+    li {
+      .flex(row, center, flex-start);
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  img {
+    width: 4rem;
+    height: 4rem;
+    margin-right: 1rem;
+  }
+}
+
+.game {
+  &>header {
+    .flex(column, center, end);
+    width: 100%;
+    max-width: 100vw;
+
+    .row {
+      .flex(row, center, center);
+      margin-bottom: 1rem;
+    }
+
+    .title {
+      font-size: 2.5rem;
+      margin: 0 3rem;
+
+      span {
+        margin-right: 1.5rem;
+      }
+    }
+
+    .prev, .next {
+      margin-top: 0.6rem;
+      transition: color 0.5s, transform 0.5s;
+
+      &:first-child:hover {
+        transform: translateX(-0.5rem);
+      }
+
+      &:last-child:hover {
+        transform: translateX(0.5rem);
+      }
+    }
+
+    .reset {
+      padding: 0;
+      margin-right: 15rem;
+      font-size: 1.5rem;
+    }
+  }
+}

@@ -22,97 +22,32 @@ class SquaresTile {
       }
     }
 
-    this.container = document.createElement("div");
-    this.container.className = "tile";
+    this.container = GlobalUtils.createNewDOM("div", "tile");
     if (!this.no_connections) this.container.appendChild(this.createBlock());
+
+    this.grab_function = this.grab.bind(this);
+    this.move_function = this.move.bind(this);
+    this.release_function = this.release.bind(this);
   }
 
   createBlock() {
-    this.block = document.createElement("div");
-    this.block.className = `block ${this.type}`;
+    this.block = SquaresUtils.createBlock(this.connections_array, this.correct_connections);
+    this.shadow = this.block.querySelector(".shadow");
+    this.mark = this.block.querySelector(".mark");
 
-    this.shadow = document.createElement("div");
-    this.shadow.className = "shadow";
-    this.block.appendChild(this.shadow);
+    const top_connections = this.block.querySelectorAll(".top .connection");
+    const right_connections = this.block.querySelectorAll(".right .connection");
+    const bottom_connections = this.block.querySelectorAll(".bottom .connection");
+    const left_connections = this.block.querySelectorAll(".left .connection");
 
-    this.mark = document.createElement("div");
-    this.mark.className = "mark";
+    this.connections = [top_connections, right_connections, bottom_connections, left_connections];
 
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("viewBox", "0 0 100 100");
-
-    for (let i = 0; i < this.type.length; i++) {
-      // prettier-ignore
-      switch (this.type[i]) {
-        case "h": svg.appendChild(document.querySelector(".horizontal-move-mark-template").content.children[0].cloneNode(true)); break;
-        case "v": svg.appendChild(document.querySelector(".vertical-move-mark-template").content.children[0].cloneNode(true)); break;
-        case "r": svg.appendChild(document.querySelector(".rotate-mark-template").content.children[0].cloneNode(true)); break;
-        case "n": svg.appendChild(document.querySelector(".no-move-mark-template").content.children[0].cloneNode(true)); break;
-      }
-    }
-
-    this.mark.appendChild(svg);
-    this.block.appendChild(this.mark);
-
-    this.connections_container = document.createElement("div");
-    this.connections_container.className = "connections";
-
-    const top = this.createConnections("top", 0);
-    this.connections_container.appendChild(top.container);
-
-    const right = this.createConnections("right", 1);
-    this.connections_container.appendChild(right.container);
-
-    const bottom = this.createConnections("bottom", 2);
-    this.connections_container.appendChild(bottom.container);
-
-    const left = this.createConnections("left", 3);
-    this.connections_container.appendChild(left.container);
-
-    this.block.appendChild(this.connections_container);
-
-    this.connections = [top.connections, right.connections, bottom.connections, left.connections];
-    this.animation_timeout = setTimeout(() => {
-      this.grab_function = this.grab.bind(this);
-      this.move_function = this.move.bind(this);
-      this.release_function = this.release.bind(this);
+    setTimeout(() => {
       this.block.addEventListener("mousedown", this.grab_function);
       this.block.addEventListener("touchstart", this.grab_function);
-      this.block.style.animation = "none";
-      this.shadow.style.animation = "none";
-      this.mark.style.animation = "none";
-      top.container.style.animation = "none";
-      right.container.style.animation = "none";
-      bottom.container.style.animation = "none";
-      left.container.style.animation = "none";
     }, 2000);
 
     return this.block;
-  }
-
-  createConnections(side, index) {
-    const connections_container = document.createElement("div");
-    connections_container.className = side;
-
-    const connections_array = [];
-    for (let i = 0; i < this.connections_array[index]; i++) {
-      const connection = document.createElement("div");
-      connection.className = "connection";
-
-      if (this.correct_connections[index]) {
-        // prettier-ignore
-        switch (index) {
-          case 0: connection.style.borderTopWidth = "0px"; break;
-          case 1: connection.style.borderRightWidth = "0px"; break;
-          case 2: connection.style.borderBottomWidth = "0px"; break;
-          case 3: connection.style.borderLeftWidth = "0px"; break;
-        }
-      }
-      connections_array.push(connection);
-      connections_container.appendChild(connection);
-    }
-
-    return { container: connections_container, connections: connections_array };
   }
 
   setConnections(connections, correct_connections) {
@@ -176,7 +111,7 @@ class SquaresTile {
     this.block.style.transition = "transform 0.25s linear";
 
     window.addEventListener("mousemove", this.move_function);
-    window.addEventListener('touchmove', this.move_function);
+    window.addEventListener("touchmove", this.move_function);
     window.addEventListener("mouseup", this.release_function);
     window.addEventListener("touchend", this.release_function);
   }
@@ -207,8 +142,7 @@ class SquaresTile {
     window.removeEventListener("mouseup", this.release_function);
     window.removeEventListener("touchend", this.release_function);
 
-    if (this.pos_x === 0 && this.pos_y === 0) this.click();
-    else {
+    if (touches != null || this.pos_x != 0 || this.pos_y != 0) {
       const half_size = this.container.offsetWidth / 2;
       let new_x = (this.pos_x - (this.pos_x % half_size)) / half_size;
       let new_y = (this.pos_y - (this.pos_y % half_size)) / half_size;
@@ -222,7 +156,7 @@ class SquaresTile {
 
       this.animation_timeout = setTimeout(() => (this.block.style.zIndex = null), 500);
       this.block.style.transition = null;
-    }
+    } else this.click();
   }
 
   blockActions() {
