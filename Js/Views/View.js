@@ -1,8 +1,6 @@
 "use strict";
 
-/**
- * Superclass for view-like objects (can be showed or hidden and creates continious history)
- */
+/** Superclass for view-like objects (can be showed or hidden and creates continious history) */
 class View {
     static views = {
       menu: null,

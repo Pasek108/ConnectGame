@@ -8,9 +8,7 @@ class Menu extends View {
     this.initOptions();
   }
 
-  /**
-   * Adds listeners to menu options
-   */
+  /** Adds listeners to menu options */
   initOptions() {
     this.options = this.container.querySelectorAll(".menu-option");
 
@@ -28,7 +26,7 @@ class Menu extends View {
     this.hide();
 
     if (option_id < 6) {
-      if (this.levels != null) this.levels.removeListeners();
+      if (this.levels != null) this.levels.removeGameListeners();
       this.levels = new Levels(this.options[option_id].dataset.mode);
       this.levels.show();
     } else if (option_id === 6) {

@@ -28,9 +28,7 @@ class Background {
     this.animation = 0;
   }
 
-  /**
-   * Resizes canvas and generate new points array for this size
-   */
+  /** Resizes canvas and generate new points array for this size */
   resize() {
     this.canvas_w = window.innerWidth;
     this.canvas_h = window.innerHeight;
@@ -55,9 +53,7 @@ class Background {
     }
   }
 
-  /**
-   * Clears canvas and draws lines between every two points when its distance is less than 100 of opacity (1 - distance / 100)
-   */
+  /** Clears canvas and draws lines between every two points when its distance is less than 100 of opacity (1 - distance / 100) */
   drawPoints() {
     this.ctx.clearRect(0, 0, this.canvas_w, this.canvas_h);
 
@@ -80,9 +76,7 @@ class Background {
     }
   }
 
-  /**
-   * Generates points array of size (width * height / 10000). Points are stored as position (x, y) and vector (vx, vy) 
-   */
+  /** Generates points array of size (width * height / 10000). Points are stored as position (x, y) and vector (vx, vy) */
   generatePoints() {
     const points_amount = ((this.canvas_w * this.canvas_h) / 10000) | 0;
     this.points = [];

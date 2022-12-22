@@ -9,6 +9,49 @@ class SquaresUtils {
 
   constructor() {}
 
+  static isTileEmpty(tile) {
+    let is_empty = true;
+
+    for (let k = 0; k < 4; k++) {
+      
+      if (tile[k] !== 0) {
+        is_empty = false;
+        break;
+      }
+    }
+
+    return is_empty;
+  }
+
+  static makeCorrections(level) {
+    const height = level.length;
+    const width = level[0].length;
+
+    for (let i = 0; i < height; i++) {
+      for (let j = 0; j < width; j++) {
+        if (this.isTileEmpty(level[i][j])) continue;
+
+        for (let k = 0; k < 4; k++) {
+          if (level[i][j][k] == 0) {
+            const y = [-1, 0, 1, 0];
+            const x = [0, 1, 0, -1];
+
+            if (i + y[k] < 0 || i + y[k] >= height || j + x[k] < 0 || j + x[k] >= width) continue;
+            if (this.isTileEmpty(level[i + y[k]][j + x[k]])) continue;
+
+            if (level[i + y[k]][j + x[k]][(k + 2) % 2] == 0) {
+              const new_connection = GlobalUtils.randomInt(1, 4);
+              level[i][j][k] = new_connection;
+              level[i + y[k]][j + x[k]][(k + 2) % 4] = new_connection;
+            }
+          }
+        }
+      }
+    }
+
+    return level;
+  }
+
   /**
    * Decodes level saved as [num, type] where is decimal number converted from number in quinary system which is [top, right, bottom, left, type]
    * @param {[number, string][][]} level
@@ -93,7 +136,7 @@ class SquaresUtils {
     let new_level = this.createEmptyLevelArray(width, height);
     let pos = [GlobalUtils.randomInt(0, height - 1), GlobalUtils.randomInt(0, width - 1)];
 
-    for (let i = 0; i < width * height * 2; i++) {
+    for (let i = 0; i < height * width * 2; i++) {
       const side = GlobalUtils.randomInt(0, 3);
       const type = GlobalUtils.randomInt(0, 7);
       const new_connection = GlobalUtils.randomInt(1, 4);
@@ -121,6 +164,7 @@ class SquaresUtils {
       }
     }
 
+    new_level = this.makeCorrections(new_level);
     return new_level;
   }
 
