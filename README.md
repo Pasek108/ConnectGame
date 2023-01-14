@@ -57,7 +57,7 @@ Project is: in progress
 
 ## Room for Improvement
 - Bridges level generator
-- Genareting up to 200 levels for each game mode
+- Generate up to 200 levels for each game mode
 - Better responsiveness on mobile
 - Multiplayer (mode -> level(generated?) -> link for other player -> win first correct)
 
