@@ -1,72 +1,69 @@
 # ConnectGame
- Logiczna gra napisana w czystym JS / CSS / HTML z użyciem biblioteki [canvas-confetti](https://www.npmjs.com/package/canvas-confetti) wzorowana na mobilnych grach, 
- głównie na [Connect Me Login Puzzle](https://play.google.com/store/apps/details?id=net.bohush.connect.me.logic.puzzle) 
- oraz na [Connect it!](https://play.google.com/store/apps/details?id=indonesia.angarsalabs.ci).
- <details>
-    <summary><b>Screeny</b></summary>
-    <img alt="Menu background" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/menu.png">
-    <img alt="Menu background" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/levels.png">
-    <img alt="Menu background" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/game.png">
-    <img alt="Menu background" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/game_win.png">
-</details> 
+Small set of connections-based puzzle games about recreating right connections beetween objects.<br>
+See [live demo](https://pas-artur.000webhostapp.com/ConnectGame/index.html).
 
-## Gotowe funkcje
-* Generowanie planszy
-* Poprawne działanie obiektów na siatce
-* Animacja obrotu obiektów
-* Rozpoznawanie połączeń między obiektami
-* Ukończenie poziomu z animacją confetti
-* Przechodzenie między poziomami
-* Poruszanie się w historii za pomocą przeglądarki
-* Animacja tła menu
+![Example screenshot](screenshot.png)
 
-## To-do
-* Dodać samouczek
-* Dodać poziomy w trybach:
-  * Łatwy
-  * Normalny
-  * Zaawansowany
-* Dodać tryby:
-  * Sześciokąty
-  * Trójkąty
-  * Linie
-* Poprawić generowanie losowych poziomów
-* Dodać animacje przejścia oraz przesuwania obiektów
-
-## Działanie
-### Tło menu
-Tłem menu jest popularny i bardzo prosty canvas na którym generowane są losowe punkty oraz ich wektory po których się poruszają. Gdy odległość między punktami jest mniejsza niż 100 rysowane jest między nimi połączenie koloru białego z przezroczystością rosnącą wraz z odległością, przez co linia saje się jaśniejsza gey punkty się zbliżają i zanika gdy się oddalają.
-<details>
-    <summary><b>Tło menu</b></summary>
-    <img alt="Menu background" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/menu_bg.png">
-</details> 
+## Table of Contents
+* [Technologies Used](#technologies-used)
+* [Features](#features)
+* [Setup](#setup)
+* [Usage](#usage)
+* [Project Status](#project-status)
+* [Room for Improvement](#room-for-improvement)
+* [Acknowledgements](#acknowledgements)
 
 
-### Tryb kwadraty
-#### Zasada działania
-Gra w trybie kwadratowym działa za pomocą trójwymarowej tablicy, dla poziomu łatwego plansza 4x4 działa na tablicy o rozmiarach 6x6x5. Rozmiar 6x6 dla tablicy 4x4 spowodowany jest dodaniem pustych pól wokół aby ułatwić sprawdzanie połączeń, trzeci wymiar przyjmuje rozmiar 5 ponieważ przechowuje liczbę połączeń na stronach oraz typ obiektu.
-<details>
-    <summary><b>Przykładowa tablica dla poziomu łatwego</b></summary>
-    <img alt="Array for easy level" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/example_array.png">
-</details> 
+## Technologies Used
+- HTML5
+- LESS
+- JavaScript
+- [canvas-confetti v1.5.1](https://www.npmjs.com/package/canvas-confetti)
 
 
-#### Obiekty
-Obiekty w trybie kwadratowym mają od 0 do 4 połączeń na stronie oraz typ. 
+## Features
+- Squares game mode
+- Bridges game mode
+- Pipes game mode
+- Sliders game mode
+- Squares levels editor
+- Bridges levels editor
+- Pipes levels editor
+- Sliders levels editor
+- Squares level generator
+- Pipes level generator
+- Sliders level generator
+- Menu animation
+- Language change
+- Rules
 
-Połączenia zapisane są w kolejności ruchu wskazówek zegara zaczynając od góry na 4 pozycjach, na pozycji 5 znajduje się typ tj. [top, right, bottom, left, type]
 
-W trybie kwadratowym istnieje 8 typów obiektów złożonych z 4 podstawowych typów.
-* *"n"* od *no move*, obiekt z którym nic nie można zrobić
-* *"r"* od *rotate*, obiekt który można obracać o 90 stopni (przesuwa połączenia w tablicy o jeden top -> right, right -> bottom itd.)
-* *"v"* od *vertical move*, obiekt który można przesuwać po osi pionowej
-* *"h"* od *horizontal move*, obiekt który można przesuwać po osi poziomej
-* *"vr"* od *vertical move and rotate*, obiekt który można obracać oraz przesuwać po osi pionowej
-* *"hr"* od *horizontal move and rotate*, obiekt który można obracać oraz przesuwać po osi pionowej
-* *"vhr"* od *vertical and horizontal move and rotate*, obiekt który można obracać oraz przesuwać w dowolnym kierunku
+## Setup
+What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
 
-<details>
-    <summary><b>Przykładowa plansza dla poziomu łatwego</b></summary>
-    <img alt="Example game grid" src="https://github.com/Pasek108/ConnectGame/blob/main/readme_images/example_grid.png">
-</details> 
+Proceed to describe how to install / setup one's local environment / get started with the project.
 
+
+## Usage
+How does one go about using it?
+Provide various use cases and code examples here.
+
+`write-your-code-here`
+
+
+## Project Status
+Project is: in progress
+
+
+## Room for Improvement
+- Bridges level generator
+- Genareting up to 200 levels for each game mode
+- Better responsiveness on mobile
+- Multiplayer (mode -> level(generated?) -> link for other player -> win first correct)
+
+
+## Acknowledgements
+This project was inspired and based on: 
+- [Simon Tatham's Portable Puzzle Collection](https://www.chiark.greenend.org.uk/~sgtatham/puzzles/)
+- [Connect Me - Logic Puzzle](https://play.google.com/store/apps/details?id=net.bohush.connect.me.logic.puzzle&hl=en&gl=US)
+- [Hashi (Bridges)](https://play.google.com/store/apps/details?id=ch.aorlinn.bridges&hl=en&gl=US)
