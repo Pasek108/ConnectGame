@@ -23,7 +23,7 @@ class GlobalUtils {
    * @param {string} text
    * @returns {HTMLElement}
    */
-   static createNewDOM(tag = "div", class_name = "", text = "") {
+  static createNewDOM(tag = "div", class_name = "", text = "") {
     const new_element = document.createElement(tag);
     new_element.className = class_name;
     new_element.innerText = text;
