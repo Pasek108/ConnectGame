@@ -107,6 +107,8 @@ To edit this program:
 - [1 LINE](https://alternativeto.net/software/1-line--connect-the-dots/about/)
 - [Flow Free](https://play.google.com/store/apps/details?id=com.bigduckgames.flow&hl=pl&gl=US)
 
+<br>
+
 ## Details
 This section is a general description of the project required to understand how it works, the exact details are in the code or simply are the code.
 
@@ -132,7 +134,7 @@ The project directory tree looks like this:
   - :file_folder: Images - :page_facing_up: *images used in the project*
   - :file_folder: Js
     - :page_facing_up: *top level script files (eg. menu, language, global utilities)*
-    - :file_folder: build - :page_facing_up: *js files compiled by prepros*
+    - :file_folder: Build - :page_facing_up: *js files compiled by prepros*
     - :file_folder: Views - :page_facing_up: *scripts for views (windows that can create history)*
     - :file_folder: Bridges - :page_facing_up: *scripts for bridges game mode and its levels*
     - :file_folder: Squares - :page_facing_up: *scripts for squares game mode and its levels*
