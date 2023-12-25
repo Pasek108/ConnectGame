@@ -44,7 +44,7 @@ Libraries and frameworks:
   
 Programs:
 - [VSCode](https://code.visualstudio.com)
-- [Prepros](https://prepros.io) (auto preview, processing less)
+- [Prepros](https://prepros.io) (auto preview, processing less and js)
   
 ----------------------------------
 
