@@ -40,7 +40,7 @@ Libraries and frameworks:
 - [LESS](https://lesscss.org)
 - [FontAwesome](https://fontawesome.com) 6.1.1
 - [GoogleFonts](https://fonts.google.com)
-- [canvas-confetti v1.5.1](https://www.npmjs.com/package/canvas-confetti)
+- [canvas-confetti](https://www.npmjs.com/package/canvas-confetti) 1.5.1
   
 Programs:
 - [VSCode](https://code.visualstudio.com)
