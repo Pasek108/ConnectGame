@@ -1,7 +1,7 @@
 "use strict";
 
 /* ------------------------ history ------------------------ */
-const url = `${location.origin}${location.pathname}/index.html`;
+const url = `${location.origin}${location.pathname}index.html`;
 addEventListener("popstate", historyBack);
 
 /**
