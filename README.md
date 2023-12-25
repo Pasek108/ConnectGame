@@ -24,7 +24,7 @@
 
 ## Informations
 Small set of connections-based puzzle games about recreating right connections beetween objects.<br>
-See [live demo](https://pasek108.github.io/index.html).
+See [live demo](https://pasek108.github.io/ConnectGame/).
 
 ![preview](/_for_readme/preview.png)
 
@@ -82,7 +82,7 @@ Programs:
 
 ### Setup
 Ways to run this program: 
-1. Use the [live demo](https://pasek108.github.io/index.html)
+1. Use the [live demo](https://pasek108.github.io/ConnectGame/)
 2. Download this repo and start live server ([VSCode LiveServer Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer), Prepros preview etc.) 
 
 To edit this program:
