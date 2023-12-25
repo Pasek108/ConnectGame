@@ -68,12 +68,6 @@ Programs:
 
 <br>
 
-## Room for Improvement
-- Bridges level generator
-- Generate up to 200 levels for each game mode
-- Better responsiveness on mobile
-- Multiplayer (mode -> level(generated?) -> link for other player -> win first correct)
-
 > [!NOTE]  
 > Room for improvements:
 > - In-game instruction about game modes
