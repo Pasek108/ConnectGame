@@ -24,7 +24,7 @@
 
 ## Informations
 Small set of connections-based puzzle games about recreating right connections beetween objects.<br>
-See [live demo](https://tic-tac-toe-alqu.onrender.com).
+See [live demo](https://pasek108.github.io/index.html).
 
 ![preview](/_for_readme/preview.png)
 
@@ -44,7 +44,7 @@ Libraries and frameworks:
   
 Programs:
 - [VSCode](https://code.visualstudio.com)
-- [Prepros](https://prepros.io) (auto preview, processing less)
+- [Prepros](https://prepros.io) (auto preview, processing less and js)
   
 ----------------------------------
 
@@ -82,20 +82,13 @@ Programs:
 
 ### Setup
 Ways to run this program: 
-1. Use the [live demo](https://tic-tac-toe-alqu.onrender.com)
-2. Follow the same steps as for editing the program
+1. Use the [live demo](https://pasek108.github.io/index.html)
+2. Download this repo and start live server ([VSCode LiveServer Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer), Prepros preview etc.) 
 
 To edit this program:
 - Download this repo
-- Download and install Python
-- Run app.py file
 - Install [Prepros](https://prepros.io)
 - Add this project in Prepros
-- Create config.py file in project folder
-- Run this code in some online Python IDE
-  - *import secrets*
-  - *print(secrets.token_hex(16))*
-- Put generated string in config.py eg. *SECRET_KEY = "generated_string"*
 - Start coding
 
 ----------------------------------
