@@ -16,9 +16,15 @@
   * [Setup](#setup)
   * [Acknowledgements](#acknowledgements)
 * [Details](#details)
+  * [Project structure](#project-structure)
+  * [Code organization](#code-organization)
+ 
+<!--
+* [Details](#details)
   * [User interface](#user-interface)
   * [Project structure](#project-structure)
   * [Code organization](#code-organization)
+-->
 
 <br>
 
@@ -104,7 +110,7 @@ To edit this program:
 
 ## Details
 This section is a general description of the project required to understand how it works, the exact details are in the code or simply are the code.
-
+<!--
 ### User interface
 #### Main menu
 ![main menu](/_for_readme/main_menu.png)
@@ -116,10 +122,11 @@ This section is a general description of the project required to understand how 
 ![main menu](/_for_readme/main_menu.png)
 
 ----------------------------------
+-->
 
 ### Project structure
 The project directory tree looks like this:
-- :file_folder: TicTacToe (project folder)
+- :file_folder: ConnectGame (project folder)
   - :page_facing_up: *github and prepros config*
   - :page_facing_up: *readme file*
   - :page_facing_up: *index.html file*
@@ -145,6 +152,7 @@ The project directory tree looks like this:
 > [!WARNING]  
 > Classes must be loaded from bottom to the top to avoid situation when class does not exist in the time of its objects creation
 
+<!--
 Menu is entry of the program.
 
 Menu creates and manages one instance of each of the classes:
@@ -169,3 +177,4 @@ Game class creates and manages:
   - Deer
   - HappyDeer
 
+-->
