@@ -8,11 +8,11 @@ class SquaresTile {
     this.type = connections[4];
     this.onClick = onClick;
     this.onPositionChange = onPositionChange;
-    this.rotation = 0;
     this.grabbed = false;
     this.pos_x = 0;
     this.pos_y = 0;
     this.animation_timeout;
+    this.click_timeout = null
 
     this.no_connections = true;
     for (let i = 0; i < 4; i++) {
@@ -56,7 +56,7 @@ class SquaresTile {
 
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < this.connections[i].length; j++) {
-        const is_connection_correct = correct_connections[(i + this.rotation) % 4];
+        const is_connection_correct = correct_connections[i % 4];
 
         // prettier-ignore
         switch (i) {
@@ -79,19 +79,54 @@ class SquaresTile {
 
     if (!this.type.includes("r")) return;
 
-    this.rotation++;
-    this.block.style.transform = `rotate(${90 * this.rotation}deg)`;
-    this.mark.style.transform = `rotate(${-90 * this.rotation}deg)`;
+    console.log(this.click_timeout)
+    if (this.click_timeout != null) return
 
-    // prettier-ignore
-    switch (this.rotation % 4) {
-      case 0: this.shadow.style.transform = `translate(0, 0.2rem)`; break;
-      case 1: this.shadow.style.transform = `translate(0.2rem, 0)`; break;
-      case 2: this.shadow.style.transform = `translate(0, -0.2rem)`; break;
-      case 3: this.shadow.style.transform = `translate(-0.2rem, 0)`; break;
-    }
+    this.block.style.transform = `rotate(${90}deg)`;
+    this.block.style.transition = null
 
-    this.onClick();
+    this.mark.style.marginLeft = 0;
+    this.mark.style.transform = `rotate(${-90}deg)`;
+    this.mark.style.transition = null
+
+    this.shadow.style.transform = `translate(0.2rem, 0)`;
+    this.shadow.style.transition = null
+
+    this.connections.forEach(connections => connections.forEach(connection => connection.style.cssText = ""));
+
+    this.click_timeout = setTimeout(() => {
+      const top = this.block.querySelector(".connections .top")
+      const right = this.block.querySelector(".connections .right")
+      const bottom = this.block.querySelector(".connections .bottom")
+      const left = this.block.querySelector(".connections .left")
+
+      top.className = "right"
+      right.className = "bottom"
+      bottom.className = "left"
+      left.className = "top"
+
+      const top_connections = this.block.querySelectorAll(".top .connection");
+      const right_connections = this.block.querySelectorAll(".right .connection");
+      const bottom_connections = this.block.querySelectorAll(".bottom .connection");
+      const left_connections = this.block.querySelectorAll(".left .connection");
+
+      this.connections = [top_connections, right_connections, bottom_connections, left_connections];
+
+      this.block.style.transition = "0s"
+      this.block.style.transform = null
+      //this.block.style.transition = null
+
+      this.mark.style.transition = "0s"
+      this.mark.style.transform = null
+      //this.mark.style.transition = null
+
+      this.shadow.style.transition = "0s"
+      this.shadow.style.transform = null
+      //this.shadow.style.transition = null
+
+      this.click_timeout = null
+      this.onClick();
+    }, 250)
   }
 
   grab(e) {
@@ -164,6 +199,9 @@ class SquaresTile {
     window.removeEventListener("touchmove", this.move_function);
     window.removeEventListener("mouseup", this.release_function);
     window.removeEventListener("touchend", this.release_function);
-    if (!this.no_connections) this.block.removeEventListener("mousedown", this.grab_function);
+    if (!this.no_connections) {
+      this.block.removeEventListener("mousedown", this.grab_function);
+      this.block.removeEventListener("touchstart", this.grab_function);
+    }
   }
 }
