@@ -1,46 +1,45 @@
-# ConnectGame Readme
-<details>
-  <summary>❓Why my commits often have no names and I'm not using branches❓</summary>
-  <ul>
-    <li>I often create with bursts many things at once</li>
-    <li>I don't plan things ahead, I just create things that seems good at that moment</li>
-    <li>Sometimes I have bad internet connection and it is troublesome to send commits</li>
-    <li>I'm coding alone so creating branches and describing commits is not useful for me</li>
-  <ul>
-</details>
+<h1 align="center">ConnectGame - Readme</h1>
+<p align="center">
+  <strong>
+    A small set of connection-based puzzle games about recreating the correct connections between objects
+  </strong>
+</p>
 
-## Table of Contents
-* [Informations](#informations)
-  * [Technologies](#technologies)
-  * [Features](#features)
-  * [Setup](#setup)
-  * [Acknowledgements](#acknowledgements)
-* [Details](#details)
-  * [Project structure](#project-structure)
-  * [Code organization](#code-organization)
- 
-<!--
-* [Details](#details)
-  * [User interface](#user-interface)
-  * [Project structure](#project-structure)
-  * [Code organization](#code-organization)
--->
+<div align="center">
+  <img src="_for_readme/banner.png?">
+</div>
 
 <br>
 
-## Informations
-Small set of connections-based puzzle games about recreating right connections beetween objects.<br>
-See [live demo](https://pasek108.github.io/ConnectGame/).
+# Table of Contents
+* [Overview :sparkles:](#overview-sparkles)
+  * [About](#about)
+  * [Features](#features)
+  * [Technologies](#technologies)
+  * [Setup](#setup)
+  * [Acknowledgements](#acknowledgements)
+* [Details :scroll:](#details-scroll)
+  * [Project structure](#project-structure)
+  * [Code organization](#code-organization)
+
+<br>
+
+# Overview :sparkles:
+
+## About
+A small set of connection-based puzzle games about recreating the correct connections between objects.
+
+Check out the [live version](https://pasek108.github.io/ConnectGame/).
+
+<br>
 
 ![preview](/_for_readme/preview.png)
 
-----------------------------------
-
-### Technologies
+## Technologies
 Languages:
-- HTML5
-- CSS3
-- JS ES2018
+- JavaScript
+- HTML
+- CSS
 
 Libraries and frameworks:
 - [LESS](https://lesscss.org)
@@ -51,10 +50,8 @@ Libraries and frameworks:
 Programs:
 - [VSCode](https://code.visualstudio.com)
 - [Prepros](https://prepros.io) (auto preview, processing less and js)
-  
-----------------------------------
 
-### Features
+## Features
 - Menu background animation
 - Four game modes:
   - Squares (with 3 levels of difficulty) - moving and rotating blocks to make all of them correctly connected to each other
@@ -82,11 +79,8 @@ Programs:
 > - Improving responsiveness on mobile devices
 > - Adding more game modes (eg. Flow Free, 1 LINE)
 > - Adding more languages
-> - Multiplayer
 
-----------------------------------
-
-### Setup
+## Setup
 Ways to run this program: 
 1. Use the [live demo](https://pasek108.github.io/ConnectGame/)
 2. Download this repo and start live server ([VSCode LiveServer Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer), Prepros preview etc.) 
@@ -97,9 +91,7 @@ To edit this program:
 - Add this project in Prepros
 - Start coding
 
-----------------------------------
-
-### Acknowledgements
+## Acknowledgements
 - [Simon Tatham's Portable Puzzle Collection](https://www.chiark.greenend.org.uk/~sgtatham/puzzles/)
 - [Connect Me - Logic Puzzle](https://play.google.com/store/apps/details?id=net.bohush.connect.me.logic.puzzle&hl=en&gl=US)
 - [Hashi (Bridges)](https://play.google.com/store/apps/details?id=ch.aorlinn.bridges&hl=en&gl=US)
@@ -108,24 +100,10 @@ To edit this program:
 
 <br>
 
-## Details
-This section is a general description of the project required to understand how it works, the exact details are in the code or simply are the code.
-<!--
-### User interface
-#### Main menu
-![main menu](/_for_readme/main_menu.png)
+# Details :scroll:
 
 
-----------------------------------
-
-#### Main menu
-![main menu](/_for_readme/main_menu.png)
-
-----------------------------------
--->
-
-### Project structure
-The project directory tree looks like this:
+## Project structure
 - :file_folder: ConnectGame (project folder)
   - :page_facing_up: *github and prepros config*
   - :page_facing_up: *readme file*
@@ -143,38 +121,10 @@ The project directory tree looks like this:
     - :page_facing_up: *css files compiled by prepros*
     - :file_folder: less - :page_facing_up: *less files*
 
-----------------------------------
-
-### Code organization
+## Code organization
 
 ![program diagram](/_for_readme/program_diagram.png)
 
 > [!WARNING]  
 > Classes must be loaded from bottom to the top to avoid situation when class does not exist in the time of its objects creation
 
-<!--
-Menu is entry of the program.
-
-Menu creates and manages one instance of each of the classes:
-- MenuWindow (Credits)
-- Difficulty
-- TopScore
-- Game
-
-Difficulty and TopScore classes are extension of MenuWindow class which is responsible for showing and hiding menu window with transition
-
-Game class creates and manages:
-- One instance of RoadBackground class
-- Two instances of treesBackground class (left and right side)
-- One instance of classes:
-  - HealthBar
-  - EnergyBar
-  - PointsCounter
-  - GameOver
-- One instance of Player class
-- Many instances of classes:
-  - Enemy
-  - Deer
-  - HappyDeer
-
--->
